@@ -9,6 +9,28 @@
 #ifndef __Bamf__PngImageLoader__
 #define __Bamf__PngImageLoader__
 
-#include <iostream>
+#include <string>
+
+#include <SDL2/SDL.h>
+
+#include "Resource.h"
+#include "ImageLoader.h"
+#include "ImageResource.h"
+#include "Pngio.h"
+
+namespace bamf {
+
+class PngImageLoader : public ImageLoader {
+public:
+
+	explicit PngImageLoader();
+	virtual ~PngImageLoader();
+	
+	/* ImageLoader interface */
+	Resource * load(uint64_t id, const std::string & path);
+	
+};
+
+}
 
 #endif /* defined(__Bamf__PngImageLoader__) */
