@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'Bamf' target in the 'Bamf' project
+//
+
+#if 0
+	#ifdef __OBJC__
+		#import <Cocoa/Cocoa.h>
+	#endif
+#endif
