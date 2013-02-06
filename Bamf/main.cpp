@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 	bamf::PngImageLoader loader;
 	bamf::ResourceManager man;
 	
-	uint64_t id = man.loadResource("/Users/matthewhinkle/mage.png", loader);
+	uint64_t id = man.loadResource("mage.png", loader);
 	bamf::Resource * res = man.getResourceById(id);
 	SDL_assert(res);
 
