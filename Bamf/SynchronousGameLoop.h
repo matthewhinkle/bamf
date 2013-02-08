@@ -9,7 +9,7 @@
 #ifndef __Bamf__SynchronousGameLoop__
 #define __Bamf__SynchronousGameLoop__
 
-#include <SDL2/SDL.h>
+#include "SDL2/SDL.h"
 
 #include "GameLoop.h"
 

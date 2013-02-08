@@ -11,8 +11,8 @@
 
 #include <string>
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_opengl.h"
 
 #include "Asset.h"
 #include "ImageResource.h"
@@ -42,7 +42,7 @@ public:
 	void bind();
 	
 private:
-	const std::string & imageName;
+	const std::string imageName;
 	
 	ImageResource * image;
 	bool loaded;
