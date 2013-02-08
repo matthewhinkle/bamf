@@ -11,12 +11,16 @@
 
 #include <vector>
 
+#include <SDL2/SDL.h>
+
+#include "AssetManager.h"
 #include "Resource.h"
+#include "ResourceManager.h"
 
 namespace bamf {
 
 /**
-	Asset interface.  An asset is a higher-level object
+	Asset abstract class.  An asset is a higher-level object
 	compounded with one or more resources or assets.
 	
 	Assets do not own the resources they are made of as
@@ -32,12 +36,19 @@ public:
 	virtual ~Asset() { }
 	
 	/**
-		Return the id of the asset
-		
-		@return the id of the asset
+		Load the resources used by this asset
 	 */
-	virtual uint64_t getId() const = 0;
-
+	virtual void load(ResourceManager & resourceManager) = 0;
+	
+	/**
+		Return true if the asset has been loaded, false
+		otherwise
+		
+		@return true if the asset has been loaded, false
+		        otherwise
+	 */
+	virtual bool wasLoaded() const = 0;
+	
 private:
 	Asset(const Asset &);
 	Asset & operator=(const Asset &);

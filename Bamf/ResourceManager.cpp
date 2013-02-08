@@ -11,16 +11,18 @@
 namespace bamf {
 
 ResourceManager::ResourceManager()
-{
-	this->mutex = SDL_CreateMutex();
-}
+	:
+	mutex(SDL_CreateMutex())
+{ }
 
 ResourceManager::~ResourceManager()
 {
-	this->unloadAllResources();
-	this->resourceById.clear();
-	SDL_DestroyMutex(this->mutex);
-	this->mutex = NULL;
+	if(this->mutex) {
+		this->unloadAllResources();
+		this->resourceById.clear();
+		SDL_DestroyMutex(this->mutex);
+		this->mutex = NULL;
+	}
 }
 
 uint64_t ResourceManager::loadResource(const std::string & path, bamf::ResourceLoader & loader)
@@ -57,10 +59,17 @@ void ResourceManager::unloadResource(uint64_t id)
 	SDL_mutexV(this->mutex);
 }
 
+void ResourceManager::unloadResource(Resource * resource)
+{
+	if(resource) {
+		this->unloadResource(resource->getId());
+	}
+}
+
 void ResourceManager::unloadAllResources()
 {
 	SDL_mutexP(this->mutex);
-	std::unordered_map<uint64_t, Resource *>::iterator i = this->resourceById.begin();
+	std::unordered_map<uint64_t, Resource *>::iterator i;
 	for(i = this->resourceById.begin(); i != this->resourceById.end(); i++) {
 		Resource * resource = i->second;
 		if(resource) {

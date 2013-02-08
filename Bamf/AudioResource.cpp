@@ -16,11 +16,11 @@ AudioResource::AudioResource(
 	SDL_AudioSpec audioSpec,
 	uint8_t * buffer,
 	uint32_t bufferLength)
+	:
+	id(id),
+	name(name),
+	audioSpec(audioSpec)
 {
-	this->id = id;
-	this->name = name;
-	this->audioSpec = audioSpec;
-	
 	SDL_assert(bufferLength > 0);
 	this->buffer = new uint8_t[bufferLength];
 	memcpy(this->buffer, buffer, bufferLength * sizeof(uint8_t));

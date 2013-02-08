@@ -11,15 +11,13 @@
 namespace bamf {
 
 SynchronousGameLoop::SynchronousGameLoop()
-{
-	this->running = false;
-	this->suspended = false;
-	
-	this->thread = NULL;
-	
-	this->suspendCond = SDL_CreateCond();
-	this->suspendMutex = SDL_CreateMutex();
-}
+	:
+	running(false),
+	suspended(false),
+	thread(NULL),
+	suspendCond(SDL_CreateCond()),
+	suspendMutex(SDL_CreateMutex())
+{ }
 
 SynchronousGameLoop::~SynchronousGameLoop()
 {

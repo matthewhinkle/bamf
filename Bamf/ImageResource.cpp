@@ -19,21 +19,20 @@ ImageResource::ImageResource(
 		unsigned height,
 		int bitDepth,
 		ColorType colorType)
+		:
+		id(id),
+		name(name),
+		dataSize(dataSize),
+		width(width),
+		height(height),
+		bitDepth(bitDepth),
+		colorType(colorType)
 {
-	this->id = id;
-	this->name = name;
-	
 	unsigned length = static_cast<unsigned>(dataSize / sizeof(unsigned char));
 	
 	SDL_assert(length > 0);
 	this->data = new unsigned char[length];
 	SDL_assert(memcpy(this->data, data, dataSize));
-	
-	this->dataSize = dataSize;
-	this->width = width;
-	this->height = height;
-	this->bitDepth = bitDepth;
-	this->colorType = colorType;
 }
 
 ImageResource::~ImageResource()

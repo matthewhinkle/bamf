@@ -9,34 +9,47 @@
 #ifndef __Bamf__Texture2D__
 #define __Bamf__Texture2D__
 
+#include <string>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 
 #include "Asset.h"
 #include "ImageResource.h"
+#include "ResourceManager.h"
+#include "Paths.h"
+
+#include "ImageLoader.h"
+#include "PngImageLoader.h"
 
 namespace bamf {
 
 class Texture2D : public Asset {
 public:
 
-	explicit Texture2D(uint64_t id, ImageResource * image);
+	explicit Texture2D(const std::string & imageName);
 	virtual ~Texture2D();
 	
-	inline uint64_t getId() const { return this->id; }
+	/* Asset interface */
+	void load(ResourceManager & resourceManager);
+	inline bool wasLoaded() const { return this->loaded; }
+	
+	inline GLuint glTexture() { return this->texture; }
 	
 	unsigned getWidth() const;
 	unsigned getHeight() const;
 	
 	void bind();
 	
-protected:
-
 private:
-	uint64_t id;
+	const std::string & imageName;
+	
 	ImageResource * image;
+	bool loaded;
 	
 	GLuint texture;
+	
+	SDL_mutex * mutex;
 };
 
 }

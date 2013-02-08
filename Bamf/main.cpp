@@ -16,20 +16,21 @@
 #include "Texture2D.h"
 #include "ResourceLoader.h"
 #include "ResourceManager.h"
-#include "PngImageLoader.h"
 #include "SynchronousGameLoop.h"
 #include "ImageResource.h"
 
+#include "Camera.h"
+
 int main(int argc, char *argv[])
 {
-	bamf::PngImageLoader loader;
+	bamf::Camera cam;
+	
 	bamf::ResourceManager man;
 	
-	uint64_t id = man.loadResource("/Users/matthewhinkle/mage.png", loader);
-	bamf::Resource * res = man.getResourceById(id);
-	SDL_assert(res);
-
-	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+	bamf::Texture2D texture("/Users/matthewhinkle/mage.png");
+	texture.load(man);
+	
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVERYTHING);
 	
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
@@ -43,11 +44,9 @@ int main(int argc, char *argv[])
 	
 	glClearColor(0, 0, 0, 0);
 	
-	bamf::Texture2D t(1, static_cast<bamf::ImageResource *>(res));
-	t.bind();
-	
-	float w = t.getWidth();
-	float h = t.getHeight();
+	texture.bind();
+	float w = texture.getWidth();
+	float h = texture.getHeight();
 	
 	GLfloat vertices[] = {
 		0.0f, 0.0f,
@@ -74,23 +73,47 @@ int main(int argc, char *argv[])
 	
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
+	cam.getViewArea();
 	while(true) {
 		SDL_Event e;
 		if(SDL_PollEvent(&e)) {
 			if(e.type == SDL_QUIT) {
 				break;
 			}
+			
+			
+			glm::vec2 position(cam.getPosition());
+			switch(e.type) {
+				case SDL_KEYDOWN:
+					switch(e.key.keysym.sym) {
+					case SDLK_RIGHT:
+						position[0] += 0.05;
+						break;
+					case SDLK_LEFT:
+						position[0] -= 0.05;
+						break;
+					case SDLK_DOWN:
+						position[1] -= 0.05;
+						break;
+					case SDLK_UP:
+						position[1] += 0.05;
+						break;
+					}
+					break;
+			}
+			
+			cam.setPosition(position);
 		}
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
-		glOrtho(0.0, 800, 0.0, 600, -1.0, 1.0);
-		glTranslatef(0.0f, 0.0f, 0.0f);
+		//glOrtho(0.0, 800, 0.0, 600, -1.0, 1.0);
 		
-		t.bind();
+		glm::mat4 xform = cam.computeTransform();
+		glMultMatrixf(&xform[0][0]);
+		texture.bind();
 		
 		glBindBuffer(GL_ARRAY_BUFFER, buf[0]);
 		glVertexPointer(2, GL_FLOAT, 0, NULL);
@@ -126,6 +149,8 @@ int main(int argc, char *argv[])
 #endif
 		
 		SDL_GL_SwapWindow(window);
+		
+		SDL_Delay(50);
 	}
 	
 	man.unloadAllResources();
