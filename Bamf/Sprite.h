@@ -24,7 +24,6 @@ namespace bamf {
 class Sprite : public Asset {
 public:
 
-	
 	explicit Sprite(const Texture2D & texture, const glm::vec2 & hotspot = glm::vec2(0.0f, 0.0f));
 	virtual ~Sprite();
 	
@@ -32,14 +31,16 @@ public:
 	inline const glm::vec2 & getHotspot() const { return this->hotspot; }
 	inline const Rectangle & getBounds() const { return this->bounds; }
 	
+	inline void setHotspot(const glm::vec2 & hotspot) { this->hotspot = hotspot; }
+	
 	/* Asset interface */
 	void load(ResourceManager & resourceManager);
-	bool wasLoaded() const;
+	inline bool wasLoaded() const { return this->loaded; }
 	
 private:
 	Texture2D texture;
-	const glm::vec2 hotspot;
-	const Rectangle bounds;
+	glm::vec2 hotspot;
+	Rectangle bounds;
 	
 	bool loaded;
 

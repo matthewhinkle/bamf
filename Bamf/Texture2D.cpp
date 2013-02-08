@@ -17,17 +17,18 @@ Texture2D::Texture2D(const std::string & imageName)
 	:
 	imageName(imageName),
 	image(NULL),
-	loaded(false),
-	mutex(SDL_CreateMutex())
+	loaded(false)
 { }
 
-Texture2D::~Texture2D()
-{	
-	if(this->mutex) {
-		SDL_DestroyMutex(this->mutex);
-		this->mutex = NULL;
-	}
-}
+Texture2D::Texture2D(const Texture2D & texture)
+	:
+	imageName(texture.imageName),
+	image(texture.image),
+	loaded(texture.loaded),
+	texture(texture.texture)
+{ }
+
+Texture2D::~Texture2D() { }
 
 unsigned Texture2D::getWidth() const
 {
@@ -77,9 +78,8 @@ void Texture2D::bind()
 
 void Texture2D::load(ResourceManager & resourceManager)
 {
-	SDL_mutexP(this->mutex);
-	if(this->loaded) {
-		SDL_mutexV(this->mutex);
+	if(!(__sync_bool_compare_and_swap(&this->loaded, false, true))) {
+		/* texture was already loaded */
 		return;
 	}
 	
@@ -91,10 +91,7 @@ void Texture2D::load(ResourceManager & resourceManager)
 	loader = NULL;
 	
 	this->image = static_cast<ImageResource *>(resourceManager.getResourceById(imageId));
-	SDL_assert(this->image);
-	
-	this->loaded = true;
-	SDL_mutexV(this->mutex);
+	SDL_assert(this->image);	
 }
 
 }

@@ -28,6 +28,7 @@ class Texture2D : public Asset {
 public:
 
 	explicit Texture2D(const std::string & imageName);
+	Texture2D(const Texture2D & texture);
 	virtual ~Texture2D();
 	
 	/* Asset interface */
@@ -48,8 +49,6 @@ private:
 	bool loaded;
 	
 	GLuint texture;
-	
-	SDL_mutex * mutex;
 };
 
 }

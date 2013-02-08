@@ -24,6 +24,20 @@ public:
 		height(height)
 	{ }
 	
+	Rectangle(const Rectangle & r)
+		:
+		x(r.x),
+		y(r.y),
+		width(r.width),
+		height(r.height)
+	{ }
+	
+	Rectangle & operator=(const Rectangle & r) {
+		Rectangle clone(r);
+		*this = clone;
+		return *this;
+	}
+	
 	virtual ~Rectangle() { }
 	
 	inline glm::vec2 getCenter() const { return glm::vec2(this->width >> 1, this->height >> 1); }

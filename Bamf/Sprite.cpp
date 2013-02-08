@@ -29,6 +29,7 @@ void Sprite::load(ResourceManager & resourceManager)
 
 	this->texture.load(resourceManager);
 	SDL_assert(this->texture.wasLoaded());
+	this->bounds = Rectangle(0, 0, texture.getWidth(), texture.getHeight());
 }
 
 }

@@ -19,8 +19,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <png.h>
-#include <zlib.h>
+#include "png.h"
+#include "zlib.h"
 
 #ifdef __cplusplus
 extern "C" {
