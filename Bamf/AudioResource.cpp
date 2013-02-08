@@ -19,13 +19,12 @@ AudioResource::AudioResource(
 	:
 	id(id),
 	name(name),
-	audioSpec(audioSpec)
+	audioSpec(audioSpec),
+	bufferLength(bufferLength)
 {
 	SDL_assert(bufferLength > 0);
 	this->buffer = new uint8_t[bufferLength];
 	memcpy(this->buffer, buffer, bufferLength * sizeof(uint8_t));
-	
-	this->bufferLength = bufferLength;
 }
 
 AudioResource::~AudioResource()

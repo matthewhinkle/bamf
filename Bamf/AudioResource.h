@@ -13,7 +13,7 @@
 #include <cstring>
 #include <string>
 
-#include <SDL2/SDL.h>
+#include "SDL2/SDL.h"
 
 #include "Resource.h"
 
@@ -38,12 +38,12 @@ public:
 	inline uint32_t getBufferLength() const { return this->bufferLength; }
 
 private:
-	uint64_t id;
-	std::string name;
+	const uint64_t id;
+	const std::string name;
 	
-	SDL_AudioSpec audioSpec;
+	const SDL_AudioSpec audioSpec;
 	uint8_t * buffer;
-	uint32_t bufferLength;
+	const uint32_t bufferLength;
 };
 
 }
