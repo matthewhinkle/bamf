@@ -35,7 +35,14 @@ public:
 	virtual ~Asset() { }
 	
 	/**
-		Load the resources used by this asset
+		Load the resources used by this asset.  This method
+		must be idempotent -- successive calls to Asset::load()
+		shall have no effect (unless the class implements
+		unloading, in that case successive calls should have
+		no effect until the asset is unloaded)
+		
+		@param resourceManager the resource manager to use when
+		                       loading this asset's resources
 	 */
 	virtual void load(ResourceManager & resourceManager) = 0;
 	
