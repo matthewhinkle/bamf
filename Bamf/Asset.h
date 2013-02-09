@@ -24,9 +24,7 @@ namespace bamf {
 	
 	Assets do not own the resources they are made of as
 	resources are shared.  Hence an asset must not delete
-	or free any of its resources.  If an asset is loading
-	or unloading resources (via a resource manager), then
-	you are likely doing something wrong.
+	or free any of its resources.
  */
 class Asset {
 public:

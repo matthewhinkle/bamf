@@ -19,6 +19,12 @@
 #include "ResourceManager.h"
 #include "SynchronousGameLoop.h"
 #include "ImageResource.h"
+#include "MatrixStack.h"
+
+#include "Sprite.h"
+#include "SpriteStream.h"
+#include "SpriteStage.h"
+#include "Rectangle.h"
 
 #include "Camera.h"
 
@@ -28,78 +34,60 @@ int main(int argc, char *argv[])
 	
 	bamf::ResourceManager man;
 	
-	bamf::Texture2DLoader loader(man);
-	uint64_t id = man.loadResource("/Users/matthewhinkle/mage.png", loader);
-	bamf::Texture2D * texture = static_cast<bamf::Texture2D *>(man.getResourceById(id));
+	bamf::Sprite sprite("/Users/matthewhinkle/mage.png");
+	sprite.load(man);
+	sprite.setHotspot(sprite.getBounds().getCenter());
 	
-	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+	SDL_Init(SDL_INIT_EVERYTHING);
 	
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
 	
-	SDL_Window * window = SDL_CreateWindow("bamf", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+	SDL_Window * window = SDL_CreateWindow("bamf", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 768, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 	
 	SDL_GLContext glContext = SDL_GL_CreateContext(window);
 	SDL_GL_SetSwapInterval(1);
 	
 	glClearColor(0, 0, 0, 0);
 	
-	texture->bind();
-	float w = texture->getBounds().width;
-	float h = texture->getBounds().height;
-	
-	GLfloat vertices[] = {
-		0.0f, 0.0f,
-		w, 0.0f,
-		w, h,
-		0.0f, h
-	};
-	
-	GLfloat texVerts[] = {
-		0, 0,
-		1, 0,
-		1, 1,
-		0, 1
-	};
-	
-	GLuint buf[2];
-	glGenBuffers(2, buf);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, buf[0]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, buf[1]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(texVerts), texVerts, GL_STATIC_DRAW);
-	
+	sprite.generateBuffers();
+		
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	cam.getViewArea();
+	
+	const bamf::Rectangle & bounds = cam.getViewArea();
+	float aspectRatio = static_cast<float>(bounds.width) / static_cast<float>(bounds.height);
+	
+	glm::mat4 proj = glm::perspective(90.0f, aspectRatio, 0.01f, 100.0f);
+	
+	bamf::MatrixStack ms;
+	bamf::SpriteStream spriteStream;
+	
 	while(true) {
 		SDL_Event e;
 		if(SDL_PollEvent(&e)) {
 			if(e.type == SDL_QUIT) {
 				break;
 			}
-			
-			
+
 			glm::vec2 position(cam.getPosition());
 			switch(e.type) {
 				case SDL_KEYDOWN:
 					switch(e.key.keysym.sym) {
 					case SDLK_RIGHT:
-						position[0] += 0.05;
+						position[0] += 0.02;
 						break;
 					case SDLK_LEFT:
-						position[0] -= 0.05;
+						position[0] -= 0.02;
 						break;
 					case SDLK_DOWN:
-						position[1] -= 0.05;
+						position[1] -= 0.02;
 						break;
 					case SDLK_UP:
-						position[1] += 0.05;
+						position[1] += 0.02;
 						break;
 					}
 					break;
@@ -108,51 +96,26 @@ int main(int argc, char *argv[])
 			cam.setPosition(position);
 		}
 		
+		glm::mat4 view = cam.computeTransform();
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glMatrixMode(GL_PROJECTION);
-		glPushMatrix();
-		glLoadIdentity();
-		//glOrtho(0.0, 800, 0.0, 600, -1.0, 1.0);
-		
-		glm::mat4 xform = cam.computeTransform();
-		glMultMatrixf(&xform[0][0]);
-		
-		glBindBuffer(GL_ARRAY_BUFFER, buf[0]);
-		glVertexPointer(2, GL_FLOAT, 0, NULL);
-		glBindBuffer(GL_ARRAY_BUFFER, buf[1]);
-		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-		
-		glEnable(GL_TEXTURE_2D);
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-		glDrawArrays(GL_QUADS, 0, 4);
-
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glDisable(GL_TEXTURE_2D);
-
-#if 0
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		bamf::MatrixStack::setMatrixMode(bamf::kMatrixModeProjection);
+		bamf::MatrixStack::loadMatrix(proj);
+		bamf::MatrixStack::setMatrixMode(bamf::kMatrixModeModel);
+		ms.push();
+		ms.mult(view);
 		
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-		glVertexPointer(2, GL_FLOAT, 0, vertices);
-		glTexCoordPointer(2, GL_FLOAT, 0, texVerts);
-		glDrawArrays(GL_QUADS, 0, 8);
+		bamf::SpriteStage spriteStage(view);
+		spriteStage.draw(sprite);
 		
-		glDisable(GL_BLEND);
-		glDisable(GL_TEXTURE_2D);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glDisableClientState(GL_VERTEX_ARRAY);
-#endif
+		spriteStream.renderStage(spriteStage);
+		
+		ms.pop();
 		
 		SDL_GL_SwapWindow(window);
-		
-		SDL_Delay(50);
+				
+		SDL_Delay(10);
 	}
 	
 	man.unloadAllResources();

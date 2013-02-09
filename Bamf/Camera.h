@@ -29,7 +29,8 @@ public:
 	inline const float getRotation() const { return this->angle; }
 	inline const float getZoom() const { return this->zoom; }
 	
-	inline void setPosition(const glm::vec2 position) {
+	inline void setPosition(const glm::vec2 & position) {
+		this->position = position;
 		this->translate = glm::translate(glm::mat4(), -glm::vec3(position[0], position[1], 1.0f));
 	}
 	
@@ -40,7 +41,7 @@ public:
 	
 	inline void setZoom(float zoom) {
 		this->zoom = glm::min(kZoomMax, glm::max(kZoomMin, zoom));
-		this->scale = glm::scale(glm::mat4(), glm::vec3(zoom * kXScale, zoom * kYScale, 1.0f));
+		this->scale = glm::scale(glm::mat4(), glm::vec3(zoom * kScaleScale, zoom * kScaleScale, 1.0f));
 	}
 	
 	Rectangle getViewArea() const;
@@ -63,8 +64,7 @@ private:
 	const float kZoomMin = 0.01f;
 	const float kZoomMax = 10.0f;
 	const float kRotationMax = 2.0f * M_PI;
-	const float kXScale = 0.002;
-	const float kYScale = 0.003;
+	const float kScaleScale = 0.003f;
 	const glm::vec3 kZAxis = glm::vec3(0.0f, 0.0f, 1.0f);
 };
 

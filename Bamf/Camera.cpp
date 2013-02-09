@@ -8,8 +8,6 @@
 
 #include "Camera.h"
 
-#include <iostream>
-
 /* internal prototypes */
 static inline bamf::Rectangle getViewport();
 
