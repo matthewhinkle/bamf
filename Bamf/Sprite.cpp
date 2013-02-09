@@ -10,26 +10,33 @@
 
 namespace bamf {
 
-Sprite::Sprite(const Texture2D & texture, const glm::vec2 & hotspot)
+Sprite::Sprite(const std::string & imageName, const glm::vec2 & hotspot)
 	:
+	imageName(imageName),
+	texture(NULL),
+	hotspot(hotspot)
+{ }
+
+Sprite::Sprite(const Texture2D * texture, const glm::vec2 & hotspot)
+	:
+	imageName(texture->getImage()->getName()),
 	texture(texture),
-	hotspot(hotspot),
-	bounds(0, 0, texture.getWidth(), texture.getHeight()),
-	loaded(false)
+	hotspot(hotspot)
 { }
 
 Sprite::~Sprite() { }
 
 void Sprite::load(ResourceManager & resourceManager)
 {
-	if(!(__sync_bool_compare_and_swap(&this->loaded, false, true))) {
-		/* Sprite was already loaded */
+	if(this->texture) {
+		/* texture is already loaded */
 		return;
 	}
 
-	this->texture.load(resourceManager);
-	SDL_assert(this->texture.wasLoaded());
-	this->bounds = Rectangle(0, 0, texture.getWidth(), texture.getHeight());
+	Texture2DLoader loader(resourceManager);
+	uint64_t textureId = resourceManager.loadResource(this->imageName, loader);
+	this->texture = static_cast<Texture2D *>(resourceManager.getResourceById(textureId));
+	SDL_assert(this->texture);
 }
 
 }

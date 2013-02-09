@@ -8,37 +8,23 @@
 
 #include "Texture2D.h"
 
-/* internal prototypes */
-static inline bamf::ImageLoader * newImageLoaderFromExtension(std::string imageName);
-
 namespace bamf {
 
-Texture2D::Texture2D(const std::string & imageName)
+Texture2D::Texture2D(uint64_t id, const ImageResource * image)
 	:
-	imageName(imageName),
-	image(NULL),
-	loaded(false)
+	id(id),
+	image(image),
+	name(image->getName()),
+	bounds(0, 0, image->getWidth(), image->getHeight()),
+	texture(-1)
 { }
 
-Texture2D::Texture2D(const Texture2D & texture)
-	:
-	imageName(texture.imageName),
-	image(texture.image),
-	loaded(texture.loaded),
-	texture(texture.texture)
-{ }
-
-Texture2D::~Texture2D() { }
-
-unsigned Texture2D::getWidth() const
+Texture2D::~Texture2D()
 {
-	return this->image ? this->image->getWidth() : 0;
-}
-
-unsigned Texture2D::getHeight() const
-{
-	SDL_assert_paranoid(this->image);
-	return this->image ? this->image->getHeight() : 0;
+	if(this->texture != -1) {
+		glDeleteTextures(1, &this->texture);
+		this->texture = -1;
+	}
 }
 
 void Texture2D::bind()
@@ -52,13 +38,7 @@ void Texture2D::bind()
 	glGenTextures(1, &this->texture);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 	
-	/* only draw pixels within the bounds of the image */
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	
-	/* use linear interpolation for resampling at different resolutions */
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	this->configureTexture();
 	
 	GLsizei width = static_cast<GLsizei>(this->getWidth());
 	GLsizei height = static_cast<GLsizei>(this->getHeight());
@@ -76,33 +56,17 @@ void Texture2D::bind()
 	);
 }
 
-void Texture2D::load(ResourceManager & resourceManager)
+void Texture2D::configureTexture()
 {
-	if(!(__sync_bool_compare_and_swap(&this->loaded, false, true))) {
-		/* texture was already loaded */
-		return;
-	}
+	/* only draw pixels within the bounds of the image */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	
-	ImageLoader * loader = newImageLoaderFromExtension(this->imageName);
-	SDL_assert(loader);
-	
-	uint64_t imageId = resourceManager.loadResource(this->imageName, *loader);
-	delete loader;
-	loader = NULL;
-	
-	this->image = static_cast<ImageResource *>(resourceManager.getResourceById(imageId));
-	SDL_assert(this->image);	
+	/* use linear interpolation for resampling at different resolutions */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
 }
 
-static inline bamf::ImageLoader * newImageLoaderFromExtension(std::string imageName)
-{
-	std::transform(imageName.begin(), imageName.end(), imageName.begin(), ::tolower);
-	std::string extension = bamf::Paths::getExtension(imageName);
-	if(extension == "png") {
-		return new bamf::PngImageLoader();
-	}
-	
-	return NULL;
-}
+

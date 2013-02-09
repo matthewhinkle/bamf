@@ -15,6 +15,7 @@
 #include "Rectangle.h"
 #include "ResourceManager.h"
 #include "Texture2D.h"
+#include "Texture2DLoader.h"
 
 namespace bamf {
 
@@ -24,26 +25,28 @@ namespace bamf {
 class Sprite : public Asset {
 public:
 
-	explicit Sprite(const Texture2D & texture, const glm::vec2 & hotspot = glm::vec2(0.0f, 0.0f));
+	explicit Sprite(const std::string & imageName, const glm::vec2 & hotspot = glm::vec2(0.0f, 0.0f));
+	explicit Sprite(const Texture2D * texture, const glm::vec2 & hotspot = glm::vec2(0.0f, 0.0f));
 	virtual ~Sprite();
 	
-	inline const Texture2D & getTexture() const { return this->texture; }
+	inline const Texture2D * getTexture() const { return this->texture; }
 	inline const glm::vec2 & getHotspot() const { return this->hotspot; }
-	inline const Rectangle & getBounds() const { return this->bounds; }
+	inline const Rectangle & getBounds() const { return this->texture ? this->texture->getBounds() : kNullBounds; }
 	
 	inline void setHotspot(const glm::vec2 & hotspot) { this->hotspot = hotspot; }
 	
 	/* Asset interface */
 	void load(ResourceManager & resourceManager);
-	inline bool wasLoaded() const { return this->loaded; }
+	inline bool wasLoaded() const { return !!(this->texture); }
 	
 private:
-	Texture2D texture;
-	glm::vec2 hotspot;
-	Rectangle bounds;
-	
-	bool loaded;
+	const std::string imageName;
 
+	const Texture2D * texture;
+	glm::vec2 hotspot;
+	
+	static const Rectangle kNullBounds;
+	
 	Sprite(const Sprite &);
 	Sprite & operator=(const Sprite &);
 };

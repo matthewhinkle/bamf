@@ -14,41 +14,49 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_opengl.h"
 
-#include "Asset.h"
+#include "Resource.h"
 #include "ImageResource.h"
-#include "ResourceManager.h"
-#include "Paths.h"
 
-#include "ImageLoader.h"
-#include "PngImageLoader.h"
+#include "Rectangle.h"
 
 namespace bamf {
 
-class Texture2D : public Asset {
+class Texture2D : public Resource {
 public:
 
-	explicit Texture2D(const std::string & imageName);
-	Texture2D(const Texture2D & texture);
+	explicit Texture2D(uint64_t id, const ImageResource * image);
 	virtual ~Texture2D();
 	
-	/* Asset interface */
-	void load(ResourceManager & resourceManager);
-	inline bool wasLoaded() const { return this->loaded; }
+	inline GLuint glTexture() const { return this->texture; }
 	
-	inline GLuint glTexture() { return this->texture; }
-	
-	unsigned getWidth() const;
-	unsigned getHeight() const;
+	inline const ImageResource * getImage() const { return this->image; }
+	inline const Rectangle & getBounds() const { return this->bounds; }
 	
 	void bind();
 	
-private:
-	const std::string imageName;
+	/* Resource interface */
+	inline uint64_t getId() const { return this->id; }
+	inline const std::string & getName() const { return this->name; }
 	
-	ImageResource * image;
-	bool loaded;
+protected:
+	/**
+		Textures may be configured differently (such as a texture
+		repeating when drawing beyond its bounds or not).  This
+		method provides a hook for subclasses to override in order
+		to customize this behavior
+	 */
+	virtual void configureTexture();
+	
+private:
+	const uint64_t id;
+	const std::string & name;
+	const ImageResource * image;
+	const Rectangle bounds;
 	
 	GLuint texture;
+	
+	Texture2D(const Texture2D &);
+	Texture2D & operator=(const Texture2D);
 };
 
 }

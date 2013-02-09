@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	bamf::Texture2D texture("/Users/matthewhinkle/mage.png");
 	texture.load(man);
 	
-	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVERYTHING);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
@@ -72,6 +72,7 @@ int main(int argc, char *argv[])
 	glBufferData(GL_ARRAY_BUFFER, sizeof(texVerts), texVerts, GL_STATIC_DRAW);
 	
 	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	cam.getViewArea();
 	while(true) {
