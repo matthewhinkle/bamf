@@ -40,8 +40,8 @@ void Texture2D::bind()
 	
 	this->configureTexture();
 	
-	GLsizei width = static_cast<GLsizei>(this->getWidth());
-	GLsizei height = static_cast<GLsizei>(this->getHeight());
+	GLsizei width = static_cast<GLsizei>(this->bounds.width);
+	GLsizei height = static_cast<GLsizei>(this->bounds.height);
 	
 	glTexImage2D(
 		GL_TEXTURE_2D,

@@ -14,6 +14,7 @@
 #include <iostream>
 
 #include "Texture2D.h"
+#include "Texture2DLoader.h"
 #include "ResourceLoader.h"
 #include "ResourceManager.h"
 #include "SynchronousGameLoop.h"
@@ -27,8 +28,9 @@ int main(int argc, char *argv[])
 	
 	bamf::ResourceManager man;
 	
-	bamf::Texture2D texture("/Users/matthewhinkle/mage.png");
-	texture.load(man);
+	bamf::Texture2DLoader loader(man);
+	uint64_t id = man.loadResource("/Users/matthewhinkle/mage.png", loader);
+	bamf::Texture2D * texture = static_cast<bamf::Texture2D *>(man.getResourceById(id));
 	
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	
@@ -44,9 +46,9 @@ int main(int argc, char *argv[])
 	
 	glClearColor(0, 0, 0, 0);
 	
-	texture.bind();
-	float w = texture.getWidth();
-	float h = texture.getHeight();
+	texture->bind();
+	float w = texture->getBounds().width;
+	float h = texture->getBounds().height;
 	
 	GLfloat vertices[] = {
 		0.0f, 0.0f,
@@ -114,7 +116,6 @@ int main(int argc, char *argv[])
 		
 		glm::mat4 xform = cam.computeTransform();
 		glMultMatrixf(&xform[0][0]);
-		texture.bind();
 		
 		glBindBuffer(GL_ARRAY_BUFFER, buf[0]);
 		glVertexPointer(2, GL_FLOAT, 0, NULL);
