@@ -7,3 +7,18 @@
 //
 
 #include "CollisionShape.h"
+
+namespace bamf {
+
+CollisionShape::CollisionShape(uint64_t id)
+    :
+    id(id)
+{}
+    
+CollisionShape::~CollisionShape()
+{
+        
+}
+
+    
+}
