@@ -18,6 +18,7 @@
 		482CCDAC16BE203B00590F7B /* Texture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482CCDAA16BE203B00590F7B /* Texture2D.cpp */; };
 		482CCDB016BE34E900590F7B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482CCDAF16BE34E900590F7B /* OpenGL.framework */; };
 		483DC72316C238DC0034CC4B /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483DC72116C238DC0034CC4B /* Camera.cpp */; };
+		4857E78D16C79714000D3334 /* VertexBufferObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4857E78B16C79714000D3334 /* VertexBufferObject.cpp */; };
 		4863335516BBADA30020F5A4 /* Pngio.c in Sources */ = {isa = PBXBuildFile; fileRef = 4863335316BBADA30020F5A4 /* Pngio.c */; };
 		4866BC0E16BB8A150051FDCB /* SynchronousGameLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */; };
 		48B8D9EF16C1D24F0048C9BB /* mage.png in Resources */ = {isa = PBXBuildFile; fileRef = 48B8D9EE16C1D24F0048C9BB /* mage.png */; };
@@ -126,6 +127,7 @@
 		48CAD5B716BB7227005CD223 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CAD5B516BB7227005CD223 /* InfoPlist.strings */; };
 		48CAD5B916BB7227005CD223 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48CAD5B816BB7227005CD223 /* main.cpp */; };
 		48CAD5BD16BB7227005CD223 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 48CAD5BB16BB7227005CD223 /* Credits.rtf */; };
+		48E8175216C613EE00C4E13C /* SpriteStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48E8175016C613EE00C4E13C /* SpriteStream.cpp */; };
 		48FA3D8E16BC67E300A97523 /* libpng15.15.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FA3D8D16BC67E300A97523 /* libpng15.15.dylib */; };
 		48FA3D9A16BCA87700A97523 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FA3D9816BCA87700A97523 /* ResourceManager.cpp */; };
 		48FA3DA816BCCF2D00A97523 /* PngImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FA3DA616BCCF2D00A97523 /* PngImageLoader.cpp */; };
@@ -225,6 +227,7 @@
 		481B5EF916C5A40C0040DAA2 /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pnglibconf.h; path = Bamf/pnglibconf.h; sourceTree = "<group>"; };
 		481B5EFD16C5C1440040DAA2 /* Texture2DLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture2DLoader.cpp; sourceTree = "<group>"; };
 		481B5EFE16C5C1440040DAA2 /* Texture2DLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2DLoader.h; sourceTree = "<group>"; };
+		481B5F0116C605740040DAA2 /* MatrixStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixStack.h; sourceTree = "<group>"; };
 		4824D3ED16C4C87F001EDB07 /* Rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rectangle.h; sourceTree = "<group>"; };
 		4824D3EF16C4CC14001EDB07 /* Bamf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bamf.h; sourceTree = "<group>"; };
 		48257C3516BCF4E20042A7D0 /* AudioLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioLoader.h; sourceTree = "<group>"; };
@@ -240,6 +243,8 @@
 		482CCDAF16BE34E900590F7B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
 		483DC72116C238DC0034CC4B /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		483DC72216C238DC0034CC4B /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		4857E78B16C79714000D3334 /* VertexBufferObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexBufferObject.cpp; sourceTree = "<group>"; };
+		4857E78C16C79714000D3334 /* VertexBufferObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexBufferObject.h; sourceTree = "<group>"; };
 		4863335316BBADA30020F5A4 /* Pngio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Pngio.c; sourceTree = "<group>"; };
 		4863335416BBADA30020F5A4 /* Pngio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pngio.h; sourceTree = "<group>"; };
 		4866BC0916BB85720051FDCB /* GameLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLoop.h; sourceTree = "<group>"; };
@@ -477,6 +482,8 @@
 		48CAD5BA16BB7227005CD223 /* Bamf-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bamf-Prefix.pch"; sourceTree = "<group>"; };
 		48CAD5BC16BB7227005CD223 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		48CAD5C916BB7228005CD223 /* BamfTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BamfTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		48E8175016C613EE00C4E13C /* SpriteStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteStream.cpp; sourceTree = "<group>"; };
+		48E8175116C613EE00C4E13C /* SpriteStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteStream.h; sourceTree = "<group>"; };
 		48FA3D8D16BC67E300A97523 /* libpng15.15.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng15.15.dylib; path = Bamf/libpng15.15.dylib; sourceTree = "<group>"; };
 		48FA3D9316BC911C00A97523 /* Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resource.h; sourceTree = "<group>"; };
 		48FA3D9816BCA87700A97523 /* ResourceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourceManager.cpp; sourceTree = "<group>"; };
@@ -599,6 +606,7 @@
 			isa = PBXGroup;
 			children = (
 				4824D3ED16C4C87F001EDB07 /* Rectangle.h */,
+				481B5F0116C605740040DAA2 /* MatrixStack.h */,
 			);
 			name = Math;
 			sourceTree = "<group>";
@@ -606,17 +614,19 @@
 		48257C3C16BCF69D0042A7D0 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				48FA3DA416BCCD6B00A97523 /* ImageLoader.h */,
+				48FA3DA916BCD11900A97523 /* ImageResource.cpp */,
+				48FA3DAA16BCD11900A97523 /* ImageResource.h */,
+				48FA3DA616BCCF2D00A97523 /* PngImageLoader.cpp */,
+				48FA3DA716BCCF2D00A97523 /* PngImageLoader.h */,
+				4863335316BBADA30020F5A4 /* Pngio.c */,
+				4863335416BBADA30020F5A4 /* Pngio.h */,
 				482CCDAA16BE203B00590F7B /* Texture2D.cpp */,
 				482CCDAB16BE203B00590F7B /* Texture2D.h */,
 				481B5EFD16C5C1440040DAA2 /* Texture2DLoader.cpp */,
 				481B5EFE16C5C1440040DAA2 /* Texture2DLoader.h */,
-				48FA3DA416BCCD6B00A97523 /* ImageLoader.h */,
-				48FA3DA616BCCF2D00A97523 /* PngImageLoader.cpp */,
-				48FA3DA716BCCF2D00A97523 /* PngImageLoader.h */,
-				48FA3DA916BCD11900A97523 /* ImageResource.cpp */,
-				48FA3DAA16BCD11900A97523 /* ImageResource.h */,
-				4863335316BBADA30020F5A4 /* Pngio.c */,
-				4863335416BBADA30020F5A4 /* Pngio.h */,
+				4857E78B16C79714000D3334 /* VertexBufferObject.cpp */,
+				4857E78C16C79714000D3334 /* VertexBufferObject.h */,
 			);
 			name = Graphics;
 			sourceTree = "<group>";
@@ -648,6 +658,8 @@
 			children = (
 				483DC72116C238DC0034CC4B /* Camera.cpp */,
 				483DC72216C238DC0034CC4B /* Camera.h */,
+				48E8175016C613EE00C4E13C /* SpriteStream.cpp */,
+				48E8175116C613EE00C4E13C /* SpriteStream.h */,
 			);
 			name = Graphics;
 			sourceTree = "<group>";
@@ -1231,6 +1243,8 @@
 				48290D0E16C20F650095F443 /* Sprite.cpp in Sources */,
 				483DC72316C238DC0034CC4B /* Camera.cpp in Sources */,
 				481B5EFF16C5C1440040DAA2 /* Texture2DLoader.cpp in Sources */,
+				48E8175216C613EE00C4E13C /* SpriteStream.cpp in Sources */,
+				4857E78D16C79714000D3334 /* VertexBufferObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1288,7 +1302,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1299,7 +1313,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Bamf\"",
 				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1333,7 +1347,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1345,7 +1359,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Bamf\"",
 				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bamf/Bamf-Prefix.pch";
