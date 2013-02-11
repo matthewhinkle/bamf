@@ -11,4 +11,16 @@
 
 #include <iostream>
 
+namespace bamf{
+
+class CollisionManager {
+public:
+    
+protected:
+    
+private:
+    
+};
+}
+
 #endif /* defined(__Bamf__CollisionManager__) */
