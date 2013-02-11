@@ -9,6 +9,7 @@
 #ifndef __Bamf__Texture2D__
 #define __Bamf__Texture2D__
 
+#include <atomic>
 #include <string>
 
 #include "SDL2/SDL.h"
@@ -53,6 +54,7 @@ private:
 	const ImageResource * image;
 	const Rectangle bounds;
 	
+	bool ready;
 	GLuint texture;
 	
 	Texture2D(const Texture2D &);

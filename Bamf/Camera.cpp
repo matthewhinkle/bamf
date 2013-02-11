@@ -43,7 +43,7 @@ glm::vec2 Camera::getViewPositionCenter() const
 }
 
 const glm::mat4 & Camera::computeTransform()
-{	
+{
 	glm::vec2 center = this->getViewPositionCenter();
 	Rectangle viewport = getViewport();
 	

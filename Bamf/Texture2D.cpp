@@ -16,14 +16,14 @@ Texture2D::Texture2D(uint64_t id, const ImageResource * image)
 	image(image),
 	name(image->getName()),
 	bounds(0, 0, image->getWidth(), image->getHeight()),
-	texture(-1)
+	ready(false)
 { }
 
 Texture2D::~Texture2D()
 {
-	if(this->texture != -1) {
+	if(this->ready) {
 		glDeleteTextures(1, &this->texture);
-		this->texture = -1;
+		this->ready = false;
 	}
 }
 
@@ -32,28 +32,33 @@ void Texture2D::bind()
 	if(!(this->image)) {
 		return;
 	}
-
-	/* allocate a texture and bind it */
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &this->texture);
-	glBindTexture(GL_TEXTURE_2D, this->texture);
 	
-	this->configureTexture();
-	
-	GLsizei width = static_cast<GLsizei>(this->bounds.width);
-	GLsizei height = static_cast<GLsizei>(this->bounds.height);
-	
-	glTexImage2D(
-		GL_TEXTURE_2D,
-		0,
-		GL_RGBA,
-		width,
-		height,
-		0,
-		GL_RGBA,
-		GL_UNSIGNED_BYTE,
-		this->image->getData()
-	);
+	if(__sync_bool_compare_and_swap(&this->ready, false, true)) {
+		/* allocate a texture and bind it */
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glGenTextures(1, &this->texture);
+		glBindTexture(GL_TEXTURE_2D, this->texture);
+		
+		this->configureTexture();
+		
+		GLsizei width = static_cast<GLsizei>(this->bounds.width);
+		GLsizei height = static_cast<GLsizei>(this->bounds.height);
+		
+		glTexImage2D(
+			GL_TEXTURE_2D,
+			0,
+			GL_RGBA,
+			width,
+			height,
+			0,
+			GL_RGBA,
+			GL_UNSIGNED_BYTE,
+			this->image->getData()
+		);
+	} else {
+		/* we just need to bind the texture */
+		glBindTexture(GL_TEXTURE_2D, this->texture);
+	}
 }
 
 void Texture2D::configureTexture()

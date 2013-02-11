@@ -7,6 +7,7 @@
 //
 
 #include "ResourceManager.h"
+#include <stdio.h>
 
 namespace bamf {
 

@@ -33,8 +33,11 @@ public:
 	{ }
 	
 	Rectangle & operator=(const Rectangle & r) {
-		Rectangle clone(r);
-		*this = clone;
+		this->x = r.x;
+		this->y = r.y;
+		this->width = r.width;
+		this->height = r.height;
+		
 		return *this;
 	}
 	
@@ -47,10 +50,11 @@ public:
 	inline int getRight() const { return this->x + this->width; }
 	inline int getTop() const { return this->y; }
 
-	const int x;
-	const int y;
-	const int width;
-	const int height;
+	int x;
+	int y;
+	int width;
+	int height;
+	
 };
 
 }

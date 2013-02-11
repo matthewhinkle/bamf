@@ -23,7 +23,6 @@
 
 #include "Sprite.h"
 #include "SpriteStream.h"
-#include "SpriteStage.h"
 #include "Rectangle.h"
 
 #include "Camera.h"
@@ -36,27 +35,23 @@ int main(int argc, char *argv[])
 	
 	bamf::Sprite sprite("/Users/matthewhinkle/mage.png");
 	sprite.load(man);
-	sprite.setHotspot(sprite.getBounds().getCenter());
+	sprite.setHotspot(sprite.getTexture()->getBounds().getCenter());
 	
-	SDL_Init(SDL_INIT_EVERYTHING);
-	
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
+	
+	SDL_Init(SDL_INIT_EVERYTHING);
 	
 	SDL_Window * window = SDL_CreateWindow("bamf", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 768, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 	
 	SDL_GLContext glContext = SDL_GL_CreateContext(window);
 	SDL_GL_SetSwapInterval(1);
 	
-	glClearColor(0, 0, 0, 0);
+	glClearColor(0, 0, 0, 1);
 	
-	sprite.generateBuffers();
-		
-	glEnable(GL_BLEND);
-	glEnable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	sprite.getTexture()->bind();
 	
 	const bamf::Rectangle & bounds = cam.getViewArea();
 	float aspectRatio = static_cast<float>(bounds.width) / static_cast<float>(bounds.height);
@@ -78,16 +73,16 @@ int main(int argc, char *argv[])
 				case SDL_KEYDOWN:
 					switch(e.key.keysym.sym) {
 					case SDLK_RIGHT:
-						position[0] += 0.02;
+						position[0] += 0.1;
 						break;
 					case SDLK_LEFT:
-						position[0] -= 0.02;
+						position[0] -= 0.1;
 						break;
 					case SDLK_DOWN:
-						position[1] -= 0.02;
+						position[1] -= 0.1;
 						break;
 					case SDLK_UP:
-						position[1] += 0.02;
+						position[1] += 0.1;
 						break;
 					}
 					break;
@@ -106,16 +101,20 @@ int main(int argc, char *argv[])
 		ms.push();
 		ms.mult(view);
 		
-		bamf::SpriteStage spriteStage(view);
-		spriteStage.draw(sprite);
+		spriteStream.begin(ms.top());
 		
-		spriteStream.renderStage(spriteStage);
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j < 4; j++) {
+				glm::vec2 pos(i * 210, j * 300);
+				spriteStream.draw(&sprite, pos);
+			}
+		}
+		
+		spriteStream.end();
 		
 		ms.pop();
 		
-		SDL_GL_SwapWindow(window);
-				
-		SDL_Delay(10);
+		SDL_GL_SwapWindow(window);		
 	}
 	
 	man.unloadAllResources();
