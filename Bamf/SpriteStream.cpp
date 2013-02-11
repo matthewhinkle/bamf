@@ -117,7 +117,7 @@ void SpriteStream::flush()
 	
 	MatrixStack::loadMatrix(this->transform);
 	
-	glDrawArrays(GL_QUADS, 0, (GLsizei) (8 * this->sprites.size()));
+	glDrawArrays(GL_QUADS, 0, (GLsizei) (kVerticeCount * this->sprites.size()));
 	
 	glDisable(GL_BLEND);
 	glDepthMask(GL_TRUE);
