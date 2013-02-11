@@ -1029,8 +1029,11 @@
 		48CAD5B216BB7227005CD223 /* Bamf */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				2770106D16C8CE670060738A /* input */,
+=======
 				A30AE7DC16C9842D00D13952 /* Collisions */,
+>>>>>>> 64f110fac4fd9e5b7150db1cd6efd897b4fe60de
 				4824D3EA16C4C813001EDB07 /* Math */,
 				483DC72016C2387F0034CC4B /* Graphics */,
 				482CCDA516BE093600590F7B /* Assets */,
@@ -1293,12 +1296,15 @@
 				483DC72316C238DC0034CC4B /* Camera.cpp in Sources */,
 				481B5EFF16C5C1440040DAA2 /* Texture2DLoader.cpp in Sources */,
 				48E8175216C613EE00C4E13C /* SpriteStream.cpp in Sources */,
+<<<<<<< HEAD
 				2770106C16C8CE620060738A /* InputMapping.cpp in Sources */,
+=======
 				A30AE7DF16C98D6400D13952 /* CollisionShape.cpp in Sources */,
 				A30AE7E216C98DAF00D13952 /* CollisionRectangle.cpp in Sources */,
 				A30AE7E516C98DD000D13952 /* CollisionCircle.cpp in Sources */,
 				A30AE7E816C98DEC00D13952 /* CollisionCapsule.cpp in Sources */,
 				A30AE7EB16C98E2700D13952 /* CollisionManager.cpp in Sources */,
+>>>>>>> 64f110fac4fd9e5b7150db1cd6efd897b4fe60de
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
