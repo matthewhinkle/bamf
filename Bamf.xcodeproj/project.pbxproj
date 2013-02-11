@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2770106616C8CB100060738A /* libpng15.15.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FA3D8D16BC67E300A97523 /* libpng15.15.dylib */; };
 		2770106C16C8CE620060738A /* InputMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2770106A16C8CE610060738A /* InputMapping.cpp */; };
+		2770106F16C991C80060738A /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2770106E16C991C80060738A /* InputManager.cpp */; };
 		481B5EF016C59A030040DAA2 /* doxyfile in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EA716C59A030040DAA2 /* doxyfile */; };
 		481B5EF116C59A030040DAA2 /* SDL_config.h.cmake in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EAF16C59A030040DAA2 /* SDL_config.h.cmake */; };
 		481B5EF216C59A030040DAA2 /* SDL_config.h.in in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EB016C59A030040DAA2 /* SDL_config.h.in */; };
@@ -155,6 +156,8 @@
 		2770106916C8CE610060738A /* InputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputManager.h; sourceTree = "<group>"; };
 		2770106A16C8CE610060738A /* InputMapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputMapping.cpp; sourceTree = "<group>"; };
 		2770106B16C8CE610060738A /* InputMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputMapping.h; sourceTree = "<group>"; };
+		2770106E16C991C80060738A /* InputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputManager.cpp; sourceTree = "<group>"; };
+		2770107216C997840060738A /* KeyPressType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyPressType.h; sourceTree = "<group>"; };
 		481B5EA516C59A030040DAA2 /* begin_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = begin_code.h; sourceTree = "<group>"; };
 		481B5EA616C59A030040DAA2 /* close_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = close_code.h; sourceTree = "<group>"; };
 		481B5EA716C59A030040DAA2 /* doxyfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = doxyfile; sourceTree = "<group>"; };
@@ -239,7 +242,7 @@
 		481B5EFE16C5C1440040DAA2 /* Texture2DLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2DLoader.h; sourceTree = "<group>"; };
 		481B5F0116C605740040DAA2 /* MatrixStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixStack.h; sourceTree = "<group>"; };
 		4824D3ED16C4C87F001EDB07 /* Rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rectangle.h; sourceTree = "<group>"; };
-		4824D3EF16C4CC14001EDB07 /* Bamf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bamf.h; sourceTree = "<group>"; };
+		4824D3EF16C4CC14001EDB07 /* BamfObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BamfObject.h; sourceTree = "<group>"; };
 		48257C3516BCF4E20042A7D0 /* AudioLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioLoader.h; sourceTree = "<group>"; };
 		48257C3616BCF6060042A7D0 /* WavAudioLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WavAudioLoader.cpp; sourceTree = "<group>"; };
 		48257C3716BCF6060042A7D0 /* WavAudioLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WavAudioLoader.h; sourceTree = "<group>"; };
@@ -544,10 +547,19 @@
 				2770106716C8CE610060738A /* Action.h */,
 				2770106816C8CE610060738A /* IKeyMapping.h */,
 				2770106916C8CE610060738A /* InputManager.h */,
-				2770106A16C8CE610060738A /* InputMapping.cpp */,
+				2770106E16C991C80060738A /* InputManager.cpp */,
 				2770106B16C8CE610060738A /* InputMapping.h */,
+				2770106A16C8CE610060738A /* InputMapping.cpp */,
+				2770107216C997840060738A /* KeyPressType.h */,
 			);
 			name = input;
+			sourceTree = "<group>";
+		};
+		2770107016C9936C0060738A /* utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = utils;
 			sourceTree = "<group>";
 		};
 		481B5EA416C59A030040DAA2 /* SDL2 */ = {
@@ -710,7 +722,7 @@
 		4866BC0F16BB8A220051FDCB /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				4824D3EF16C4CC14001EDB07 /* Bamf.h */,
+				4824D3EF16C4CC14001EDB07 /* BamfObject.h */,
 				4866BC0916BB85720051FDCB /* GameLoop.h */,
 				4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */,
 				4866BC0D16BB8A150051FDCB /* SynchronousGameLoop.h */,
@@ -1029,6 +1041,7 @@
 		48CAD5B216BB7227005CD223 /* Bamf */ = {
 			isa = PBXGroup;
 			children = (
+				2770107016C9936C0060738A /* utils */,
 				2770106D16C8CE670060738A /* input */,
 				A30AE7DC16C9842D00D13952 /* Collisions */,
 				4824D3EA16C4C813001EDB07 /* Math */,
@@ -1299,6 +1312,7 @@
 				A30AE7E516C98DD000D13952 /* CollisionCircle.cpp in Sources */,
 				A30AE7E816C98DEC00D13952 /* CollisionCapsule.cpp in Sources */,
 				A30AE7EB16C98E2700D13952 /* CollisionManager.cpp in Sources */,
+				2770106F16C991C80060738A /* InputManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

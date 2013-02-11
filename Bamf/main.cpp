@@ -27,8 +27,75 @@
 
 #include "Camera.h"
 
+#include "InputManager.h"
+#include "InputMapping.h"
+#include "Action.h"
+
+class MoveCameraAction : public Action
+{
+protected:
+    float _x;
+    float _y;
+    bamf::Camera * _camera;
+public:
+    MoveCameraAction(float x, float y, bamf::Camera * camera);
+    void executeAction();
+};
+
+MoveCameraAction::MoveCameraAction(float x, float y, bamf::Camera * camera)
+{
+    _x = x;
+    _y = y;
+    _camera = camera;
+}
+
+void MoveCameraAction::executeAction()
+{
+    glm::vec2 position = _camera->getPosition();
+    position.x += _x;
+    position.y += _y;
+    _camera->setPosition(position);
+}
+
+class MoveCameraButtons : public IKeyMapping
+{
+protected:
+    int _keyCode;
+    float _movesX;
+    float _movesY;
+    bamf::Camera * _cam;
+public:
+    MoveCameraButtons(int keyCode, float movesX, float movesY,  bamf::Camera * cam);
+    bool appliesForInput(KeyPressType type, int keyCode, ...);
+    Action * actionForInput();
+};
+
+MoveCameraButtons::MoveCameraButtons(int keyCode, float movesX, float movesY, bamf::Camera * cam)
+{
+    _keyCode = keyCode;
+    _movesX = movesX;
+    _movesY = movesY;
+    _cam = cam;
+}
+
+bool MoveCameraButtons::appliesForInput(KeyPressType type, int keyCode, ...)
+{
+    if(keyCode == _keyCode && type == KEY_DOWN) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+Action * MoveCameraButtons::actionForInput()
+{
+    return new MoveCameraAction(_movesX, _movesY, _cam);
+}
+
 int main(int argc, char *argv[])
 {
+    
 	bamf::Camera cam;
 	
 	bamf::ResourceManager man;
@@ -61,36 +128,19 @@ int main(int argc, char *argv[])
 	bamf::MatrixStack ms;
 	bamf::SpriteStream spriteStream;
 	
+    InputManager inputManager;
+    
+    InputMapping inputMapping;
+    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_RIGHT, .1, 0, &cam));
+    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_LEFT, -.2, 0, &cam));
+    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_UP, 0, .1, &cam));
+    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_DOWN, 0, -.1, &cam));
+    
+    inputManager.setInputMapping(&inputMapping);
+    
 	while(true) {
-		SDL_Event e;
-		if(SDL_PollEvent(&e)) {
-			if(e.type == SDL_QUIT) {
-				break;
-			}
-
-			glm::vec2 position(cam.getPosition());
-			switch(e.type) {
-				case SDL_KEYDOWN:
-					switch(e.key.keysym.sym) {
-					case SDLK_RIGHT:
-						position[0] += 0.1;
-						break;
-					case SDLK_LEFT:
-						position[0] -= 0.1;
-						break;
-					case SDLK_DOWN:
-						position[1] -= 0.1;
-						break;
-					case SDLK_UP:
-						position[1] += 0.1;
-						break;
-					}
-					break;
-			}
-			
-			cam.setPosition(position);
-		}
-		
+		inputManager.processInput();
+        
 		glm::mat4 view = cam.computeTransform();
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

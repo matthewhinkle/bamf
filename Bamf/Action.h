@@ -11,9 +11,11 @@
 
 class Action
 {
-
+    
 public:
     virtual ~Action() {}
+    
+    virtual void executeAction() = 0;
     
 };
 

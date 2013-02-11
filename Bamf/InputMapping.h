@@ -11,6 +11,7 @@
 
 #include <vector>
 #include "IKeyMapping.h"
+#include "KeyPressType.h"
 
 class InputMapping
 {
@@ -21,6 +22,9 @@ private:
 public:
     InputMapping();
     void addKeyMapping(IKeyMapping * keyMapping);
+    std::vector<IKeyMapping *> * getKeyMappings();
+
+    void dispatchKeyEvent(KeyPressType pressType, int keyCode, ...);
 
 };
 

@@ -15,22 +15,23 @@
 #define Bamf_IInputMapping_h
 
 #include "Action.h"
+#include "KeyPressType.h"
 
 class IKeyMapping
 {
     
 public:
     virtual ~IKeyMapping() {}
-
+    
     /**
-      * Return true if this input mapping should activate for the given key code and mappings.
+      * Return true if this input mapping should activate for the given key code and masks.
       */
-    virtual bool appliesForInput(int keyCode, ...) = 0;
+    virtual bool appliesForInput(KeyPressType type, int keyCode, ...) = 0;
 
     /**
      * Returns the action for this given input
      */
-    virtual Action actionForInput() = 0;
+    virtual Action * actionForInput() = 0;
 
 };
 
