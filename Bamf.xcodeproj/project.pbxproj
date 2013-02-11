@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2770106616C8CB100060738A /* libpng15.15.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FA3D8D16BC67E300A97523 /* libpng15.15.dylib */; };
+		2770106C16C8CE620060738A /* InputMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2770106A16C8CE610060738A /* InputMapping.cpp */; };
 		481B5EF016C59A030040DAA2 /* doxyfile in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EA716C59A030040DAA2 /* doxyfile */; };
 		481B5EF116C59A030040DAA2 /* SDL_config.h.cmake in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EAF16C59A030040DAA2 /* SDL_config.h.cmake */; };
 		481B5EF216C59A030040DAA2 /* SDL_config.h.in in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EB016C59A030040DAA2 /* SDL_config.h.in */; };
@@ -18,7 +20,6 @@
 		482CCDAC16BE203B00590F7B /* Texture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482CCDAA16BE203B00590F7B /* Texture2D.cpp */; };
 		482CCDB016BE34E900590F7B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482CCDAF16BE34E900590F7B /* OpenGL.framework */; };
 		483DC72316C238DC0034CC4B /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483DC72116C238DC0034CC4B /* Camera.cpp */; };
-		4857E78D16C79714000D3334 /* VertexBufferObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4857E78B16C79714000D3334 /* VertexBufferObject.cpp */; };
 		4863335516BBADA30020F5A4 /* Pngio.c in Sources */ = {isa = PBXBuildFile; fileRef = 4863335316BBADA30020F5A4 /* Pngio.c */; };
 		4866BC0E16BB8A150051FDCB /* SynchronousGameLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */; };
 		48B8D9EF16C1D24F0048C9BB /* mage.png in Resources */ = {isa = PBXBuildFile; fileRef = 48B8D9EE16C1D24F0048C9BB /* mage.png */; };
@@ -128,7 +129,6 @@
 		48CAD5B916BB7227005CD223 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48CAD5B816BB7227005CD223 /* main.cpp */; };
 		48CAD5BD16BB7227005CD223 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 48CAD5BB16BB7227005CD223 /* Credits.rtf */; };
 		48E8175216C613EE00C4E13C /* SpriteStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48E8175016C613EE00C4E13C /* SpriteStream.cpp */; };
-		48FA3D8E16BC67E300A97523 /* libpng15.15.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FA3D8D16BC67E300A97523 /* libpng15.15.dylib */; };
 		48FA3D9A16BCA87700A97523 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FA3D9816BCA87700A97523 /* ResourceManager.cpp */; };
 		48FA3DA816BCCF2D00A97523 /* PngImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FA3DA616BCCF2D00A97523 /* PngImageLoader.cpp */; };
 		48FA3DAB16BCD11900A97523 /* ImageResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FA3DA916BCD11900A97523 /* ImageResource.cpp */; };
@@ -145,6 +145,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2770106716C8CE610060738A /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
+		2770106816C8CE610060738A /* IKeyMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKeyMapping.h; sourceTree = "<group>"; };
+		2770106916C8CE610060738A /* InputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputManager.h; sourceTree = "<group>"; };
+		2770106A16C8CE610060738A /* InputMapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputMapping.cpp; sourceTree = "<group>"; };
+		2770106B16C8CE610060738A /* InputMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputMapping.h; sourceTree = "<group>"; };
 		481B5EA516C59A030040DAA2 /* begin_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = begin_code.h; sourceTree = "<group>"; };
 		481B5EA616C59A030040DAA2 /* close_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = close_code.h; sourceTree = "<group>"; };
 		481B5EA716C59A030040DAA2 /* doxyfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = doxyfile; sourceTree = "<group>"; };
@@ -243,8 +248,6 @@
 		482CCDAF16BE34E900590F7B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
 		483DC72116C238DC0034CC4B /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		483DC72216C238DC0034CC4B /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
-		4857E78B16C79714000D3334 /* VertexBufferObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexBufferObject.cpp; sourceTree = "<group>"; };
-		4857E78C16C79714000D3334 /* VertexBufferObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexBufferObject.h; sourceTree = "<group>"; };
 		4863335316BBADA30020F5A4 /* Pngio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Pngio.c; sourceTree = "<group>"; };
 		4863335416BBADA30020F5A4 /* Pngio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pngio.h; sourceTree = "<group>"; };
 		4866BC0916BB85720051FDCB /* GameLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLoop.h; sourceTree = "<group>"; };
@@ -503,7 +506,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				482CCDB016BE34E900590F7B /* OpenGL.framework in Frameworks */,
-				48FA3D8E16BC67E300A97523 /* libpng15.15.dylib in Frameworks */,
+				2770106616C8CB100060738A /* libpng15.15.dylib in Frameworks */,
 				48B8DB4016C1D8750048C9BB /* libSDL2.dylib in Frameworks */,
 				481B5EF716C5A0E60040DAA2 /* libz.1.2.5.dylib in Frameworks */,
 			);
@@ -519,6 +522,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2770106D16C8CE670060738A /* input */ = {
+			isa = PBXGroup;
+			children = (
+				2770106716C8CE610060738A /* Action.h */,
+				2770106816C8CE610060738A /* IKeyMapping.h */,
+				2770106916C8CE610060738A /* InputManager.h */,
+				2770106A16C8CE610060738A /* InputMapping.cpp */,
+				2770106B16C8CE610060738A /* InputMapping.h */,
+			);
+			name = input;
+			sourceTree = "<group>";
+		};
 		481B5EA416C59A030040DAA2 /* SDL2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -625,8 +640,6 @@
 				482CCDAB16BE203B00590F7B /* Texture2D.h */,
 				481B5EFD16C5C1440040DAA2 /* Texture2DLoader.cpp */,
 				481B5EFE16C5C1440040DAA2 /* Texture2DLoader.h */,
-				4857E78B16C79714000D3334 /* VertexBufferObject.cpp */,
-				4857E78C16C79714000D3334 /* VertexBufferObject.h */,
 			);
 			name = Graphics;
 			sourceTree = "<group>";
@@ -999,6 +1012,7 @@
 		48CAD5B216BB7227005CD223 /* Bamf */ = {
 			isa = PBXGroup;
 			children = (
+				2770106D16C8CE670060738A /* input */,
 				4824D3EA16C4C813001EDB07 /* Math */,
 				483DC72016C2387F0034CC4B /* Graphics */,
 				482CCDA516BE093600590F7B /* Assets */,
@@ -1244,7 +1258,7 @@
 				483DC72316C238DC0034CC4B /* Camera.cpp in Sources */,
 				481B5EFF16C5C1440040DAA2 /* Texture2DLoader.cpp in Sources */,
 				48E8175216C613EE00C4E13C /* SpriteStream.cpp in Sources */,
-				4857E78D16C79714000D3334 /* VertexBufferObject.cpp in Sources */,
+				2770106C16C8CE620060738A /* InputMapping.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1330,9 +1344,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Bamf/Bamf-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(SRCROOT)/Bamf/**";
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
 					"\"$(SRCROOT)/Bamf\"",
+					"$(inherited)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1369,9 +1384,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Bamf/Bamf-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(SRCROOT)/Bamf/**";
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
 					"\"$(SRCROOT)/Bamf\"",
+					"$(inherited)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";

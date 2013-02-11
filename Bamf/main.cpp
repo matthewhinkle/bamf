@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 	
 	bamf::ResourceManager man;
 	
-	bamf::Sprite sprite("/Users/matthewhinkle/mage.png");
+	bamf::Sprite sprite("/Users/mike/Desktop/mage.png");
 	sprite.load(man);
 	sprite.setHotspot(sprite.getTexture()->getBounds().getCenter());
 	
