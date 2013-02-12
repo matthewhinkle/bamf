@@ -18,38 +18,31 @@ Camera::Camera()
 	this->setPosition(glm::vec2(0.0f, 0.0f));
 	this->setRotation(0.0f);
 	this->setZoom(1.0f);
+	this->updateViewPortBounds();
 }
 
 Camera::~Camera() { }
 
-Rectangle Camera::getViewArea() const
+void Camera::updateViewPortBounds()
 {
-	Rectangle viewport = getViewport();
-	
-	return Rectangle(
-		this->position[0],
-		this->position[1],
-		viewport.width,
-		viewport.height
-	);
+	this->viewport = getViewport();
 }
 
-glm::vec2 Camera::getViewPositionCenter() const
+Rectangle Camera::getViewArea() const
 {
-	Rectangle viewport = getViewport();
-	glm::vec2 center = viewport.getCenter();
+	glm::vec2 position = this->position - this->viewport.getCenter();
 	
-	return this->position + center;
+	return Rectangle(
+		position.x,
+		position.y,
+		position.x + viewport.width,
+		position.y + viewport.height
+	);
 }
 
 const glm::mat4 & Camera::computeTransform()
 {
-	glm::vec2 center = this->getViewPositionCenter();
-	Rectangle viewport = getViewport();
-	
-	glm::mat4 centeredTranslate = glm::translate(glm::mat4(), -glm::vec3(center[0] / viewport.width, center[1] / viewport.height, 0.0f));
-	
-	return this->transform = this->translate * centeredTranslate * this->scale * this->rotate;
+	return this->transform = this->translate * this->scale * this->rotate;
 }
 
 }

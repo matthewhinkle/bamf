@@ -95,12 +95,9 @@ Action * MoveCameraButtons::actionForInput()
 
 int main(int argc, char *argv[])
 {
-    
-	bamf::Camera cam;
-	
 	bamf::ResourceManager man;
 	
-	bamf::Sprite sprite("/Users/mike/Desktop/mage.png");
+	bamf::Sprite sprite("/bamf/mage.png");
 	sprite.load(man);
 	sprite.setHotspot(sprite.getTexture()->getBounds().getCenter());
 	
@@ -120,13 +117,14 @@ int main(int argc, char *argv[])
 	
 	sprite.getTexture()->bind();
 	
+	bamf::Camera cam;
 	const bamf::Rectangle & bounds = cam.getViewArea();
 	float aspectRatio = static_cast<float>(bounds.width) / static_cast<float>(bounds.height);
 	
 	glm::mat4 proj = glm::perspective(90.0f, aspectRatio, 0.01f, 100.0f);
 	
 	bamf::MatrixStack ms;
-	bamf::SpriteStream spriteStream;
+	bamf::SpriteStream spriteStream(&cam);
 	
     InputManager inputManager;
     
@@ -139,6 +137,35 @@ int main(int argc, char *argv[])
     inputManager.setInputMapping(&inputMapping);
     
 	while(true) {
+		SDL_Event e;
+		if(SDL_PollEvent(&e)) {
+			if(e.type == SDL_QUIT) {
+				break;
+			}
+
+			glm::vec2 position(cam.getPosition());
+			switch(e.type) {
+				case SDL_KEYDOWN:
+					switch(e.key.keysym.sym) {
+					case SDLK_RIGHT:
+						position[0] += 1;
+						break;
+					case SDLK_LEFT:
+						position[0] -= 1;
+						break;
+					case SDLK_DOWN:
+						position[1] -= 1;
+						break;
+					case SDLK_UP:
+						position[1] += 1;
+						break;
+					}
+					break;
+			}
+			
+			cam.setPosition(position);
+		}
+		
 		inputManager.processInput();
         
 		glm::mat4 view = cam.computeTransform();
@@ -151,20 +178,24 @@ int main(int argc, char *argv[])
 		ms.push();
 		ms.mult(view);
 		
-		spriteStream.begin(ms.top());
+		spriteStream.begin(ms.top(), bamf::kSpriteStreamClipEdges);
 		
-		for(int i = 0; i < 4; i++) {
-			for(int j = 0; j < 4; j++) {
+		/*
+		for(int i = 0; i < 2; i++) {
+			for(int j = 0; j < 2; j++) {
 				glm::vec2 pos(i * 210, j * 300);
 				spriteStream.draw(&sprite, pos);
 			}
 		}
+		*/
+		
+		spriteStream.draw(&sprite, glm::vec2(0, 0));
 		
 		spriteStream.end();
 		
 		ms.pop();
 		
-		SDL_GL_SwapWindow(window);		
+		SDL_GL_SwapWindow(window);
 	}
 	
 	man.unloadAllResources();

@@ -43,12 +43,21 @@ public:
 	
 	virtual ~Rectangle() { }
 	
-	inline glm::vec2 getCenter() const { return glm::vec2(this->width >> 1, this->height >> 1); }
+	inline glm::vec2 getCenter() const { return glm::vec2((this->x + this->width) >> 1, (this->y + this->height) >> 1); }
 
 	inline int getBottom() const { return this->y + this->height; }
 	inline int getLeft() const { return this->x; }
 	inline int getRight() const { return this->x + this->width; }
 	inline int getTop() const { return this->y; }
+	
+	inline bool isPointOutside(const glm::vec2 & v) const {
+		printf("v.x = %f\tthis->x = %d\n", v.x, this->x);
+	
+		return v.x < this->x
+		    || v.x > (this->x + this->width)
+		    || v.y < this->y
+			|| v.y > (this->y + this->height);
+	}
 
 	int x;
 	int y;

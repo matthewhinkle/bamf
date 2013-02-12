@@ -31,7 +31,7 @@ public:
 	
 	inline void setPosition(const glm::vec2 & position) {
 		this->position = position;
-		this->translate = glm::translate(glm::mat4(), -glm::vec3(position[0], position[1], 1.0f));
+		this->translate = glm::translate(glm::mat4(), -glm::vec3(position.x, position.y, 2.0f));
 	}
 	
 	inline void setRotation(float angle) {
@@ -44,8 +44,10 @@ public:
 		this->scale = glm::scale(glm::mat4(), glm::vec3(zoom * kScaleScale, zoom * kScaleScale, 1.0f));
 	}
 	
+	void updateViewPortBounds();
 	Rectangle getViewArea() const;
-	glm::vec2 getViewPositionCenter() const;
+	
+	inline glm::vec2 getViewPositionCenter() const { return this->position; }
 	
 	const glm::mat4 & computeTransform();
 
@@ -58,6 +60,8 @@ private:
 	
 	float angle;
 	float zoom;
+	
+	Rectangle viewport;
 	
 	glm::mat4 transform;
 	
