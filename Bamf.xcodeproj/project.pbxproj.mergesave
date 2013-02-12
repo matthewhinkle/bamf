@@ -21,7 +21,10 @@
 		482CCDAC16BE203B00590F7B /* Texture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482CCDAA16BE203B00590F7B /* Texture2D.cpp */; };
 		482CCDB016BE34E900590F7B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482CCDAF16BE34E900590F7B /* OpenGL.framework */; };
 		483DC72316C238DC0034CC4B /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483DC72116C238DC0034CC4B /* Camera.cpp */; };
+<<<<<<< HEAD
 		484351F416C909C9002CEDA9 /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 484351F216C909C9002CEDA9 /* Viewport.cpp */; };
+=======
+>>>>>>> 11569aac199fe948821a6ecf19e0e5b369e0530e
 		4863335516BBADA30020F5A4 /* Pngio.c in Sources */ = {isa = PBXBuildFile; fileRef = 4863335316BBADA30020F5A4 /* Pngio.c */; };
 		4866BC0E16BB8A150051FDCB /* SynchronousGameLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */; };
 		48B8D9EF16C1D24F0048C9BB /* mage.png in Resources */ = {isa = PBXBuildFile; fileRef = 48B8D9EE16C1D24F0048C9BB /* mage.png */; };
@@ -257,8 +260,11 @@
 		482CCDAF16BE34E900590F7B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
 		483DC72116C238DC0034CC4B /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		483DC72216C238DC0034CC4B /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		484351F216C909C9002CEDA9 /* Viewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Viewport.cpp; sourceTree = "<group>"; };
 		484351F316C909C9002CEDA9 /* Viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
+=======
+>>>>>>> 11569aac199fe948821a6ecf19e0e5b369e0530e
 		4863335316BBADA30020F5A4 /* Pngio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Pngio.c; sourceTree = "<group>"; };
 		4863335416BBADA30020F5A4 /* Pngio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pngio.h; sourceTree = "<group>"; };
 		4866BC0916BB85720051FDCB /* GameLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLoop.h; sourceTree = "<group>"; };
@@ -1311,7 +1317,9 @@
 				483DC72316C238DC0034CC4B /* Camera.cpp in Sources */,
 				481B5EFF16C5C1440040DAA2 /* Texture2DLoader.cpp in Sources */,
 				48E8175216C613EE00C4E13C /* SpriteStream.cpp in Sources */,
+<<<<<<< HEAD
 				484351F416C909C9002CEDA9 /* Viewport.cpp in Sources */,
+=======
 				2770106C16C8CE620060738A /* InputMapping.cpp in Sources */,
 				A30AE7DF16C98D6400D13952 /* CollisionShape.cpp in Sources */,
 				A30AE7E216C98DAF00D13952 /* CollisionRectangle.cpp in Sources */,
@@ -1319,6 +1327,7 @@
 				A30AE7E816C98DEC00D13952 /* CollisionCapsule.cpp in Sources */,
 				A30AE7EB16C98E2700D13952 /* CollisionManager.cpp in Sources */,
 				2770106F16C991C80060738A /* InputManager.cpp in Sources */,
+>>>>>>> 11569aac199fe948821a6ecf19e0e5b369e0530e
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

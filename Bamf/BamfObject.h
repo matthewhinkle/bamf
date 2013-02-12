@@ -16,17 +16,17 @@ namespace bamf {
 /**
 	First class game object interface
  */
-class Bamf {
+class BamfObject {
 public:
 
-	explicit Bamf();
-	virtual ~Bamf() { }
+	explicit BamfObject();
+	virtual BamfObject() { }
 	
 	virtual glm::vec2 getPosition() const;
 	
 private:
-	Bamf(const Bamf &);
-	Bamf & operator=(const Bamf &);
+	BamfObject(const BamfObject &);
+	BamfObject & operator=(const BamfObject &);
 };
 
 }
