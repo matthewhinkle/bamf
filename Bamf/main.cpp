@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
 	
-	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Init(SDL_INIT_VIDEO);
 	
 	SDL_Window * window = SDL_CreateWindow("bamf", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 768, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 	
@@ -164,6 +164,7 @@ int main(int argc, char *argv[])
 			}
 			
 			cam.setPosition(position);
+
 		}
 		
 		inputManager.processInput();
@@ -180,14 +181,14 @@ int main(int argc, char *argv[])
 		
 		spriteStream.begin(ms.top(), bamf::kSpriteStreamClipEdges);
 		
-		/*
+		glViewport(0, 0, 1024, 768);
+		
 		for(int i = 0; i < 2; i++) {
 			for(int j = 0; j < 2; j++) {
-				glm::vec2 pos(i * 210, j * 300);
+				glm::vec2 pos(i * 2, j * 2);
 				spriteStream.draw(&sprite, pos);
 			}
 		}
-		*/
 		
 		spriteStream.draw(&sprite, glm::vec2(0, 0));
 		
