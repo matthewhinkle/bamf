@@ -24,7 +24,9 @@ enum {
 	kTexCoordOffset = 8 * kVertexDataSize
 };
 
-SpriteStream::SpriteStream()
+SpriteStream::SpriteStream(const Camera * camera)
+	:
+	camera(camera)
 {
 	glGenBuffers(1, &this->vbo);	
 	glBindBuffer(GL_ARRAY_BUFFER, this->vbo);
@@ -43,16 +45,23 @@ SpriteStream::~SpriteStream()
 	glDeleteBuffers(1, &this->vbo);
 }
 
-SpriteStream & SpriteStream::begin(const glm::mat4 & transform)
+SpriteStream & SpriteStream::begin(const glm::mat4 & transform, int drawOptions)
 {
 	this->transform = transform;
+	this->drawOptions = drawOptions;
 	
 	return *this;
 }
 
 SpriteStream & SpriteStream::draw(const Sprite * sprite, const glm::vec2 & position)
 {
-	this->sprites.insert(std::pair<const Sprite *, glm::vec3>(sprite, glm::vec3(position.x, position.y, 0.0f)));
+	const glm::vec2 normPos = position - sprite->getHotspot();
+	if(this->drawOptions & kSpriteStreamClipEdges && this->isClipping(sprite, normPos)) {
+		printf("culled\n");
+		return *this;
+	}
+	
+	this->sprites.insert(std::pair<const Sprite *, glm::vec2>(sprite, normPos));
 
 	return *this;
 }
@@ -66,22 +75,23 @@ SpriteStream & SpriteStream::end()
 
 void SpriteStream::flush()
 {
+	SDL_assert(this->sprites.size() * kVboSpriteStride < kVerticeCount);
+
 	glBufferData(GL_ARRAY_BUFFER, kVboSize, NULL, GL_STREAM_DRAW);
 	GLint * vertices = (GLint *) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	
-	SDL_assert(this->sprites.size() * kVboSpriteStride < kVerticeCount);
-	
-	std::multimap<const Sprite *, glm::vec3>::iterator i;
-	std::multimap<const Sprite *, glm::vec3>::const_iterator prevSprite;
+	std::multimap<const Sprite *, glm::vec2>::iterator i;
+	std::multimap<const Sprite *, glm::vec2>::const_iterator prevSprite;
 	for(prevSprite = i = this->sprites.begin(); i != this->sprites.end(); i++, vertices += kVboSpriteStride) {
 		const Sprite * sprite = i->first;
 	
 		if(prevSprite->first < sprite) {
-			/* texture swith as sprites only differ if their textures differ */
+			/* bind texture as sprites only differ if their textures differ */
+			prevSprite = i;
 			sprite->getTexture()->bind();
 		}
 		
-		const glm::vec3 & position = i->second;
+		const glm::vec2 & position = i->second;
 		const Rectangle & bounds = sprite->getTexture()->getBounds();
 		const Rectangle & source = sprite->getSourceRectangle();
 		

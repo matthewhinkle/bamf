@@ -28,9 +28,7 @@
 #include "Camera.h"
 
 int main(int argc, char *argv[])
-{
-	bamf::Camera cam;
-	
+{	
 	bamf::ResourceManager man;
 	
 	bamf::Sprite sprite("/Users/matthewhinkle/mage.png");
@@ -53,13 +51,14 @@ int main(int argc, char *argv[])
 	
 	sprite.getTexture()->bind();
 	
+	bamf::Camera cam;
 	const bamf::Rectangle & bounds = cam.getViewArea();
 	float aspectRatio = static_cast<float>(bounds.width) / static_cast<float>(bounds.height);
 	
 	glm::mat4 proj = glm::perspective(90.0f, aspectRatio, 0.01f, 100.0f);
 	
 	bamf::MatrixStack ms;
-	bamf::SpriteStream spriteStream;
+	bamf::SpriteStream spriteStream(&cam);
 	
 	while(true) {
 		SDL_Event e;
@@ -73,16 +72,16 @@ int main(int argc, char *argv[])
 				case SDL_KEYDOWN:
 					switch(e.key.keysym.sym) {
 					case SDLK_RIGHT:
-						position[0] += 0.1;
+						position[0] += 1;
 						break;
 					case SDLK_LEFT:
-						position[0] -= 0.1;
+						position[0] -= 1;
 						break;
 					case SDLK_DOWN:
-						position[1] -= 0.1;
+						position[1] -= 1;
 						break;
 					case SDLK_UP:
-						position[1] += 0.1;
+						position[1] += 1;
 						break;
 					}
 					break;
@@ -101,20 +100,24 @@ int main(int argc, char *argv[])
 		ms.push();
 		ms.mult(view);
 		
-		spriteStream.begin(ms.top());
+		spriteStream.begin(ms.top(), bamf::kSpriteStreamClipEdges);
 		
-		for(int i = 0; i < 4; i++) {
-			for(int j = 0; j < 4; j++) {
+		/*
+		for(int i = 0; i < 2; i++) {
+			for(int j = 0; j < 2; j++) {
 				glm::vec2 pos(i * 210, j * 300);
 				spriteStream.draw(&sprite, pos);
 			}
 		}
+		*/
+		
+		spriteStream.draw(&sprite, glm::vec2(0, 0));
 		
 		spriteStream.end();
 		
 		ms.pop();
 		
-		SDL_GL_SwapWindow(window);		
+		SDL_GL_SwapWindow(window);
 	}
 	
 	man.unloadAllResources();
