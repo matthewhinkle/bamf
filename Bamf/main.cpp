@@ -94,17 +94,10 @@ Action * MoveCameraButtons::actionForInput()
 }
 
 int main(int argc, char *argv[])
-<<<<<<< HEAD
-{	
-=======
 {
-    
-	bamf::Camera cam;
-	
->>>>>>> 11569aac199fe948821a6ecf19e0e5b369e0530e
 	bamf::ResourceManager man;
 	
-	bamf::Sprite sprite("/Users/mike/Desktop/mage.png");
+	bamf::Sprite sprite("/bamf/mage.png");
 	sprite.load(man);
 	sprite.setHotspot(sprite.getTexture()->getBounds().getCenter());
 	
@@ -144,7 +137,6 @@ int main(int argc, char *argv[])
     inputManager.setInputMapping(&inputMapping);
     
 	while(true) {
-<<<<<<< HEAD
 		SDL_Event e;
 		if(SDL_PollEvent(&e)) {
 			if(e.type == SDL_QUIT) {
@@ -174,10 +166,8 @@ int main(int argc, char *argv[])
 			cam.setPosition(position);
 		}
 		
-=======
 		inputManager.processInput();
         
->>>>>>> 11569aac199fe948821a6ecf19e0e5b369e0530e
 		glm::mat4 view = cam.computeTransform();
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
