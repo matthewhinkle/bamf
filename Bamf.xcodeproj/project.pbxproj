@@ -24,7 +24,6 @@
 		484351F416C909C9002CEDA9 /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 484351F216C909C9002CEDA9 /* Viewport.cpp */; };
 		4863335516BBADA30020F5A4 /* Pngio.c in Sources */ = {isa = PBXBuildFile; fileRef = 4863335316BBADA30020F5A4 /* Pngio.c */; };
 		4866BC0E16BB8A150051FDCB /* SynchronousGameLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */; };
-		48B8D9EF16C1D24F0048C9BB /* mage.png in Resources */ = {isa = PBXBuildFile; fileRef = 48B8D9EE16C1D24F0048C9BB /* mage.png */; };
 		48B8DB4016C1D8750048C9BB /* libSDL2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48B8DB3F16C1D8750048C9BB /* libSDL2.dylib */; };
 		48B8DD7716C1DA7E0048C9BB /* func_common.inl in Resources */ = {isa = PBXBuildFile; fileRef = 48B8DC9916C1DA7E0048C9BB /* func_common.inl */; };
 		48B8DD7816C1DA7E0048C9BB /* func_exponential.inl in Resources */ = {isa = PBXBuildFile; fileRef = 48B8DC9B16C1DA7E0048C9BB /* func_exponential.inl */; };
@@ -131,6 +130,7 @@
 		48CAD5B916BB7227005CD223 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48CAD5B816BB7227005CD223 /* main.cpp */; };
 		48CAD5BD16BB7227005CD223 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 48CAD5BB16BB7227005CD223 /* Credits.rtf */; };
 		48E8175216C613EE00C4E13C /* SpriteStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48E8175016C613EE00C4E13C /* SpriteStream.cpp */; };
+		48F9AFF016C9DA730048ECB5 /* mage.png in Resources */ = {isa = PBXBuildFile; fileRef = 48F9AFEF16C9DA730048ECB5 /* mage.png */; };
 		48FA3D9A16BCA87700A97523 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FA3D9816BCA87700A97523 /* ResourceManager.cpp */; };
 		48FA3DA816BCCF2D00A97523 /* PngImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FA3DA616BCCF2D00A97523 /* PngImageLoader.cpp */; };
 		48FA3DAB16BCD11900A97523 /* ImageResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FA3DA916BCD11900A97523 /* ImageResource.cpp */; };
@@ -264,7 +264,6 @@
 		4866BC0916BB85720051FDCB /* GameLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLoop.h; sourceTree = "<group>"; };
 		4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SynchronousGameLoop.cpp; sourceTree = "<group>"; };
 		4866BC0D16BB8A150051FDCB /* SynchronousGameLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynchronousGameLoop.h; sourceTree = "<group>"; };
-		48B8D9EE16C1D24F0048C9BB /* mage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mage.png; sourceTree = "<group>"; };
 		48B8DB3F16C1D8750048C9BB /* libSDL2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSDL2.dylib; path = Bamf/libSDL2.dylib; sourceTree = "<group>"; };
 		48B8DC9216C1DA7E0048C9BB /* _detail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = _detail.hpp; sourceTree = "<group>"; };
 		48B8DC9316C1DA7E0048C9BB /* _fixes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = _fixes.hpp; sourceTree = "<group>"; };
@@ -498,6 +497,7 @@
 		48CAD5C916BB7228005CD223 /* BamfTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BamfTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		48E8175016C613EE00C4E13C /* SpriteStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteStream.cpp; sourceTree = "<group>"; };
 		48E8175116C613EE00C4E13C /* SpriteStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteStream.h; sourceTree = "<group>"; };
+		48F9AFEF16C9DA730048ECB5 /* mage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mage.png; path = Resources/mage.png; sourceTree = "<group>"; };
 		48FA3D8D16BC67E300A97523 /* libpng15.15.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng15.15.dylib; path = Bamf/libpng15.15.dylib; sourceTree = "<group>"; };
 		48FA3D9316BC911C00A97523 /* Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resource.h; sourceTree = "<group>"; };
 		48FA3D9816BCA87700A97523 /* ResourceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourceManager.cpp; sourceTree = "<group>"; };
@@ -509,7 +509,6 @@
 		48FA3DA716BCCF2D00A97523 /* PngImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PngImageLoader.h; sourceTree = "<group>"; };
 		48FA3DA916BCD11900A97523 /* ImageResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageResource.cpp; sourceTree = "<group>"; };
 		48FA3DAA16BCD11900A97523 /* ImageResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageResource.h; sourceTree = "<group>"; };
-		A30AE7DB16C97EA900D13952 /* Textures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Textures.h; path = Bamf/Textures.h; sourceTree = "<group>"; };
 		A30AE7DD16C98D6400D13952 /* CollisionShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionShape.cpp; sourceTree = "<group>"; };
 		A30AE7DE16C98D6400D13952 /* CollisionShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollisionShape.h; sourceTree = "<group>"; };
 		A30AE7E016C98DAF00D13952 /* CollisionRectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionRectangle.cpp; sourceTree = "<group>"; };
@@ -739,7 +738,7 @@
 		48B8D9F016C1D2550048C9BB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				48B8D9EE16C1D24F0048C9BB /* mage.png */,
+				48F9AFEF16C9DA730048ECB5 /* mage.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1010,7 +1009,6 @@
 		48CAD59B16BB721B005CD223 = {
 			isa = PBXGroup;
 			children = (
-				A30AE7DB16C97EA900D13952 /* Textures.h */,
 				48CAD5B216BB7227005CD223 /* Bamf */,
 				48CAD5AB16BB7227005CD223 /* Frameworks */,
 				48CAD5A916BB7227005CD223 /* Products */,
@@ -1160,7 +1158,6 @@
 			files = (
 				48CAD5B716BB7227005CD223 /* InfoPlist.strings in Resources */,
 				48CAD5BD16BB7227005CD223 /* Credits.rtf in Resources */,
-				48B8D9EF16C1D24F0048C9BB /* mage.png in Resources */,
 				48B8DD7716C1DA7E0048C9BB /* func_common.inl in Resources */,
 				48B8DD7816C1DA7E0048C9BB /* func_exponential.inl in Resources */,
 				48B8DD7916C1DA7E0048C9BB /* func_geometric.inl in Resources */,
@@ -1265,6 +1262,7 @@
 				481B5EF016C59A030040DAA2 /* doxyfile in Resources */,
 				481B5EF116C59A030040DAA2 /* SDL_config.h.cmake in Resources */,
 				481B5EF216C59A030040DAA2 /* SDL_config.h.in in Resources */,
+				48F9AFF016C9DA730048ECB5 /* mage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
