@@ -30,6 +30,7 @@ void InputMapping::dispatchKeyEvent(KeyPressType pressType, int keyCode, ...)
         if(keyMapping->appliesForInput(pressType, keyCode /*TODO key masks*/)) {
             Action * action = keyMapping->actionForInput();
             action->executeAction();
+            delete action;
         }
     }
 }

@@ -242,7 +242,7 @@
 		481B5EFE16C5C1440040DAA2 /* Texture2DLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2DLoader.h; sourceTree = "<group>"; };
 		481B5F0116C605740040DAA2 /* MatrixStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixStack.h; sourceTree = "<group>"; };
 		4824D3ED16C4C87F001EDB07 /* Rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rectangle.h; sourceTree = "<group>"; };
-		4824D3EF16C4CC14001EDB07 /* Bamf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bamf.h; sourceTree = "<group>"; };
+		4824D3EF16C4CC14001EDB07 /* BamfObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BamfObject.h; sourceTree = "<group>"; };
 		48257C3516BCF4E20042A7D0 /* AudioLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioLoader.h; sourceTree = "<group>"; };
 		48257C3616BCF6060042A7D0 /* WavAudioLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WavAudioLoader.cpp; sourceTree = "<group>"; };
 		48257C3716BCF6060042A7D0 /* WavAudioLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WavAudioLoader.h; sourceTree = "<group>"; };
@@ -562,6 +562,13 @@
 			name = utils;
 			sourceTree = "<group>";
 		};
+		2770107316C9ACE90060738A /* network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = network;
+			sourceTree = "<group>";
+		};
 		481B5EA416C59A030040DAA2 /* SDL2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -722,7 +729,7 @@
 		4866BC0F16BB8A220051FDCB /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				4824D3EF16C4CC14001EDB07 /* Bamf.h */,
+				4824D3EF16C4CC14001EDB07 /* BamfObject.h */,
 				4866BC0916BB85720051FDCB /* GameLoop.h */,
 				4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */,
 				4866BC0D16BB8A150051FDCB /* SynchronousGameLoop.h */,
@@ -1042,6 +1049,7 @@
 			isa = PBXGroup;
 			children = (
 				2770107016C9936C0060738A /* utils */,
+				2770107316C9ACE90060738A /* network */,
 				2770106D16C8CE670060738A /* input */,
 				A30AE7DC16C9842D00D13952 /* Collisions */,
 				4824D3EA16C4C813001EDB07 /* Math */,

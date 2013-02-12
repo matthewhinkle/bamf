@@ -562,6 +562,13 @@
 			name = utils;
 			sourceTree = "<group>";
 		};
+		2770107316C9ACE90060738A /* network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = network;
+			sourceTree = "<group>";
+		};
 		481B5EA416C59A030040DAA2 /* SDL2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1042,6 +1049,7 @@
 			isa = PBXGroup;
 			children = (
 				2770107016C9936C0060738A /* utils */,
+				2770107316C9ACE90060738A /* network */,
 				2770106D16C8CE670060738A /* input */,
 				A30AE7DC16C9842D00D13952 /* Collisions */,
 				4824D3EA16C4C813001EDB07 /* Math */,
