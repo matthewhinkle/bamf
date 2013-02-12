@@ -137,36 +137,6 @@ int main(int argc, char *argv[])
     inputManager.setInputMapping(&inputMapping);
     
 	while(true) {
-		SDL_Event e;
-		if(SDL_PollEvent(&e)) {
-			if(e.type == SDL_QUIT) {
-				break;
-			}
-
-			glm::vec2 position(cam.getPosition());
-			switch(e.type) {
-				case SDL_KEYDOWN:
-					switch(e.key.keysym.sym) {
-					case SDLK_RIGHT:
-						position[0] += 1;
-						break;
-					case SDLK_LEFT:
-						position[0] -= 1;
-						break;
-					case SDLK_DOWN:
-						position[1] -= 1;
-						break;
-					case SDLK_UP:
-						position[1] += 1;
-						break;
-					}
-					break;
-			}
-			
-			cam.setPosition(position);
-
-		}
-		
 		inputManager.processInput();
         
 		glm::mat4 view = cam.computeTransform();
