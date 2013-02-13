@@ -26,7 +26,7 @@ protected:
     
 private:
     const uint64_t id;
-    RigidBody rBody;
+    RigidBody rBody = RigidBody(0);
     CollisionShape(const CollisionShape &);
     CollisionShape & operator=(const CollisionShape);
 };
