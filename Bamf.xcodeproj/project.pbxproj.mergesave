@@ -10,8 +10,13 @@
 		2770106616C8CB100060738A /* libpng15.15.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FA3D8D16BC67E300A97523 /* libpng15.15.dylib */; };
 		2770106C16C8CE620060738A /* InputMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2770106A16C8CE610060738A /* InputMapping.cpp */; };
 		2770106F16C991C80060738A /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2770106E16C991C80060738A /* InputManager.cpp */; };
+<<<<<<< HEAD
 		277B0C8A16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */; };
 		277B0C8B16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */; };
+=======
+		480C799C16CD852300E0C525 /* crosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = 480C799B16CD852300E0C525 /* crosshair.png */; };
+		480D0CD216CCC2C700600385 /* GraphicsModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 480D0CD016CCC2C700600385 /* GraphicsModule.cpp */; };
+>>>>>>> 17c8963738fe0fb0a15f92539574e37055eafc6d
 		481B5EF016C59A030040DAA2 /* doxyfile in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EA716C59A030040DAA2 /* doxyfile */; };
 		481B5EF116C59A030040DAA2 /* SDL_config.h.cmake in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EAF16C59A030040DAA2 /* SDL_config.h.cmake */; };
 		481B5EF216C59A030040DAA2 /* SDL_config.h.in in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EB016C59A030040DAA2 /* SDL_config.h.in */; };
@@ -163,9 +168,17 @@
 		2770106B16C8CE610060738A /* InputMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputMapping.h; sourceTree = "<group>"; };
 		2770106E16C991C80060738A /* InputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputManager.cpp; sourceTree = "<group>"; };
 		2770107216C997840060738A /* KeyPressType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyPressType.h; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		277B0C8316CD848A0061BF84 /* IQuitHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQuitHandler.h; sourceTree = "<group>"; };
 		277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultQuitHandler.cpp; sourceTree = "<group>"; };
 		277B0C8916CD8A320061BF84 /* DefaultQuitHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultQuitHandler.h; sourceTree = "<group>"; };
+=======
+		480C799A16CD821D00E0C525 /* Updateable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Updateable.h; sourceTree = "<group>"; };
+		480C799B16CD852300E0C525 /* crosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = crosshair.png; path = Resources/crosshair.png; sourceTree = "<group>"; };
+		480D0CCF16CCB42B00600385 /* Module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Module.h; sourceTree = "<group>"; };
+		480D0CD016CCC2C700600385 /* GraphicsModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GraphicsModule.cpp; sourceTree = "<group>"; };
+		480D0CD116CCC2C700600385 /* GraphicsModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicsModule.h; sourceTree = "<group>"; };
+>>>>>>> 17c8963738fe0fb0a15f92539574e37055eafc6d
 		481B5EA516C59A030040DAA2 /* begin_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = begin_code.h; sourceTree = "<group>"; };
 		481B5EA616C59A030040DAA2 /* close_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = close_code.h; sourceTree = "<group>"; };
 		481B5EA716C59A030040DAA2 /* doxyfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = doxyfile; sourceTree = "<group>"; };
@@ -726,6 +739,8 @@
 				48E8175116C613EE00C4E13C /* SpriteStream.h */,
 				484351F216C909C9002CEDA9 /* Viewport.cpp */,
 				484351F316C909C9002CEDA9 /* Viewport.h */,
+				480D0CD016CCC2C700600385 /* GraphicsModule.cpp */,
+				480D0CD116CCC2C700600385 /* GraphicsModule.h */,
 			);
 			name = Graphics;
 			sourceTree = "<group>";
@@ -747,7 +762,9 @@
 		4866BC0F16BB8A220051FDCB /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				480C799A16CD821D00E0C525 /* Updateable.h */,
 				4824D3EF16C4CC14001EDB07 /* BamfObject.h */,
+				480D0CCF16CCB42B00600385 /* Module.h */,
 				4866BC0916BB85720051FDCB /* GameLoop.h */,
 				4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */,
 				4866BC0D16BB8A150051FDCB /* SynchronousGameLoop.h */,
@@ -759,6 +776,7 @@
 		48B8D9F016C1D2550048C9BB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				480C799B16CD852300E0C525 /* crosshair.png */,
 				48F9AFEF16C9DA730048ECB5 /* mage.png */,
 			);
 			name = Resources;
@@ -1297,6 +1315,7 @@
 				481B5EF116C59A030040DAA2 /* SDL_config.h.cmake in Resources */,
 				481B5EF216C59A030040DAA2 /* SDL_config.h.in in Resources */,
 				48F9AFF016C9DA730048ECB5 /* mage.png in Resources */,
+				480C799C16CD852300E0C525 /* crosshair.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1353,7 +1372,11 @@
 				2770106F16C991C80060738A /* InputManager.cpp in Sources */,
 				A30AE7F116CC139000D13952 /* RigidBody.cpp in Sources */,
 				A30AE7F416CC17A800D13952 /* PhysicsWorld.cpp in Sources */,
+<<<<<<< HEAD
 				277B0C8A16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */,
+=======
+				480D0CD216CCC2C700600385 /* GraphicsModule.cpp in Sources */,
+>>>>>>> 17c8963738fe0fb0a15f92539574e37055eafc6d
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
