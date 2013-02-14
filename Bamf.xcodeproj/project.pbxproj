@@ -10,6 +10,8 @@
 		2770106616C8CB100060738A /* libpng15.15.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FA3D8D16BC67E300A97523 /* libpng15.15.dylib */; };
 		2770106C16C8CE620060738A /* InputMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2770106A16C8CE610060738A /* InputMapping.cpp */; };
 		2770106F16C991C80060738A /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2770106E16C991C80060738A /* InputManager.cpp */; };
+		277B0C8A16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */; };
+		277B0C8B16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */; };
 		481B5EF016C59A030040DAA2 /* doxyfile in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EA716C59A030040DAA2 /* doxyfile */; };
 		481B5EF116C59A030040DAA2 /* SDL_config.h.cmake in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EAF16C59A030040DAA2 /* SDL_config.h.cmake */; };
 		481B5EF216C59A030040DAA2 /* SDL_config.h.in in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EB016C59A030040DAA2 /* SDL_config.h.in */; };
@@ -161,6 +163,9 @@
 		2770106B16C8CE610060738A /* InputMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputMapping.h; sourceTree = "<group>"; };
 		2770106E16C991C80060738A /* InputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputManager.cpp; sourceTree = "<group>"; };
 		2770107216C997840060738A /* KeyPressType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyPressType.h; sourceTree = "<group>"; };
+		277B0C8316CD848A0061BF84 /* IQuitHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQuitHandler.h; sourceTree = "<group>"; };
+		277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultQuitHandler.cpp; sourceTree = "<group>"; };
+		277B0C8916CD8A320061BF84 /* DefaultQuitHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultQuitHandler.h; sourceTree = "<group>"; };
 		481B5EA516C59A030040DAA2 /* begin_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = begin_code.h; sourceTree = "<group>"; };
 		481B5EA616C59A030040DAA2 /* close_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = close_code.h; sourceTree = "<group>"; };
 		481B5EA716C59A030040DAA2 /* doxyfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = doxyfile; sourceTree = "<group>"; };
@@ -552,6 +557,8 @@
 		2770106D16C8CE670060738A /* input */ = {
 			isa = PBXGroup;
 			children = (
+				277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */,
+				277B0C8916CD8A320061BF84 /* DefaultQuitHandler.h */,
 				2770106716C8CE610060738A /* Action.h */,
 				2770106816C8CE610060738A /* IKeyMapping.h */,
 				2770106916C8CE610060738A /* InputManager.h */,
@@ -559,6 +566,7 @@
 				2770106B16C8CE610060738A /* InputMapping.h */,
 				2770106A16C8CE610060738A /* InputMapping.cpp */,
 				2770107216C997840060738A /* KeyPressType.h */,
+				277B0C8316CD848A0061BF84 /* IQuitHandler.h */,
 			);
 			name = input;
 			sourceTree = "<group>";
@@ -1345,6 +1353,7 @@
 				2770106F16C991C80060738A /* InputManager.cpp in Sources */,
 				A30AE7F116CC139000D13952 /* RigidBody.cpp in Sources */,
 				A30AE7F416CC17A800D13952 /* PhysicsWorld.cpp in Sources */,
+				277B0C8A16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1352,6 +1361,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				277B0C8B16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1400,7 +1410,7 @@
 		48CAD5D916BB7228005CD223 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1446,7 +1456,7 @@
 		48CAD5DA16BB7228005CD223 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";

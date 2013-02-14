@@ -19,8 +19,14 @@ void InputManager::processInput()
 {
     SDL_Event e;
     while(SDL_PollEvent(&e)) {
+        if(e.type == SDL_QUIT) {
+            this->currentInputMapping->getQuitHandler()->onShouldQuit();
+        }
         if(e.type == SDL_KEYDOWN) {
             this->currentInputMapping->dispatchKeyEvent(KEY_DOWN, e.key.keysym.sym);
+        }
+        if(e.type == SDL_KEYUP) {
+            this->currentInputMapping->dispatchKeyEvent(KEY_UP, e.key.keysym.sym);
         }
     }
 }

@@ -10,6 +10,7 @@
 
 InputMapping::InputMapping()
 : keyMappings(new std::vector<IKeyMapping *>())
+: quitHandler(new DefaultQuitHandler())
 {
     
 }
@@ -33,4 +34,14 @@ void InputMapping::dispatchKeyEvent(KeyPressType pressType, int keyCode, ...)
             delete action;
         }
     }
+}
+
+void InputMapping::setQuitHandler(IQuitHandler * quitHandler)
+{
+    this->quitHandler = quitHandler;
+}
+
+IQuitHandler * InputMapping::getQuitHandler()
+{
+    return quitHandler;
 }

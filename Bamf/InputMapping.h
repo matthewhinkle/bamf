@@ -12,12 +12,15 @@
 #include <vector>
 #include "IKeyMapping.h"
 #include "KeyPressType.h"
+#include "IQuitHandler.h"
+#include "DefaultQuitHandler.h"
 
 class InputMapping
 {
     
 private:
     std::vector<IKeyMapping *> * keyMappings;
+    IQuitHandler * quitHandler;
     
 public:
     InputMapping();
@@ -26,6 +29,8 @@ public:
 
     void dispatchKeyEvent(KeyPressType pressType, int keyCode, ...);
 
+    void setQuitHandler(IQuitHandler * quitHandler);
+    IQuitHandler * getQuitHandler();
 };
 
 #endif
