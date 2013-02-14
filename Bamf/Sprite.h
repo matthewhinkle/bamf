@@ -37,13 +37,15 @@ enum {
 class Sprite : public Asset {
 public:
 
-	explicit Sprite(const std::string & imageName, const glm::vec2 & hotspot = glm::vec2(0.0f, 0.0f));
-	explicit Sprite(Texture2D * texture, const glm::vec2 & hotspot = glm::vec2(0.0f, 0.0f));
+	explicit Sprite(const std::string & imageName, const Rectangle * bounds = NULL, const glm::vec2 & hotspot = glm::vec2(0.0f, 0.0f));
+	explicit Sprite(Texture2D * texture, const Rectangle * bounds = NULL, const glm::vec2 & hotspot = glm::vec2(0.0f, 0.0f));
 	virtual ~Sprite();
 	
 	inline Texture2D * getTexture() const { return this->texture; }
+	
 	inline const glm::vec2 & getHotspot() const { return this->hotspot; }
 	inline const Rectangle & getSourceRectangle() const { return this->source; }
+	inline const Rectangle & getBounds() const { return this->bounds; }
 	
 	inline void setHotspot(const glm::vec2 & hotspot) { this->hotspot = hotspot; }
 	
@@ -61,6 +63,7 @@ private:
 	const std::string imageName;
 	
 	Rectangle source;
+	Rectangle bounds;
 
 	Texture2D * texture;
 	glm::vec2 hotspot;

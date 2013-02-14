@@ -75,6 +75,10 @@ SpriteStream & SpriteStream::end()
 
 void SpriteStream::flush()
 {
+	if(this->sprites.empty()) {
+		return;
+	}
+
 	SDL_assert(this->sprites.size() * kVboSpriteStride < kVerticeCount);
 
 	glBufferData(GL_ARRAY_BUFFER, kVboSize, NULL, GL_STREAM_DRAW);
@@ -82,17 +86,30 @@ void SpriteStream::flush()
 	
 	std::multimap<const Sprite *, glm::vec2>::iterator i;
 	std::multimap<const Sprite *, glm::vec2>::const_iterator prevSprite;
-	for(prevSprite = i = this->sprites.begin(); i != this->sprites.end(); i++, vertices += kVboSpriteStride) {
+	
+	/* bind the first texture */
+	this->sprites.begin()->first->getTexture()->bind();
+	
+	int verticeCounter = 0;
+	bamf::MatrixStack::loadMatrix(this->transform);
+	for(prevSprite = i = this->sprites.begin(); i != this->sprites.end(); i++, verticeCounter++, vertices += kVboSpriteStride) {
 		const Sprite * sprite = i->first;
 	
-		if(prevSprite->first < sprite) {
+		if(prevSprite->first != sprite) {
 			/* bind texture as sprites only differ if their textures differ */
 			prevSprite = i;
+			
+			glUnmapBuffer(GL_ARRAY_BUFFER);
+			this->render(verticeCounter * kVerticesPerSprite);
+			glBufferData(GL_ARRAY_BUFFER, kVboSize, NULL, GL_STREAM_DRAW);
+			vertices = (GLint *) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+			verticeCounter = 0;
+			
 			sprite->getTexture()->bind();
 		}
 		
 		const glm::vec2 & position = i->second;
-		const Rectangle & bounds = sprite->getTexture()->getBounds();
+		const Rectangle & bounds = sprite->getBounds();
 		const Rectangle & source = sprite->getSourceRectangle();
 		
 		vertices[0] = position.x;
@@ -115,7 +132,17 @@ void SpriteStream::flush()
 	}
 	
 	glUnmapBuffer(GL_ARRAY_BUFFER);
-		
+	
+	if(prevSprite->first != i->first) {
+		glUnmapBuffer(GL_ARRAY_BUFFER);
+		this->render(verticeCounter * kVerticesPerSprite);
+	}
+	
+	bamf::MatrixStack::loadMatrix(glm::mat4());
+	this->sprites.clear();
+}
+
+void SpriteStream::render(size_t verticesCount) {
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -125,9 +152,7 @@ void SpriteStream::flush()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	
-	MatrixStack::loadMatrix(this->transform);
-	
-	glDrawArrays(GL_QUADS, 0, (GLsizei) (kVerticeCount * this->sprites.size()));
+	glDrawArrays(GL_QUADS, 0, static_cast<GLsizei>(verticesCount));
 	
 	glDisable(GL_BLEND);
 	glDepthMask(GL_TRUE);
@@ -135,10 +160,6 @@ void SpriteStream::flush()
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
-	
-	MatrixStack::loadMatrix(glm::mat4());
-	
-	this->sprites.clear();
 }
 
 }

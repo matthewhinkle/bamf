@@ -31,7 +31,10 @@ public:
 	
 	inline void setPosition(const glm::vec2 & position) {
 		this->position = position;
-		this->translate = glm::translate(glm::mat4(), -glm::vec3(position.x, position.y, 2.0f));
+		this->translate = glm::lookAt(
+			glm::vec3(this->position.x,this->position.y, kEyeZ),			/* eye */
+			glm::vec3(this->position.x, this->position.y, 0.0f),			/* center */
+			glm::vec3(0.0f, 1.0f, 0.0f));									/* up */
 	}
 	
 	inline void setRotation(float angle) {
@@ -41,7 +44,7 @@ public:
 	
 	inline void setZoom(float zoom) {
 		this->zoom = glm::min(kZoomMax, glm::max(kZoomMin, zoom));
-		this->scale = glm::scale(glm::mat4(), glm::vec3(zoom * kScaleScale, zoom * kScaleScale, 1.0f));
+		this->scale = glm::scale(glm::mat4(), glm::vec3(zoom, zoom, 1.0f));
 	}
 	
 	void updateViewPortBounds();
@@ -54,6 +57,7 @@ public:
 private:
 	glm::vec2 position;
 	
+	glm::mat4 ortho;
 	glm::mat4 translate;
 	glm::mat4 scale;
 	glm::mat4 rotate;
@@ -65,6 +69,7 @@ private:
 	
 	glm::mat4 transform;
 	
+	const float kEyeZ = 385.0f;
 	const float kZoomMin = 0.01f;
 	const float kZoomMax = 10.0f;
 	const float kRotationMax = 2.0f * M_PI;

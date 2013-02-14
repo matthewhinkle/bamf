@@ -18,20 +18,25 @@ static const GLint kDefaultTextureVertices[] = {
 
 namespace bamf {
 
-Sprite::Sprite(const std::string & imageName, const glm::vec2 & hotspot)
+Sprite::Sprite(const std::string & imageName, const Rectangle * bounds, const glm::vec2 & hotspot)
 	:
 	imageName(imageName),
 	texture(NULL),
 	hotspot(hotspot),
 	source()
-{ }
+{
+	if(bounds) {
+		this->bounds = *bounds;
+	}
+}
 
-Sprite::Sprite(Texture2D * texture, const glm::vec2 & hotspot)
+Sprite::Sprite(Texture2D * texture, const Rectangle * bounds, const glm::vec2 & hotspot)
 	:
 	imageName(texture->getImage()->getName()),
 	texture(texture),
 	hotspot(hotspot),
-	source(texture->getBounds())
+	source(texture->getBounds()),
+	bounds(bounds ? *bounds : texture->getBounds())
 { }
 
 Sprite::~Sprite() { }
@@ -55,6 +60,10 @@ void Sprite::load(ResourceManager & resourceManager)
 		1,
 		1
 	);
+	
+	if(!(this->bounds.width) || !(this->bounds.height)) {
+		this->bounds = this->texture->getBounds();
+	}
 }
 
 }

@@ -15,10 +15,10 @@ namespace bamf {
 
 Camera::Camera()
 {
+	this->updateViewPortBounds();
 	this->setPosition(glm::vec2(0.0f, 0.0f));
 	this->setRotation(0.0f);
 	this->setZoom(1.0f);
-	this->updateViewPortBounds();
 }
 
 Camera::~Camera() { }
@@ -35,8 +35,8 @@ Rectangle Camera::getViewArea() const
 	return Rectangle(
 		position.x,
 		position.y,
-		position.x + viewport.width,
-		position.y + viewport.height
+		viewport.width,
+		viewport.height
 	);
 }
 

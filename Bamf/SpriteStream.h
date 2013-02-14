@@ -43,12 +43,19 @@ public:
 	
 private:
 	void flush();
+	void render(size_t verticesCount);
+	
+	inline bool isClipping(const Sprite * sprite, const glm::vec2 & bottomLeft) {
+		const Rectangle & bounds = sprite->getBounds();
+		const Rectangle & viewArea = this->camera->getViewArea();
+				
+		return bottomLeft.x + bounds.width < viewArea.x
+			|| bottomLeft.x > viewArea.getRight()
+			|| bottomLeft.y + bounds.height < viewArea.getBottom()
+			|| bottomLeft.y > viewArea.y + viewArea.height;
+	}
 	
 	const Camera * camera;
-	
-	inline bool isClipping(const Sprite * sprite, const glm::vec2 & position) {
-		return this->camera->getViewArea().isPointOutside(position);
-	}
 
 	GLuint vbo;
 	
