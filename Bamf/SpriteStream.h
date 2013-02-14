@@ -41,8 +41,9 @@ public:
 	SpriteStream & draw(const Sprite * sprite, const glm::vec2 & position = glm::vec2());
 	SpriteStream & end();
 	
-private:
 	void flush();
+	
+private:
 	void render(size_t verticesCount);
 	
 	inline bool isClipping(const Sprite * sprite, const glm::vec2 & bottomLeft) {

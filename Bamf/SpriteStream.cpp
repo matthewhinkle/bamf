@@ -57,7 +57,6 @@ SpriteStream & SpriteStream::draw(const Sprite * sprite, const glm::vec2 & posit
 {
 	const glm::vec2 normPos = position - sprite->getHotspot();
 	if(this->drawOptions & kSpriteStreamClipEdges && this->isClipping(sprite, normPos)) {
-		printf("culled\n");
 		return *this;
 	}
 	
@@ -138,7 +137,7 @@ void SpriteStream::flush()
 		this->render(verticeCounter * kVerticesPerSprite);
 	}
 	
-	bamf::MatrixStack::loadMatrix(glm::mat4());
+	//bamf::MatrixStack::loadMatrix(glm::mat4());
 	this->sprites.clear();
 }
 

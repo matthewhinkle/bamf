@@ -9,6 +9,8 @@
 #ifndef Bamf_GameLoop_h
 #define Bamf_GameLoop_h
 
+#include "Module.h"
+
 namespace bamf {
 
 /**
@@ -19,6 +21,9 @@ public:
 
 	explicit GameLoop() { }
 	virtual ~GameLoop() { }
+	
+	virtual void addModule(Module * module) = 0;
+	virtual void removeModule(Module * module) = 0;
 
 	/**
 		@name	restart()

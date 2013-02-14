@@ -17,17 +17,19 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 #include "Rectangle.h"
+#include "Viewport.h"
 
 namespace bamf {
 
 class Camera {
 public:
-	explicit Camera();
+	Camera(Viewport * viewport = NULL);
 	virtual ~Camera();
 	
 	inline glm::vec2 getPosition() const { return this->position; }
 	inline const float getRotation() const { return this->angle; }
 	inline const float getZoom() const { return this->zoom; }
+	inline Viewport * getViewport() const { return this->viewport; }
 	
 	inline void setPosition(const glm::vec2 & position) {
 		this->position = position;
@@ -47,7 +49,6 @@ public:
 		this->scale = glm::scale(glm::mat4(), glm::vec3(zoom, zoom, 1.0f));
 	}
 	
-	void updateViewPortBounds();
 	Rectangle getViewArea() const;
 	
 	inline glm::vec2 getViewPositionCenter() const { return this->position; }
@@ -65,7 +66,7 @@ private:
 	float angle;
 	float zoom;
 	
-	Rectangle viewport;
+	Viewport * viewport;
 	
 	glm::mat4 transform;
 	

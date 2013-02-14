@@ -9,9 +9,12 @@
 #ifndef __Bamf__SynchronousGameLoop__
 #define __Bamf__SynchronousGameLoop__
 
+#include <vector>
+
 #include "SDL2/SDL.h"
 
 #include "GameLoop.h"
+#include "Module.h"
 
 namespace bamf {
 
@@ -30,8 +33,11 @@ public:
 		
 		@brief	create a new gameloop in a non-running state
 	 */
-	explicit SynchronousGameLoop();
+	SynchronousGameLoop();
 	virtual ~SynchronousGameLoop();
+	
+	inline void addModule(Module * module) { this->modules.push_back(module); }
+	inline void removeModule(Module * module);
 	
 	inline bool isSuspended() const { return this->suspended; }
 	
@@ -41,10 +47,14 @@ public:
 	virtual void stop();
 	virtual void suspend();
 	
-private:
-	static int run(void * loop);
 	int run();
 	
+private:
+	static int run(void * loop);
+	
+	
+	std::vector<Module *> modules;
+		
 	bool running;
 	bool suspended;
 	

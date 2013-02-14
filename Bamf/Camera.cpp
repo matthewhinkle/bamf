@@ -8,35 +8,37 @@
 
 #include "Camera.h"
 
-/* internal prototypes */
-static inline bamf::Rectangle getViewport();
-
 namespace bamf {
 
-Camera::Camera()
+Camera::Camera(Viewport * viewport)
 {
-	this->updateViewPortBounds();
+	if(!(viewport)) {
+		this->viewport = new Viewport();
+	}
+
 	this->setPosition(glm::vec2(0.0f, 0.0f));
 	this->setRotation(0.0f);
 	this->setZoom(1.0f);
 }
 
-Camera::~Camera() { }
-
-void Camera::updateViewPortBounds()
+Camera::~Camera()
 {
-	this->viewport = getViewport();
+	if(this->viewport) {
+		delete this->viewport;
+		this->viewport = NULL;
+	}
 }
 
 Rectangle Camera::getViewArea() const
 {
-	glm::vec2 position = this->position - this->viewport.getCenter();
+	const Rectangle & bounds = this->viewport->getBounds();
+	glm::vec2 position = this->position - bounds.getCenter();
 	
 	return Rectangle(
 		position.x,
 		position.y,
-		viewport.width,
-		viewport.height
+		bounds.width,
+		bounds.height
 	);
 }
 
@@ -45,12 +47,4 @@ const glm::mat4 & Camera::computeTransform()
 	return this->transform = this->translate * this->scale * this->rotate;
 }
 
-}
-
-static inline bamf::Rectangle getViewport()
-{
-	GLint v[4];
-	glGetIntegerv(GL_VIEWPORT, v);
-	
-	return bamf::Rectangle(v[0], v[1], v[2], v[3]);
 }

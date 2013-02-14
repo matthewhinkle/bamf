@@ -6,6 +6,8 @@
 //
 //
 
+#include "SDL2/SDL_opengl.h"
+
 #include "SynchronousGameLoop.h"
 
 namespace bamf {
@@ -21,12 +23,30 @@ SynchronousGameLoop::SynchronousGameLoop()
 
 SynchronousGameLoop::~SynchronousGameLoop()
 {
-	this->stop();
-	this->thread = NULL;
+	if(this->thread) {
+		this->stop();
+		this->thread = NULL;
+	}
 	
-	SDL_DestroyCond(this->suspendCond);
-	SDL_DestroyMutex(this->suspendMutex);
-	this->suspendMutex = NULL;
+	if(this->suspendCond) {
+		SDL_DestroyCond(this->suspendCond);
+		this->suspendCond = NULL;
+	}
+	
+	if(this->suspendMutex) {
+		SDL_DestroyMutex(this->suspendMutex);
+		this->suspendMutex = NULL;
+	}
+}
+
+void SynchronousGameLoop::removeModule(Module * module)
+{
+	std::vector<Module *>::iterator modIt;
+	for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
+		if(*modIt == module) {
+			this->modules.erase(modIt);
+		}
+	}
 }
 
 void SynchronousGameLoop::restart()
@@ -37,6 +57,10 @@ void SynchronousGameLoop::restart()
 
 void SynchronousGameLoop::start()
 {
+	this->running = true;
+	this->run();
+	return;
+
 	if(!(__sync_bool_compare_and_swap(&this->running, false, true))) {
 		/* game loop is already running.  check if we are suspended */
 		
@@ -79,15 +103,23 @@ void SynchronousGameLoop::suspend()
 
 int SynchronousGameLoop::run()
 {
-	Uint32 timeLastTicked = SDL_GetTicks();
+	std::vector<Module *>::iterator modIt;
+	for (modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
+		(*modIt)->init();
+	}
 	
+	//Uint32 timeLastTicked = SDL_GetTicks();
 	while(this->running) {
+		for (modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
+			(*modIt)->update(0);
+		}
+	#if 0
 		SDL_mutexP(this->suspendMutex);
 		while(this->running && this->suspended) {
 			SDL_CondWait(this->suspendCond, this->suspendMutex);
 		}
 		SDL_mutexV(this->suspendMutex);
-		
+			
 		if(!(this->running)) {
 			/* do not execute another iteration if we stopped while suspended */
 			continue;
@@ -97,7 +129,7 @@ int SynchronousGameLoop::run()
 		Uint32 delta = time - timeLastTicked;
 		timeLastTicked = time;
 		
-		/* update(delta) . . . */
+	#endif
 	}
 	
 	return 0;
