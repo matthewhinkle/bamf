@@ -14,6 +14,7 @@ Camera::Camera(Viewport * viewport)
 {
 	if(!(viewport)) {
 		this->viewport = new Viewport();
+		assert(this->viewport);
 	}
 
 	this->setPosition(glm::vec2(0.0f, 0.0f));
@@ -23,10 +24,8 @@ Camera::Camera(Viewport * viewport)
 
 Camera::~Camera()
 {
-	if(this->viewport) {
-		delete this->viewport;
-		this->viewport = NULL;
-	}
+	delete this->viewport;
+	this->viewport = NULL;
 }
 
 Rectangle Camera::getViewArea() const

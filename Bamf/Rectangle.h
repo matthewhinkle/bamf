@@ -16,7 +16,7 @@ namespace bamf {
 struct Rectangle {
 public:
 
-	explicit Rectangle(float x = 0.0f, float y = 0.0f, float width = 0.0f, float height = 0.0f)
+	Rectangle(float x = 0.0f, float y = 0.0f, float width = 0.0f, float height = 0.0f)
 		:
 		x(x),
 		y(y),
@@ -56,12 +56,18 @@ public:
 		    || v.y < this->y
 			|| v.y > (this->y + this->height);
 	}
+	
+	inline bool operator==(const Rectangle & r) {
+		return this->x == r.x
+		    && this->y == r.y
+			&& this->width == r.width
+			&& this->height == r.height;
+	}
 
 	int x;
 	int y;
 	int width;
 	int height;
-	
 };
 
 }

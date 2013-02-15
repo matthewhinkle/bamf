@@ -16,6 +16,7 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+#include "MatrixStack.h"
 #include "Rectangle.h"
 #include "Viewport.h"
 
@@ -23,10 +24,10 @@ namespace bamf {
 
 class Camera {
 public:
-	Camera(Viewport * viewport = NULL);
+	explicit Camera(Viewport * viewport = NULL);
 	virtual ~Camera();
 	
-	inline glm::vec2 getPosition() const { return this->position; }
+	inline const glm::vec2 & getPosition() const { return this->position; }
 	inline const float getRotation() const { return this->angle; }
 	inline const float getZoom() const { return this->zoom; }
 	inline Viewport * getViewport() const { return this->viewport; }
@@ -41,12 +42,12 @@ public:
 	
 	inline void setRotation(float angle) {
 		this->angle = glm::min(kRotationMax, glm::max(0.0f, angle));
-		this->rotate = glm::rotate(glm::mat4(), this->angle, kZAxis);
+		this->rotate = glm::rotate(MatrixStack::kIdentMatrix, this->angle, kZAxis);
 	}
 	
 	inline void setZoom(float zoom) {
 		this->zoom = glm::min(kZoomMax, glm::max(kZoomMin, zoom));
-		this->scale = glm::scale(glm::mat4(), glm::vec3(zoom, zoom, 1.0f));
+		this->scale = glm::scale(MatrixStack::kIdentMatrix, glm::vec3(zoom, zoom, 1.0f));
 	}
 	
 	Rectangle getViewArea() const;

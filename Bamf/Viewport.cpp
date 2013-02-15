@@ -34,7 +34,7 @@ const glm::mat4 & Viewport::setPerspective(float angle, float zNear, float zFar)
 const glm::mat4 & Viewport::setPerspective(const Rectangle & bounds, float angle, float zNear, float zFar)
 {
 	SDL_assert(bounds.width != 0);
-	float aspectRatio = static_cast<float>(bounds.width / bounds.height);
+	float aspectRatio = bounds.width / static_cast<float>(bounds.height);
 	return this->perspective = glm::perspective(angle, aspectRatio, zNear, zFar);
 }
 

@@ -10,7 +10,9 @@
 #define __Bamf__GraphicsLoop__
 
 #include "Camera.h"
+#include "MatrixStack.h"
 #include "Module.h"
+#include "Rectangle.h"
 #include "SpriteStream.h"
 
 namespace bamf {
@@ -18,25 +20,28 @@ namespace bamf {
 class GraphicsModule : public Module {
 public:
 
-	GraphicsModule(int width, int height);
+	GraphicsModule(int width = 1024, int height = 768, bool fullscreen = false);
+	GraphicsModule(int x, int y, int width, int height, bool fullscreen = false);
 	virtual ~GraphicsModule();
 	
 	inline Camera * getCamera() { return this->camera; }
 	inline SpriteStream * getSpriteStream() { return this->spriteStream; }
 	
+	/* Module interface */
 	void init();
 	void update(unsigned delta);
 
 private:
 	Camera * camera;
 	SpriteStream * spriteStream;
+	bool inited;
+	
+	Rectangle windowBounds;
+	bool fullscreen;
 	
 	SDL_GLContext glContext;
-	
 	SDL_Window * window;
-	
-	ResourceManager man;
-	
+		
 	GraphicsModule(const GraphicsModule &);
 	GraphicsModule & operator=(const GraphicsModule &);
 };

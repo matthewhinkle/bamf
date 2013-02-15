@@ -6,9 +6,14 @@
 //
 //
 
-#include "SDL2/SDL_opengl.h"
-
 #include "SynchronousGameLoop.h"
+
+#include "Sprite.h"
+#include "ResourceManager.h"
+#include "SpriteStream.h"
+#include "GraphicsModule.h"
+
+extern bamf::GraphicsModule * graphicsModule;
 
 namespace bamf {
 
@@ -16,26 +21,20 @@ SynchronousGameLoop::SynchronousGameLoop()
 	:
 	running(false),
 	suspended(false),
-	thread(NULL),
-	suspendCond(SDL_CreateCond()),
-	suspendMutex(SDL_CreateMutex())
+	suspendMutex(SDL_CreateMutex()),
+	suspendCond(SDL_CreateCond())
 { }
 
 SynchronousGameLoop::~SynchronousGameLoop()
 {
-	if(this->thread) {
-		this->stop();
-		this->thread = NULL;
+	if(this->suspendMutex) {
+		SDL_DestroyMutex(this->suspendMutex);
+		this->suspendMutex = NULL;
 	}
 	
 	if(this->suspendCond) {
 		SDL_DestroyCond(this->suspendCond);
 		this->suspendCond = NULL;
-	}
-	
-	if(this->suspendMutex) {
-		SDL_DestroyMutex(this->suspendMutex);
-		this->suspendMutex = NULL;
 	}
 }
 
@@ -45,6 +44,8 @@ void SynchronousGameLoop::removeModule(Module * module)
 	for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
 		if(*modIt == module) {
 			this->modules.erase(modIt);
+			
+			return;
 		}
 	}
 }
@@ -57,26 +58,12 @@ void SynchronousGameLoop::restart()
 
 void SynchronousGameLoop::start()
 {
-	this->running = true;
-	this->run();
-	return;
-
-	if(!(__sync_bool_compare_and_swap(&this->running, false, true))) {
-		/* game loop is already running.  check if we are suspended */
-		
-		SDL_mutexP(this->suspendMutex);
-		if(this->suspended) {
-			/* we are suspended */
-			this->suspended = false;
-			SDL_CondSignal(this->suspendCond);
-		}
-		SDL_mutexV(this->suspendMutex);
-		
-		return;
+	if(__sync_bool_compare_and_swap(&this->running, false, true)) {
+		this->run();
+	} else if(this->suspended) {
+		this->suspended = false;
+		SDL_CondSignal(this->suspendCond);
 	}
-	
-	this->thread = SDL_CreateThread(SynchronousGameLoop::run, "SyncLoop", this);
-	SDL_assert(this->thread);
 }
 
 void SynchronousGameLoop::stop()
@@ -85,64 +72,67 @@ void SynchronousGameLoop::stop()
 		/* game loop is not currently running */
 		return;
 	}
-	
-	SDL_assert(this->thread);
-	SDL_WaitThread(this->thread, NULL);
-	
-	SDL_mutexP(this->suspendMutex);
-	this->suspended = false;
-	SDL_mutexV(this->suspendMutex);
 }
 
 void SynchronousGameLoop::suspend()
 {
-	SDL_mutexP(this->suspendMutex);
 	this->suspended = true;
-	SDL_mutexV(this->suspendMutex);
 }
 
 int SynchronousGameLoop::run()
 {
+	/* temp development code */
+	ResourceManager man;
+	Sprite sprite("/bamf/mage.png");
+	sprite.load(man);
+	sprite.setHotspot(sprite.getBounds().getCenter());
+	
+	Sprite crosshair("/bamf/crosshair.png");
+	crosshair.load(man);
+	crosshair.setHotspot(crosshair.getBounds().getCenter());
+	
+	/* actual code */
 	std::vector<Module *>::iterator modIt;
-	for (modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
+	for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
 		(*modIt)->init();
 	}
-	
-	//Uint32 timeLastTicked = SDL_GetTicks();
+
+	Uint32 timeLastTicked = SDL_GetTicks();
 	while(this->running) {
-		for (modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
-			(*modIt)->update(0);
-		}
-	#if 0
-		SDL_mutexP(this->suspendMutex);
 		while(this->running && this->suspended) {
 			SDL_CondWait(this->suspendCond, this->suspendMutex);
 		}
-		SDL_mutexV(this->suspendMutex);
 			
 		if(!(this->running)) {
 			/* do not execute another iteration if we stopped while suspended */
 			continue;
 		}
 		
-		Uint32 time = SDL_GetTicks();
-		Uint32 delta = time - timeLastTicked;
+		unsigned time = static_cast<unsigned>(SDL_GetTicks());
+		unsigned delta = time - timeLastTicked;
 		timeLastTicked = time;
 		
-	#endif
+		/* temp draw code */
+		SpriteStream * ss = graphicsModule->getSpriteStream();
+		
+		ss->begin(graphicsModule->getCamera()->computeTransform(), bamf::kSpriteStreamClipEdges | bamf::kSpriteStreamEnforceDrawOrder);
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 2; j++) {
+				ss->draw(&sprite, glm::vec2(i * 200, j * 300));
+			}
+		}
+		ss->draw(&crosshair, graphicsModule->getCamera()->getPosition());
+		ss->end();
+		
+		/* actual code */
+		for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
+			(*modIt)->update(delta);
+		}
+		
+		SDL_Delay(1);
 	}
 	
 	return 0;
-}
-
-int SynchronousGameLoop::run(void * loop)
-{
-	SynchronousGameLoop * sgl = static_cast<SynchronousGameLoop *>(loop);
-	if(sgl) {
-		return sgl->run();
-	}
-	
-	return 1;
 }
 
 }

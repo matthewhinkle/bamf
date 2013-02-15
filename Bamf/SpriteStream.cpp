@@ -45,72 +45,78 @@ SpriteStream::~SpriteStream()
 	glDeleteBuffers(1, &this->vbo);
 }
 
-SpriteStream & SpriteStream::begin(const glm::mat4 & transform, int drawOptions)
+void SpriteStream::begin(const glm::mat4 & transform, int drawOptions)
 {
 	this->transform = transform;
 	this->drawOptions = drawOptions;
-	
-	return *this;
 }
 
-SpriteStream & SpriteStream::draw(const Sprite * sprite, const glm::vec2 & position)
+void SpriteStream::draw(const Sprite * sprite, const glm::vec2 & position)
 {
 	const glm::vec2 normPos = position - sprite->getHotspot();
 	if(this->drawOptions & kSpriteStreamClipEdges && this->isClipping(sprite, normPos)) {
-		return *this;
+		return;
 	}
 	
-	this->sprites.insert(std::pair<const Sprite *, glm::vec2>(sprite, normPos));
-
-	return *this;
+	if(this->drawOptions & kSpriteStreamEnforceDrawOrder) {
+		this->targets.push_back(std::pair<const Sprite *, glm::vec2>(sprite, normPos));
+	} else {
+		this->sprites.insert(std::pair<const Sprite *, glm::vec2>(sprite, normPos));
+	}
 }
 
-SpriteStream & SpriteStream::end()
-{
-	this->flush();
-
-	return *this;
-}
-
-void SpriteStream::flush()
+void SpriteStream::end()
 {
 	if(this->sprites.empty()) {
 		return;
 	}
 
-	SDL_assert(this->sprites.size() * kVboSpriteStride < kVerticeCount);
+	std::multimap<const Sprite *, glm::vec2>::const_iterator i;
+	for(i = this->sprites.begin(); i != this->sprites.end(); i++) {
+		this->targets.push_back(std::pair<const Sprite *, glm::vec2>(i->first, i->second));
+	}
+	
+	this->sprites.clear();
+}
+
+void SpriteStream::flush()
+{
+	if(this->targets.empty()) {
+		return;
+	}
+
+	SDL_assert(this->targets.size() * kVboSpriteStride < kVerticeCount);
 
 	glBufferData(GL_ARRAY_BUFFER, kVboSize, NULL, GL_STREAM_DRAW);
 	GLint * vertices = (GLint *) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	
-	std::multimap<const Sprite *, glm::vec2>::iterator i;
-	std::multimap<const Sprite *, glm::vec2>::const_iterator prevSprite;
+	std::vector<std::pair<const Sprite *, glm::vec2>>::iterator i;
+	std::vector<std::pair<const Sprite *, glm::vec2>>::const_iterator prevSprite;
 	
 	/* bind the first texture */
-	this->sprites.begin()->first->getTexture()->bind();
+	this->targets.begin()->first->getTexture()->bind();
 	
-	int verticeCounter = 0;
 	bamf::MatrixStack::loadMatrix(this->transform);
-	for(prevSprite = i = this->sprites.begin(); i != this->sprites.end(); i++, verticeCounter++, vertices += kVboSpriteStride) {
+	for(prevSprite = i = this->targets.begin(); i != this->targets.end(); i++, vertices += kVboSpriteStride) {
 		const Sprite * sprite = i->first;
 	
 		if(prevSprite->first != sprite) {
-			/* bind texture as sprites only differ if their textures differ */
-			prevSprite = i;
-			
 			glUnmapBuffer(GL_ARRAY_BUFFER);
-			this->render(verticeCounter * kVerticesPerSprite);
+			this->render((i - prevSprite) * kVerticesPerSprite);
 			glBufferData(GL_ARRAY_BUFFER, kVboSize, NULL, GL_STREAM_DRAW);
 			vertices = (GLint *) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-			verticeCounter = 0;
 			
+			/* bind the new texture */
 			sprite->getTexture()->bind();
+			
+			prevSprite = i;
 		}
 		
 		const glm::vec2 & position = i->second;
 		const Rectangle & bounds = sprite->getBounds();
 		const Rectangle & source = sprite->getSourceRectangle();
 		
+		/* vertices */
 		vertices[0] = position.x;
 		vertices[1] = position.y;
 		vertices[2] = position.x + bounds.width;
@@ -120,6 +126,7 @@ void SpriteStream::flush()
 		vertices[6] = position.x;
 		vertices[7] = position.y + bounds.height;
 		
+		/* texture vertices */
 		vertices[8] = source.x;
 		vertices[9] = source.y;
 		vertices[10] = source.x + source.width;
@@ -134,11 +141,10 @@ void SpriteStream::flush()
 	
 	if(prevSprite->first != i->first) {
 		glUnmapBuffer(GL_ARRAY_BUFFER);
-		this->render(verticeCounter * kVerticesPerSprite);
+		this->render((i - prevSprite) * kVerticesPerSprite);
 	}
 	
-	//bamf::MatrixStack::loadMatrix(glm::mat4());
-	this->sprites.clear();
+	this->targets.clear();
 }
 
 void SpriteStream::render(size_t verticesCount) {

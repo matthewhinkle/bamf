@@ -10,6 +10,7 @@
 #define __Bamf__SpriteStream__
 
 #include <map>
+#include <vector>
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_opengl.h"
@@ -24,7 +25,8 @@
 namespace bamf {
 
 enum {
-	kSpriteStreamClipEdges = 0x1
+	kSpriteStreamClipEdges = 0x1,
+	kSpriteStreamEnforceDrawOrder = 0x02
 };
 
 /**
@@ -37,9 +39,9 @@ public:
 	explicit SpriteStream(const Camera * camera);
 	virtual ~SpriteStream();
 	
-	SpriteStream & begin(const glm::mat4 & transform = glm::mat4(), int drawOptions = 0);
-	SpriteStream & draw(const Sprite * sprite, const glm::vec2 & position = glm::vec2());
-	SpriteStream & end();
+	void begin(const glm::mat4 & transform = glm::mat4(), int drawOptions = 0);
+	void draw(const Sprite * sprite, const glm::vec2 & position = glm::vec2());
+	void end();
 	
 	void flush();
 	
@@ -63,6 +65,7 @@ private:
 	int drawOptions;
 	glm::mat4 transform;
 	std::multimap<const Sprite *, glm::vec2> sprites;
+	std::vector< std::pair<const Sprite *, glm::vec2> > targets;
 
 	SpriteStream(const SpriteStream &);
 	SpriteStream & operator=(const SpriteStream &);

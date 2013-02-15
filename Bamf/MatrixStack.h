@@ -31,67 +31,50 @@ typedef enum {
 class MatrixStack {
 public:
 
-	explicit MatrixStack()
-		:
-		mutex(SDL_CreateMutex())
-	{
+	MatrixStack() {
 		/* initialize with the identity matrix */
 		this->stack.push(glm::mat4());
 	}
 	
-	virtual ~MatrixStack() {
-		if(this->mutex) {
-			SDL_DestroyMutex(this->mutex);
-			this->mutex = NULL;
-		}
-	}
+	virtual ~MatrixStack() { }
 	
 	inline glm::mat4 & push() {
-		SDL_mutexP(this->mutex);
 		glm::mat4 top = this->stack.top();
 		this->stack.push(top);
 		glm::mat4 & ret = this->stack.top();
-		SDL_mutexV(this->mutex);
 		
 		return ret;
 	}
 	
 	inline void pop() {
-		SDL_mutexP(this->mutex);
 		if(this->stack.size() > 0) {
 			this->stack.pop();
 		}
-		SDL_mutexV(this->mutex);
 	}
 	
 	inline void mult(const glm::mat4 & m) {
-		SDL_mutexP(this->mutex);
 		if(this->stack.size() > 0) {
 			glm::mat4 top = this->stack.top();
 			this->stack.pop();
 			this->stack.push(top * m);
 		}
-		SDL_mutexV(this->mutex);
 	}
 	
 	inline void reset(const glm::mat4 & m = glm::mat4()) {
-		SDL_mutexP(this->mutex);
 		this->stack = std::stack<glm::mat4>();
 		this->stack.push(m);
-		SDL_mutexV(this->mutex);
 	}
 	
 	inline const glm::mat4 & top() const { return this->stack.top(); }
 	
 	static inline void setMatrixMode(MatrixMode mode) { glMatrixMode(mode); }
+	static inline void loadMatrix(const glm::mat4 & m = kIdentMatrix) { glLoadMatrixf(&m[0][0]); }
 	
-	static inline void loadMatrix(const glm::mat4 & m) { glLoadMatrixf(&m[0][0]); }
+	static const glm::mat4 kIdentMatrix;
 	
 private:
 	std::stack<glm::mat4> stack;
 	
-	SDL_mutex * mutex;
-
 	MatrixStack(const MatrixStack &);
 	MatrixStack & operator=(const MatrixStack &);
 };

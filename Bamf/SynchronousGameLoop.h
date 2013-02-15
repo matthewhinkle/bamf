@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_opengl.h"
 
 #include "GameLoop.h"
 #include "Module.h"
@@ -52,15 +53,17 @@ public:
 private:
 	static int run(void * loop);
 	
-	
 	std::vector<Module *> modules;
 		
 	bool running;
 	bool suspended;
 	
-	SDL_Thread * thread;
-	SDL_cond * suspendCond;
+	/* these objects are for implementing suspend, not for syncrhonization */
 	SDL_mutex * suspendMutex;
+	SDL_cond * suspendCond;
+	
+	SynchronousGameLoop(const SynchronousGameLoop &);
+	SynchronousGameLoop & operator=(const SynchronousGameLoop &);
 };
 
 }

@@ -17,5 +17,16 @@ namespace bamf {
     void BamfObject::setObjectID(uint64_t objectID) {
         this->objectId = objectID;
     }
+	
+	void BamfObject::update(unsigned delta) {
+		/* update */
+	}
+	
+	void BamfObject::draw(bamf::SpriteStream * spriteStream, unsigned delta) {
+		// spriteStream.begin()
+		// spriteStream.draw()
+		// ...
+		// spriteStream.end()
+	}
     
 }

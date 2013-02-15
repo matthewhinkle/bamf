@@ -9,15 +9,19 @@
 #ifndef Bamf_Bamf_h
 #define Bamf_Bamf_h
 
-#include <iostream>
+#include <cstdint>
+
 #include "glm/glm.hpp"
+
+#include "Drawable.h"
+#include "Updateable.h"
 
 namespace bamf {
 
 /**
 	First class game object interface
  */
-class BamfObject {
+class BamfObject : public Drawable, public Updateable {
 private:
     uint64_t objectId;
 public:
@@ -28,6 +32,9 @@ public:
     
     uint64_t getObjectID();
     void setObjectID(uint64_t objectID);
+	
+	void update(unsigned delta);
+	void draw(SpriteStream * spriteStream, unsigned delta);
 	
 private:
 	BamfObject(const BamfObject &);
