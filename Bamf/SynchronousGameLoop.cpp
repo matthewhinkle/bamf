@@ -128,8 +128,6 @@ int SynchronousGameLoop::run()
 		for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
 			(*modIt)->update(delta);
 		}
-		
-		SDL_Delay(1);
 	}
 	
 	return 0;
