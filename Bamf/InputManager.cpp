@@ -9,13 +9,20 @@
 
 #include "InputManager.h"
 
+namespace bamf {
+    
 InputManager::InputManager()
     : currentInputMapping(new InputMapping())
 {
     
 }
+    
+void InputManager::init()
+{
+    
+}
 
-void InputManager::processInput()
+void InputManager::update(unsigned int delta)
 {
     SDL_Event e;
     while(SDL_PollEvent(&e)) {
@@ -34,4 +41,6 @@ void InputManager::processInput()
 void InputManager::setInputMapping(InputMapping * inputMapping)
 {
     currentInputMapping = inputMapping;
+}
+    
 }

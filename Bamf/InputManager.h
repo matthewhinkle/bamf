@@ -12,12 +12,15 @@
 #include "InputMapping.h"
 #include "IKeyMapping.h"
 #include "KeyPressType.h"
+#include "Module.h"
 #include <stdio.h>
 #include <iostream>
 
 #include "SDL2/SDL.h"
 
-class InputManager
+namespace bamf {
+
+class InputManager : public Module
 {
     
 private:
@@ -25,6 +28,10 @@ private:
     
 public:
     InputManager();
+    
+    void init();
+	
+	void update(unsigned delta);
     
     /**
       * Grabs and processes all user input (shoud be called each loop of game loop)
@@ -39,5 +46,7 @@ public:
     InputMapping * getInputMapping();
 
 };
+    
+}
 
 #endif

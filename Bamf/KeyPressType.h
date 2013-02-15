@@ -9,6 +9,10 @@
 #ifndef Bamf_KeyPressType_h
 #define Bamf_KeyPressType_h
 
+namespace bamf {
+
 enum KeyPressType { KEY_UP, KEY_DOWN };
+
+}
 
 #endif

@@ -34,7 +34,7 @@
 
 #include "GraphicsModule.h"
 
-class MoveCameraAction : public Action
+class MoveCameraAction : public bamf::Action
 {
 protected:
     float _x;
@@ -60,7 +60,7 @@ void MoveCameraAction::executeAction()
     _camera->setPosition(position);
 }
 
-class MoveCameraButtons : public IKeyMapping
+class MoveCameraButtons : public bamf::IKeyMapping
 {
 protected:
     int _keyCode;
@@ -69,8 +69,8 @@ protected:
     bamf::Camera * _cam;
 public:
     MoveCameraButtons(int keyCode, float movesX, float movesY,  bamf::Camera * cam);
-    bool appliesForInput(KeyPressType type, int keyCode, ...);
-    Action * actionForInput();
+    bool appliesForInput(bamf::KeyPressType type, int keyCode, ...);
+    bamf::Action * actionForInput();
 };
 
 MoveCameraButtons::MoveCameraButtons(int keyCode, float movesX, float movesY, bamf::Camera * cam)
@@ -81,9 +81,9 @@ MoveCameraButtons::MoveCameraButtons(int keyCode, float movesX, float movesY, ba
     _cam = cam;
 }
 
-bool MoveCameraButtons::appliesForInput(KeyPressType type, int keyCode, ...)
+bool MoveCameraButtons::appliesForInput(bamf::KeyPressType type, int keyCode, ...)
 {
-    if(keyCode == _keyCode && type == KEY_DOWN) {
+    if(keyCode == _keyCode && type == bamf::KEY_DOWN) {
         return true;
     }
     else {
@@ -91,7 +91,7 @@ bool MoveCameraButtons::appliesForInput(KeyPressType type, int keyCode, ...)
     }
 }
 
-Action * MoveCameraButtons::actionForInput()
+bamf::Action * MoveCameraButtons::actionForInput()
 {
     return new MoveCameraAction(_movesX, _movesY, _cam);
 }
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
 	glClearColor(0, 0, 0, 1);
 	
 	bamf::MatrixStack ms;	
-	InputManager inputManager;
+	bamf::InputManager inputManager;
 	
 	bamf::ResourceManager man;
 	bamf::Sprite sprite("/bamf/mage.png");
@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
 	glm::mat4 perspective = glm::perspective(90.0f, 1024.0f / 768.0f, -1.0f, 1.0f);
 	
 	
-    InputMapping inputMapping;
+    bamf::InputMapping inputMapping;
     inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_RIGHT, 5, 0, &cam));
     inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_LEFT, -5, 0, &cam));
     inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_UP, 0, 5, &cam));
@@ -138,12 +138,19 @@ int main(int argc, char *argv[])
     inputManager.setInputMapping(&inputMapping);
 
 	std::vector<bamf::Module *> modules;
+    modules.push_back(&inputManager);
 	glm::vec2 pos;
+    Uint32 timeLastTicked = SDL_GetTicks();
 	while(true) {
+        Uint32 time = SDL_GetTicks();
+        Uint32 delta = time - timeLastTicked;
+        timeLastTicked = time;
+        
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-		inputManager.processInput();
+		//inputManager.processInput();
 		
+        //will be in graphics module
 		bamf::MatrixStack::setMatrixMode(bamf::kMatrixModeProjection);
 		bamf::MatrixStack::loadMatrix(perspective);
 		bamf::MatrixStack::setMatrixMode(bamf::kMatrixModeModel);
@@ -166,13 +173,16 @@ int main(int argc, char *argv[])
 		ms.pop();
 		
 		SDL_GL_SwapWindow(window);
+        //end graphics stuff
 		
+        //calling modules
 		std::vector<bamf::Module *>::iterator modIt;
 		for (modIt = modules.begin(); modIt != modules.end(); modIt++) {
-			(*modIt)->update(0);
+			(*modIt)->update(delta);
 		}
+        SDL_Delay(0);
 	}
-	
+    
 	SDL_GL_DeleteContext(glContext);
 	SDL_DestroyWindow(window);
 	SDL_Quit();

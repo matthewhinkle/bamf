@@ -8,7 +8,11 @@
 
 #include "DefaultQuitHandler.h"
 
+namespace bamf {
+
 void DefaultQuitHandler::onShouldQuit()
 {
-    SDL_Quit();
+    exit(0);
+}
+
 }

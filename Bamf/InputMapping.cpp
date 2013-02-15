@@ -8,9 +8,11 @@
 
 #include "InputMapping.h"
 
+namespace bamf {
+
 InputMapping::InputMapping()
 : keyMappings(new std::vector<IKeyMapping *>())
-: quitHandler(new DefaultQuitHandler())
+, quitHandler(new DefaultQuitHandler())
 {
     
 }
@@ -44,4 +46,6 @@ void InputMapping::setQuitHandler(IQuitHandler * quitHandler)
 IQuitHandler * InputMapping::getQuitHandler()
 {
     return quitHandler;
+}
+
 }

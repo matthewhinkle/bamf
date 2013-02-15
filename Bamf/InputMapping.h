@@ -15,6 +15,8 @@
 #include "IQuitHandler.h"
 #include "DefaultQuitHandler.h"
 
+namespace bamf {
+
 class InputMapping
 {
     
@@ -33,4 +35,6 @@ public:
     IQuitHandler * getQuitHandler();
 };
 
+}
+    
 #endif

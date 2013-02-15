@@ -13,12 +13,15 @@
 #include "IQuitHandler.h"
 #include "SDL2/SDL.h"
 
+namespace bamf {
+
 class DefaultQuitHandler : public IQuitHandler
 {
     
 public:
     void onShouldQuit();
-    
 };
+    
+}
 
 #endif /* defined(__Bamf__DefaultQuitHandler__) */

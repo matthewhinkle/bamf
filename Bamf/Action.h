@@ -9,6 +9,8 @@
 #ifndef Bamf_Action_h
 #define Bamf_Action_h
 
+namespace bamf {
+
 class Action
 {
     
@@ -18,5 +20,7 @@ public:
     virtual void executeAction() = 0;
     
 };
+    
+}
 
 #endif

@@ -9,7 +9,8 @@
 #ifndef Bamf_Bamf_h
 #define Bamf_Bamf_h
 
-#include "glm/glm.h"
+#include <iostream>
+#include "glm/glm.hpp"
 
 namespace bamf {
 
@@ -17,12 +18,16 @@ namespace bamf {
 	First class game object interface
  */
 class BamfObject {
+private:
+    uint64_t objectId;
 public:
 
 	explicit BamfObject();
-	virtual BamfObject() { }
 	
 	virtual glm::vec2 getPosition() const;
+    
+    uint64_t getObjectID();
+    void setObjectID(uint64_t objectID);
 	
 private:
 	BamfObject(const BamfObject &);

@@ -11,15 +11,17 @@
 
 #include <iostream>
 
+namespace bamf {
+
 class IQuitHandler
 {
-    virtual ~IQuitHandler() {}
     
 public:
-    /**
-     * Return true if this input mapping should activate for the given key code and masks.
-     */
+    virtual ~IQuitHandler() {}
+    
     virtual void onShouldQuit() = 0;
 };
+    
+}
 
 #endif /* defined(__Bamf__IQuitHandler__) */

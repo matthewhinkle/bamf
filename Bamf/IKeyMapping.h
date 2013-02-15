@@ -17,6 +17,8 @@
 #include "Action.h"
 #include "KeyPressType.h"
 
+namespace bamf {
+
 class IKeyMapping
 {
     
@@ -34,5 +36,7 @@ public:
     virtual Action * actionForInput() = 0;
 
 };
+    
+}
 
 #endif
