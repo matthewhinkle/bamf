@@ -20,6 +20,7 @@
 		481B5EF216C59A030040DAA2 /* SDL_config.h.in in Resources */ = {isa = PBXBuildFile; fileRef = 481B5EB016C59A030040DAA2 /* SDL_config.h.in */; };
 		481B5EF716C5A0E60040DAA2 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 481B5EF416C5A0E60040DAA2 /* libz.1.2.5.dylib */; };
 		481B5EFF16C5C1440040DAA2 /* Texture2DLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 481B5EFD16C5C1440040DAA2 /* Texture2DLoader.cpp */; };
+		48224C9916CE43EB0075AB70 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48224C9816CE43EB0075AB70 /* Scene.cpp */; };
 		48257C3816BCF6060042A7D0 /* WavAudioLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48257C3616BCF6060042A7D0 /* WavAudioLoader.cpp */; };
 		48257C3B16BCF6910042A7D0 /* AudioResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48257C3916BCF6910042A7D0 /* AudioResource.cpp */; };
 		48290D0E16C20F650095F443 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48290D0C16C20F650095F443 /* Sprite.cpp */; };
@@ -28,8 +29,10 @@
 		483DC72316C238DC0034CC4B /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483DC72116C238DC0034CC4B /* Camera.cpp */; };
 		484351F416C909C9002CEDA9 /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 484351F216C909C9002CEDA9 /* Viewport.cpp */; };
 		4863335516BBADA30020F5A4 /* Pngio.c in Sources */ = {isa = PBXBuildFile; fileRef = 4863335316BBADA30020F5A4 /* Pngio.c */; };
+		48638EBC16CE097E009C659A /* CoreModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48638EBA16CE097D009C659A /* CoreModule.cpp */; };
+		48638EBE16CE16F9009C659A /* MatrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48638EBD16CE16F9009C659A /* MatrixStack.cpp */; };
+		48638EC016CE2123009C659A /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48638EBF16CE2123009C659A /* libSDL2-2.0.0.dylib */; };
 		4866BC0E16BB8A150051FDCB /* SynchronousGameLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */; };
-		48B8DB4016C1D8750048C9BB /* libSDL2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48B8DB3F16C1D8750048C9BB /* libSDL2.dylib */; };
 		48B8DD7716C1DA7E0048C9BB /* func_common.inl in Resources */ = {isa = PBXBuildFile; fileRef = 48B8DC9916C1DA7E0048C9BB /* func_common.inl */; };
 		48B8DD7816C1DA7E0048C9BB /* func_exponential.inl in Resources */ = {isa = PBXBuildFile; fileRef = 48B8DC9B16C1DA7E0048C9BB /* func_exponential.inl */; };
 		48B8DD7916C1DA7E0048C9BB /* func_geometric.inl in Resources */ = {isa = PBXBuildFile; fileRef = 48B8DC9D16C1DA7E0048C9BB /* func_geometric.inl */; };
@@ -258,6 +261,10 @@
 		481B5EFD16C5C1440040DAA2 /* Texture2DLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture2DLoader.cpp; sourceTree = "<group>"; };
 		481B5EFE16C5C1440040DAA2 /* Texture2DLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2DLoader.h; sourceTree = "<group>"; };
 		481B5F0116C605740040DAA2 /* MatrixStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixStack.h; sourceTree = "<group>"; };
+		48224C9616CE3DB00075AB70 /* Lerp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lerp.h; sourceTree = "<group>"; };
+		48224C9716CE41D80075AB70 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
+		48224C9816CE43EB0075AB70 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		48224C9A16CE45670075AB70 /* Drawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drawable.h; sourceTree = "<group>"; };
 		4824D3ED16C4C87F001EDB07 /* Rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rectangle.h; sourceTree = "<group>"; };
 		4824D3EF16C4CC14001EDB07 /* BamfObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BamfObject.h; sourceTree = "<group>"; };
 		48257C3516BCF4E20042A7D0 /* AudioLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioLoader.h; sourceTree = "<group>"; };
@@ -277,10 +284,13 @@
 		484351F316C909C9002CEDA9 /* Viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
 		4863335316BBADA30020F5A4 /* Pngio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Pngio.c; sourceTree = "<group>"; };
 		4863335416BBADA30020F5A4 /* Pngio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pngio.h; sourceTree = "<group>"; };
+		48638EBA16CE097D009C659A /* CoreModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoreModule.cpp; sourceTree = "<group>"; };
+		48638EBB16CE097D009C659A /* CoreModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreModule.h; sourceTree = "<group>"; };
+		48638EBD16CE16F9009C659A /* MatrixStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MatrixStack.cpp; sourceTree = "<group>"; };
+		48638EBF16CE2123009C659A /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "Bamf/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
 		4866BC0916BB85720051FDCB /* GameLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLoop.h; sourceTree = "<group>"; };
 		4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SynchronousGameLoop.cpp; sourceTree = "<group>"; };
 		4866BC0D16BB8A150051FDCB /* SynchronousGameLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynchronousGameLoop.h; sourceTree = "<group>"; };
-		48B8DB3F16C1D8750048C9BB /* libSDL2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSDL2.dylib; path = Bamf/libSDL2.dylib; sourceTree = "<group>"; };
 		48B8DC9216C1DA7E0048C9BB /* _detail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = _detail.hpp; sourceTree = "<group>"; };
 		48B8DC9316C1DA7E0048C9BB /* _fixes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = _fixes.hpp; sourceTree = "<group>"; };
 		48B8DC9416C1DA7E0048C9BB /* _swizzle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = _swizzle.hpp; sourceTree = "<group>"; };
@@ -548,8 +558,8 @@
 			files = (
 				482CCDB016BE34E900590F7B /* OpenGL.framework in Frameworks */,
 				2770106616C8CB100060738A /* libpng15.15.dylib in Frameworks */,
-				48B8DB4016C1D8750048C9BB /* libSDL2.dylib in Frameworks */,
 				481B5EF716C5A0E60040DAA2 /* libz.1.2.5.dylib in Frameworks */,
+				48638EC016CE2123009C659A /* libSDL2-2.0.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +692,8 @@
 			children = (
 				4824D3ED16C4C87F001EDB07 /* Rectangle.h */,
 				481B5F0116C605740040DAA2 /* MatrixStack.h */,
+				48638EBD16CE16F9009C659A /* MatrixStack.cpp */,
+				48224C9616CE3DB00075AB70 /* Lerp.h */,
 			);
 			name = Math;
 			sourceTree = "<group>";
@@ -765,7 +777,12 @@
 				4866BC0916BB85720051FDCB /* GameLoop.h */,
 				4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */,
 				4866BC0D16BB8A150051FDCB /* SynchronousGameLoop.h */,
+				48638EBA16CE097D009C659A /* CoreModule.cpp */,
+				48638EBB16CE097D009C659A /* CoreModule.h */,
 				48CAD5B816BB7227005CD223 /* main.cpp */,
+				48224C9716CE41D80075AB70 /* Scene.h */,
+				48224C9816CE43EB0075AB70 /* Scene.cpp */,
+				48224C9A16CE45670075AB70 /* Drawable.h */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -1070,8 +1087,8 @@
 				481B5EA416C59A030040DAA2 /* SDL2 */,
 				48B8DC8F16C1DA7E0048C9BB /* glm */,
 				482CCDAF16BE34E900590F7B /* OpenGL.framework */,
+				48638EBF16CE2123009C659A /* libSDL2-2.0.0.dylib */,
 				48FA3D8D16BC67E300A97523 /* libpng15.15.dylib */,
-				48B8DB3F16C1D8750048C9BB /* libSDL2.dylib */,
 				481B5EF416C5A0E60040DAA2 /* libz.1.2.5.dylib */,
 			);
 			name = Frameworks;
@@ -1372,6 +1389,9 @@
 				277B0C8A16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */,
 				480D0CD216CCC2C700600385 /* GraphicsModule.cpp in Sources */,
 				277B0C8D16CDAFD00061BF84 /* BamfObject.cpp in Sources */,
+				48638EBC16CE097E009C659A /* CoreModule.cpp in Sources */,
+				48638EBE16CE16F9009C659A /* MatrixStack.cpp in Sources */,
+				48224C9916CE43EB0075AB70 /* Scene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
