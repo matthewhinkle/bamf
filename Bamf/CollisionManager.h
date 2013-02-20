@@ -20,7 +20,7 @@ class CollisionManager {
 public:
     CollisionManager();
     ~CollisionManager();
-    std::vector<CollisionEvent> getCollisions();
+    //std::vector<CollisionEvent> getCollisions();
 protected:
     
 private:
