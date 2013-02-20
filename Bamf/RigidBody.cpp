@@ -46,17 +46,6 @@ namespace bamf {
         return angularVelocity;
     }
     
-    void RigidBody::addForce(glm::vec2 f){
-        //cacluate new vel from froce
-    }
-    void RigidBody::addImpulse(glm::vec2 i){
-        //calcualte new vel from imp
-    }
-    void RigidBody::addTorque(glm::vec2 t){
-        //calcualte angular vel from torque
-    }
-    void RigidBody::update(){
-        //update
-    }
+
     
 }

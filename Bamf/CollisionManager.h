@@ -10,15 +10,21 @@
 #define __Bamf__CollisionManager__
 
 #include <iostream>
+#include <vector>
+#include "CollisionShape.h"
+#include "CollisionEvent.h"
 
-namespace bamf{
+namespace bamf {
 
 class CollisionManager {
 public:
-    
+    CollisionManager();
+    ~CollisionManager();
+    std::vector<CollisionEvent> getCollisions();
 protected:
     
 private:
+    std::vector<CollisionShape> objectList;
     
 };
 }

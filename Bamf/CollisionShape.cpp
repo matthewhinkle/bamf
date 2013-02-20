@@ -20,5 +20,8 @@ CollisionShape::~CollisionShape()
         
 }
 
+bool CollisionShape::checkCollision(CollisionShape s){
+    return false;
+}
     
 }

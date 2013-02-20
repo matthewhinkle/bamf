@@ -30,10 +30,7 @@ public:
     
     void setAngularVelocity(float v);
     float getAngularVeloctiy();
-    
-    void addForce(glm::vec2 f);
-    void addImpulse(glm::vec2 i);
-    void addTorque(glm::vec2 t);
+
     
     void update();
     

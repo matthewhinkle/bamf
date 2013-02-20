@@ -25,9 +25,15 @@ namespace bamf {
     void PhysicsWorld::setGravity(float x, float y){
         gravity = glm::vec2(x,y);
     }
-    
+    void PhysicsWorld::addObject(CollisionShape o)
+    {
+        objectList.push_back(o);
+    }
     void PhysicsWorld::update(){
-        //update all object in world
+        for(int i =0;i<objectList.size();i++)
+        {
+           // objectList[i]
+        }
     }
     
 
