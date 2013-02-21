@@ -29,10 +29,20 @@ namespace bamf {
     {
         objectList.push_back(o);
     }
+    void PhysicsWorld::step(CollisionShape s){
+        glm::vec2 p = s.getRigidBody().getPosition();
+        glm::vec2 v = s.getRigidBody().getLinearVeloctiy();
+        glm::vec2 f = s.getRigidBody().getForce();
+        p = p + (v *= 16);
+        v = v + ((f /= s.getRigidBody().getMass()) *= 16);
+        s.getRigidBody().setLinearVeloctiy(v);
+        s.getRigidBody().setPositon(p);
+    }
     void PhysicsWorld::update(){
         for(int i =0;i<objectList.size();i++)
         {
-           // objectList[i]
+            
+            step(objectList[i]);
         }
     }
     

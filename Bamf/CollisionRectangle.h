@@ -23,7 +23,7 @@ public:
 protected:
     
 private:
-    Rectangle rect;
+    
 
 };
 }

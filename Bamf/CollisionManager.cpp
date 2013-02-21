@@ -16,7 +16,7 @@ namespace bamf {
     CollisionManager::~CollisionManager(){
         
     }
-    /*std::vector<CollisionEvent> CollisionManager::getCollisions()
+    std::vector<CollisionEvent> CollisionManager::getCollisions()
     {
         std::vector<CollisionEvent> collisions;
         //loop through all objects and check for collisions with every other object
@@ -29,5 +29,5 @@ namespace bamf {
         }
         
         return collisions;
-    }*/
+    }
 }

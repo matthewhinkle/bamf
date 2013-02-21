@@ -7,3 +7,11 @@
 //
 
 #include "CollisionEvent.h"
+
+namespace bamf{
+    
+    /*CollisionEvent::CollisionEvent(){
+        
+    }*/
+    
+}

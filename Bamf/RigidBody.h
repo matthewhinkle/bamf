@@ -16,7 +16,7 @@ namespace bamf {
 
 class RigidBody{
 public:
-    RigidBody(uint64_t id);
+    RigidBody();
     ~RigidBody();
     
     void setMass(float m);
@@ -30,21 +30,21 @@ public:
     
     void setAngularVelocity(float v);
     float getAngularVeloctiy();
-
     
+    void setForce(glm::vec2 f);
+    glm::vec2 getForce();
+    //void step();
     void update();
-    
 protected:
     
 private:
-    const uint64_t id;
-    uint64_t worldId;
+    uint64_t id;
     glm::vec2 position;
     glm::vec2 linearVelocity;
+    glm::vec2 force;
     float angularVelocity;
     float mass;
     bool affectedByGravity;
-    
 };
 }
 #endif /* defined(__Bamf__RigidBody__) */

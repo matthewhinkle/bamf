@@ -16,20 +16,20 @@ namespace bamf {
     
 class CollisionShape {
 public:
-    CollisionShape(uint64_t id);
+    CollisionShape();
     virtual ~CollisionShape();
     virtual bool checkCollision(CollisionShape s);
-    void setRigidBody(RigidBody rb);
-    RigidBody getRigidBoday();
+    void setRigidBody(RigidBody r);
+    RigidBody getRigidBody();
     inline uint64_t getId() const { return this->id; }
     
 protected:
     
 private:
-    const uint64_t id;
-    RigidBody rBody = RigidBody(0);
+    uint64_t id;
+    RigidBody rBody;
     //CollisionShape(const CollisionShape &);
-    //CollisionShape & operator=(const CollisionShape);
+   // CollisionShape & operator=(const CollisionShape);
 };
 }
 #endif /* defined(__Bamf__CollisionShape__) */

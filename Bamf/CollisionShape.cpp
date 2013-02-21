@@ -9,19 +9,19 @@
 #include "CollisionShape.h"
 
 namespace bamf {
-
-CollisionShape::CollisionShape(uint64_t id)
-    :
-    id(id)
-{}
-    
-CollisionShape::~CollisionShape()
-{
+    CollisionShape::CollisionShape()
+    {}
+    CollisionShape::~CollisionShape(){
         
-}
-
-bool CollisionShape::checkCollision(CollisionShape s){
-    return false;
-}
+    }
+    void CollisionShape::setRigidBody(RigidBody r){
+        rBody = r;
+    }
+    RigidBody CollisionShape::getRigidBody(){
+        return rBody;
+    }
+    bool CollisionShape::checkCollision(CollisionShape s){
+        return false;
+    }
     
 }
