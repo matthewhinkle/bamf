@@ -28,6 +28,7 @@
 		482CCDB016BE34E900590F7B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482CCDAF16BE34E900590F7B /* OpenGL.framework */; };
 		483DC72316C238DC0034CC4B /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483DC72116C238DC0034CC4B /* Camera.cpp */; };
 		484351F416C909C9002CEDA9 /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 484351F216C909C9002CEDA9 /* Viewport.cpp */; };
+		48548BD616D82FC8008DBC84 /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48548BD416D82FC8008DBC84 /* SceneManager.cpp */; };
 		4863335516BBADA30020F5A4 /* Pngio.c in Sources */ = {isa = PBXBuildFile; fileRef = 4863335316BBADA30020F5A4 /* Pngio.c */; };
 		48638EBC16CE097E009C659A /* CoreModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48638EBA16CE097D009C659A /* CoreModule.cpp */; };
 		48638EBE16CE16F9009C659A /* MatrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48638EBD16CE16F9009C659A /* MatrixStack.cpp */; };
@@ -283,6 +284,8 @@
 		483DC72216C238DC0034CC4B /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		484351F216C909C9002CEDA9 /* Viewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Viewport.cpp; sourceTree = "<group>"; };
 		484351F316C909C9002CEDA9 /* Viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
+		48548BD416D82FC8008DBC84 /* SceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneManager.cpp; sourceTree = "<group>"; };
+		48548BD516D82FC8008DBC84 /* SceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneManager.h; sourceTree = "<group>"; };
 		4863335316BBADA30020F5A4 /* Pngio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Pngio.c; sourceTree = "<group>"; };
 		4863335416BBADA30020F5A4 /* Pngio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pngio.h; sourceTree = "<group>"; };
 		48638EBA16CE097D009C659A /* CoreModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoreModule.cpp; sourceTree = "<group>"; };
@@ -774,6 +777,7 @@
 			isa = PBXGroup;
 			children = (
 				480C799A16CD821D00E0C525 /* Updateable.h */,
+				48224C9A16CE45670075AB70 /* Drawable.h */,
 				4824D3EF16C4CC14001EDB07 /* BamfObject.h */,
 				277B0C8C16CDAFD00061BF84 /* BamfObject.cpp */,
 				480D0CCF16CCB42B00600385 /* Module.h */,
@@ -785,7 +789,8 @@
 				48CAD5B816BB7227005CD223 /* main.cpp */,
 				48224C9716CE41D80075AB70 /* Scene.h */,
 				48224C9816CE43EB0075AB70 /* Scene.cpp */,
-				48224C9A16CE45670075AB70 /* Drawable.h */,
+				48548BD416D82FC8008DBC84 /* SceneManager.cpp */,
+				48548BD516D82FC8008DBC84 /* SceneManager.h */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -1398,6 +1403,7 @@
 				48638EBE16CE16F9009C659A /* MatrixStack.cpp in Sources */,
 				48224C9916CE43EB0075AB70 /* Scene.cpp in Sources */,
 				A30AE7FA16D5739500D13952 /* CollisionEvent.cpp in Sources */,
+				48548BD616D82FC8008DBC84 /* SceneManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
