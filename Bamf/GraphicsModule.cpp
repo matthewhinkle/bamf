@@ -64,9 +64,7 @@ void GraphicsModule::init()
 		
 		this->camera = new Camera();
 		this->spriteStream = new SpriteStream(this->camera);
-		
-		SDL_GL_SetSwapInterval(kVerticalSync);
-		
+				
 		glClearColor(0, 0, 0, 1);
 	}
 }

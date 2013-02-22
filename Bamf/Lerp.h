@@ -21,18 +21,21 @@ public:
 	virtual ~Lerp();
 	
 	/**
-		See game engine gems page 144 for more information
+		Generic linear interpolation
 		
-		*can be found on google books
+		@return the interpolated value between the initial and
+				current position
 	 */
-	template<typename T = float, typename U = unsigned>
-	static inline T frameRateIndependent(
-		T x_0,		/* intial position */
+	template<typename T = float, typename R = unsigned>
+	static inline T lerp(
+		T x_0,		/* initial position */
 		T x,		/* current position */
-		U t,		/* time elapsed since initial position */
-		U t_f) {	/* duration of last frame */
+		R t,		/* time of initial frame */
+		R dt) {		/* time delta */
 		
-		return x + t_f * ((x - x_0) * t);
+		R a = t / dt;
+		
+		return x * a + x_0 * (1 - a);
 	}
 	
 private:

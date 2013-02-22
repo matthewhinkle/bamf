@@ -36,7 +36,7 @@ public:
 		return i == this->objectById.end() ? NULL : i->second;
 	}
 	
-	void update(unsigned delta);
+	void update(unsigned dt);
 	
 	void draw(SpriteStream * spriteStream, unsigned delta);
 	

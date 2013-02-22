@@ -18,21 +18,22 @@
 #include "PhysicsWorld.h"
 #include "RigidBody.h"
 
+glm::vec2 prev;
 bamf::Sprite sprite("/bamf/mage.png");
 bamf::Sprite crosshair("/bamf/crosshair.png");
 
-extern bamf::GraphicsModule * graphicsModule;
-
 namespace bamf {
 
-SynchronousGameLoop::SynchronousGameLoop()
+SynchronousGameLoop::SynchronousGameLoop(GraphicsModule * graphicsModule)
 	:
 	running(false),
 	suspended(false),
 	suspendMutex(SDL_CreateMutex()),
 	suspendCond(SDL_CreateCond()),
+	graphicsModule(graphicsModule),
 	dt(0.016),
-	maxDtFrame(60)
+	maxDtFrame(60),
+	time(0)
 { }
 
 SynchronousGameLoop::~SynchronousGameLoop()
@@ -91,31 +92,31 @@ void SynchronousGameLoop::suspend()
 	
 float SynchronousGameLoop::update(float epoch)
 {
-	for(; epoch >= this->dt; epoch -= this->dt) {
-	
+	for(; epoch >= this->dt; epoch -= this->dt, this->time += this->dt) {
+		std::vector<Module *>::iterator modIt;
+		for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
+			(*modIt)->update(this->dt);
+			prev = this->graphicsModule->getCamera()->getPosition();
+		}
 	}
-	
+		
 	return epoch > 0.0f ? epoch : 0.0f;
 }
 
 void SynchronousGameLoop::draw(unsigned delta) {
 	/* temp draw code */
-	SpriteStream * ss = graphicsModule->getSpriteStream();
+	SpriteStream * ss = this->graphicsModule->getSpriteStream();
 	
-	ss->begin(graphicsModule->getCamera()->computeTransform(), bamf::kSpriteStreamClipEdges | bamf::kSpriteStreamEnforceDrawOrder);
-	for(int i = 0; i < 3; i++) {
-		for(int j = 0; j < 2; j++) {
+	this->graphicsModule->update(delta);
+	
+	ss->begin(this->graphicsModule->getCamera()->computeTransform(), bamf::kSpriteStreamClipEdges | bamf::kSpriteStreamEnforceDrawOrder);
+	for(int i = 0; i < 300; i++) {
+		for(int j = 0; j < 200; j++) {
 			ss->draw(&sprite, glm::vec2(i * 200, j * 300));
 		}
 	}
-	ss->draw(&crosshair, graphicsModule->getCamera()->getPosition());
+	ss->draw(&crosshair, this->graphicsModule->getCamera()->getPosition());
 	ss->end();
-	
-	/* actual code */
-	std::vector<Module *>::iterator modIt;
-	for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
-		(*modIt)->update(delta);
-	}
 }
 
 int SynchronousGameLoop::run()
@@ -145,6 +146,9 @@ int SynchronousGameLoop::run()
 		(*modIt)->init();
 	}
 	
+	Camera * cam = graphicsModule->getCamera();
+	prev = graphicsModule->getCamera()->getPosition();
+	
 	unsigned timeLastTicked = SDL_GetTicks();
 	float epoch = 0;
 	while(this->running) {
@@ -157,18 +161,26 @@ int SynchronousGameLoop::run()
 			continue;
 		}
 		
+		//cam->setPosition(glm::vec2(cam->getPosition().x + 5, cam->getPosition().y + 5));
+		
 		unsigned time = SDL_GetTicks();
+		
+		printf("fps = %f\n", 1000.0f / (time - timeLastTicked));
+		
 		unsigned dtFrame = glm::min(time - timeLastTicked, maxDtFrame);
 		timeLastTicked = time;
 
-		epoch += dtFrame / 1000.0f;
-		printf("dtFrame = %u\n", dtFrame);
-		
 		/* interpolate */
-		//Lerp::frameRate()
 		//pw.update();
 		
+		epoch += dtFrame / 1000.0f;
 		epoch = this->update(epoch);
+		
+		glm::vec2 pos = Lerp::lerp(prev, cam->getPosition(), epoch, dt);
+		
+		//printf("new = %f, %f\n", pos.x, pos.y);
+		//prev = pos;
+		//cam->setPosition(pos);
 		
 		this->draw(this->dt);
 	}

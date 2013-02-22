@@ -17,7 +17,7 @@ public:
 	Updateable() { }
 	virtual ~Updateable() { }
 	
-	void update(unsigned delta);
+	void update(unsigned dt);
 	
 private:
 	Updateable(const Updateable &);
