@@ -8,10 +8,14 @@
 
 #include "SynchronousGameLoop.h"
 
+#include "Lerp.h"
 #include "Sprite.h"
 #include "ResourceManager.h"
 #include "SpriteStream.h"
 #include "GraphicsModule.h"
+
+bamf::Sprite sprite("/bamf/mage.png");
+bamf::Sprite crosshair("/bamf/crosshair.png");
 
 extern bamf::GraphicsModule * graphicsModule;
 
@@ -22,7 +26,9 @@ SynchronousGameLoop::SynchronousGameLoop()
 	running(false),
 	suspended(false),
 	suspendMutex(SDL_CreateMutex()),
-	suspendCond(SDL_CreateCond())
+	suspendCond(SDL_CreateCond()),
+	dt(0.016),
+	maxDtFrame(60)
 { }
 
 SynchronousGameLoop::~SynchronousGameLoop()
@@ -78,26 +84,53 @@ void SynchronousGameLoop::suspend()
 {
 	this->suspended = true;
 }
+	
+float SynchronousGameLoop::update(float epoch)
+{
+	for(; epoch >= this->dt; epoch -= this->dt) {
+	
+	}
+	
+	return epoch > 0.0f ? epoch : 0.0f;
+}
+
+void SynchronousGameLoop::draw(unsigned delta) {
+	/* temp draw code */
+	SpriteStream * ss = graphicsModule->getSpriteStream();
+	
+	ss->begin(graphicsModule->getCamera()->computeTransform(), bamf::kSpriteStreamClipEdges | bamf::kSpriteStreamEnforceDrawOrder);
+	for(int i = 0; i < 3; i++) {
+		for(int j = 0; j < 2; j++) {
+			ss->draw(&sprite, glm::vec2(i * 200, j * 300));
+		}
+	}
+	ss->draw(&crosshair, graphicsModule->getCamera()->getPosition());
+	ss->end();
+	
+	/* actual code */
+	std::vector<Module *>::iterator modIt;
+	for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
+		(*modIt)->update(delta);
+	}
+}
 
 int SynchronousGameLoop::run()
 {
 	/* temp development code */
 	ResourceManager man;
-	Sprite sprite("/bamf/mage.png");
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
 	
-	Sprite crosshair("/bamf/crosshair.png");
 	crosshair.load(man);
 	crosshair.setHotspot(crosshair.getBounds().getCenter());
 	
-	/* actual code */
 	std::vector<Module *>::iterator modIt;
 	for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
 		(*modIt)->init();
 	}
-
-	Uint32 timeLastTicked = SDL_GetTicks();
+	
+	unsigned timeLastTicked = SDL_GetTicks();
+	float epoch = 0;
 	while(this->running) {
 		while(this->running && this->suspended) {
 			SDL_CondWait(this->suspendCond, this->suspendMutex);
@@ -108,29 +141,20 @@ int SynchronousGameLoop::run()
 			continue;
 		}
 		
-		unsigned time = static_cast<unsigned>(SDL_GetTicks());
-		unsigned delta = time - timeLastTicked;
+		unsigned time = SDL_GetTicks();
+		unsigned dtFrame = glm::min(time - timeLastTicked, maxDtFrame);
 		timeLastTicked = time;
+		epoch += dtFrame / 1000.0f;
+		printf("dtFrame = %u\n", dtFrame);
 		
-		/* temp draw code */
-		SpriteStream * ss = graphicsModule->getSpriteStream();
+		/* interpolate */
+		//Lerp::frameRate()
 		
-		ss->begin(graphicsModule->getCamera()->computeTransform(), bamf::kSpriteStreamClipEdges | bamf::kSpriteStreamEnforceDrawOrder);
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 2; j++) {
-				ss->draw(&sprite, glm::vec2(i * 200, j * 300));
-			}
-		}
-		ss->draw(&crosshair, graphicsModule->getCamera()->getPosition());
-		ss->end();
+		epoch = this->update(epoch);
 		
-		/* actual code */
-		for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
-			(*modIt)->update(delta);
-		}
+		this->draw(this->dt);
 	}
-	
-	return 0;
+		return 0;
 }
 
 }
