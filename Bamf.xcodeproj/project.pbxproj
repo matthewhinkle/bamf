@@ -149,6 +149,7 @@
 		A30AE7EB16C98E2700D13952 /* CollisionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30AE7E916C98E2600D13952 /* CollisionManager.cpp */; };
 		A30AE7F116CC139000D13952 /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30AE7EF16CC139000D13952 /* RigidBody.cpp */; };
 		A30AE7F416CC17A800D13952 /* PhysicsWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30AE7F216CC17A800D13952 /* PhysicsWorld.cpp */; };
+		A30AE7FA16D5739500D13952 /* CollisionEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30AE7F816D5739500D13952 /* CollisionEvent.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -549,6 +550,8 @@
 		A30AE7F016CC139000D13952 /* RigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigidBody.h; sourceTree = "<group>"; };
 		A30AE7F216CC17A800D13952 /* PhysicsWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsWorld.cpp; sourceTree = "<group>"; };
 		A30AE7F316CC17A800D13952 /* PhysicsWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsWorld.h; sourceTree = "<group>"; };
+		A30AE7F816D5739500D13952 /* CollisionEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionEvent.cpp; sourceTree = "<group>"; };
+		A30AE7F916D5739500D13952 /* CollisionEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollisionEvent.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1137,6 +1140,8 @@
 				A30AE7E716C98DEB00D13952 /* CollisionCapsule.h */,
 				A30AE7E916C98E2600D13952 /* CollisionManager.cpp */,
 				A30AE7EA16C98E2700D13952 /* CollisionManager.h */,
+				A30AE7F816D5739500D13952 /* CollisionEvent.cpp */,
+				A30AE7F916D5739500D13952 /* CollisionEvent.h */,
 			);
 			name = Collisions;
 			sourceTree = "<group>";
@@ -1392,6 +1397,7 @@
 				48638EBC16CE097E009C659A /* CoreModule.cpp in Sources */,
 				48638EBE16CE16F9009C659A /* MatrixStack.cpp in Sources */,
 				48224C9916CE43EB0075AB70 /* Scene.cpp in Sources */,
+				A30AE7FA16D5739500D13952 /* CollisionEvent.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

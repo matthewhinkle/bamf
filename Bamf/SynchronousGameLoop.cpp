@@ -13,6 +13,10 @@
 #include "ResourceManager.h"
 #include "SpriteStream.h"
 #include "GraphicsModule.h"
+#include "CollisionCircle.h"
+#include "CollisionShape.h"
+#include "PhysicsWorld.h"
+#include "RigidBody.h"
 
 bamf::Sprite sprite("/bamf/mage.png");
 bamf::Sprite crosshair("/bamf/crosshair.png");
@@ -124,6 +128,18 @@ int SynchronousGameLoop::run()
 	crosshair.load(man);
 	crosshair.setHotspot(crosshair.getBounds().getCenter());
 	
+    /* Collision Circle Test */
+    /*CollisionCircle c1(glm::vec2(0,2), 2);
+    CollisionCircle c2(glm::vec2(0,5), 1);    
+    c1.checkCollision(c2);
+    c2.checkCollision(c1);
+    RigidBody r;
+    r.setForce(glm::vec2(0,1));
+    c2.setRigidBody(r);
+    PhysicsWorld pw(0);
+    pw.addObject(c2);*/
+    
+	/* actual code */
 	std::vector<Module *>::iterator modIt;
 	for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
 		(*modIt)->init();
@@ -144,11 +160,13 @@ int SynchronousGameLoop::run()
 		unsigned time = SDL_GetTicks();
 		unsigned dtFrame = glm::min(time - timeLastTicked, maxDtFrame);
 		timeLastTicked = time;
+
 		epoch += dtFrame / 1000.0f;
 		printf("dtFrame = %u\n", dtFrame);
 		
 		/* interpolate */
 		//Lerp::frameRate()
+		//pw.update();
 		
 		epoch = this->update(epoch);
 		

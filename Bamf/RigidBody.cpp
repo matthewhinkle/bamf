@@ -9,10 +9,10 @@
 #include "RigidBody.h"
 
 namespace bamf {
-    RigidBody::RigidBody(uint64_t id)
-        :
-        id(id)
-    {}
+    
+    RigidBody::RigidBody()
+    {
+    }
     RigidBody::~RigidBody(){
         
     }
@@ -26,6 +26,8 @@ namespace bamf {
     }
     
     void RigidBody::setPositon(glm::vec2 p){
+        std::cout << "new pos x: " << p.x << "\n";
+        std::cout << "new pos y: " << p.x << "\n";
         position = p;
     }
     glm::vec2 RigidBody::getPosition(){
@@ -33,6 +35,8 @@ namespace bamf {
     }
     
     void RigidBody::setLinearVeloctiy(glm::vec2 v){
+        std::cout << "new vel x: " << v.x << "\n";
+        std::cout << "new vel y: " << v.x << "\n";
         linearVelocity = v;
     }
     glm::vec2 RigidBody::getLinearVeloctiy(){
@@ -45,18 +49,19 @@ namespace bamf {
     float RigidBody::getAngularVeloctiy(){
         return angularVelocity;
     }
-    
-    void RigidBody::addForce(glm::vec2 f){
-        //cacluate new vel from froce
+    void RigidBody::setForce(glm::vec2 f) {
+        force = f;
     }
-    void RigidBody::addImpulse(glm::vec2 i){
-        //calcualte new vel from imp
+    glm::vec2 RigidBody::getForce() {
+        return force;
     }
-    void RigidBody::addTorque(glm::vec2 t){
-        //calcualte angular vel from torque
-    }
-    void RigidBody::update(){
-        //update
-    }
-    
+    /*void step(){
+        glm::vec2 p = position;
+        glm::vec2 v = linearVelocity;
+        glm::vec2 f = force;
+        position = p + (v *= 16);
+        v = v + ((f /= s.getRigidBody().getMass()) *= 16);
+        s.getRigidBody().setLinearVeloctiy(v);
+        s.getRigidBody().setPositon(p);
+    }*/
 }
