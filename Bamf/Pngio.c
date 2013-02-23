@@ -259,7 +259,7 @@ static int read_header(struct pngio_t * restrict const p, struct pngio_meta_t * 
 	/* get PNG header info */
 	int n = png_get_IHDR(pm->png, pm->info, &p->width, &p->height, &p->bit_depth, &p->color_type,
 			     NULL, NULL, NULL);
-				
+
 	if(n == 0) return 1;
 
 	/* update the info struct */

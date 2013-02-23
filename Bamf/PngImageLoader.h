@@ -9,7 +9,11 @@
 #ifndef __Bamf__PngImageLoader__
 #define __Bamf__PngImageLoader__
 
+#include <iterator>
+#include <istream>
 #include <string>
+#include <vector>
+
 #include "png.h"
 
 #include "SDL2/SDL.h"
@@ -31,6 +35,7 @@ public:
 	Resource * load(uint64_t id, const std::string & path);
 	
 private:
+
 
 };
 

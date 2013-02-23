@@ -92,25 +92,25 @@ bamf::Action * MoveCameraButtons::actionForInput()
 int main(int argc, char *argv[])
 {
 	bamf::ResourceManager man;
-	bamf::Sprite sprite("/bamf/mage.png");
+	bamf::Sprite sprite("Resources/mage.png");
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
 	bamf::SpriteObject spriteSprite(&sprite);
 	
-	bamf::Sprite crosshair("/bamf/crosshair.png");
+	bamf::Sprite crosshair("Resources/crosshair.png");
 	crosshair.load(man);
 	crosshair.setHotspot(crosshair.getBounds().getCenter());
 	bamf::SpriteObject chSprite(&crosshair);
-#if 0
-	bamf::Sprite bg("/bamf/bg.png");
+
+	bamf::Sprite bg("Resources/bg.png");
 	bg.load(man);
 	bg.setHotspot(bg.getBounds().getCenter());
 	bamf::SpriteObject bgSprite(&bg);
-#endif
+
 	bamf::Scene scene;
 	scene.addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
 	scene.addObjectWithZValue(&chSprite, bamf::Scene::kForegroundNearLayer);
-	//scene.addObjectWithZValue(&bgSprite, bamf::Scene::kBackgroundLayer);
+	scene.addObjectWithZValue(&bgSprite, bamf::Scene::kBackgroundLayer);
 	
 	bamf::SynchronousGameLoop * gameLoop = new bamf::SynchronousGameLoop();
 	

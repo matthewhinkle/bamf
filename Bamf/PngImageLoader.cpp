@@ -10,6 +10,10 @@
 
 namespace bamf {
 
+enum {
+	kSigLen = 8
+};
+
 /* internal prototypes */
 static inline ColorType getColorType(int pngColorType);
 
@@ -48,12 +52,12 @@ Resource * PngImageLoader::load(uint64_t id, const std::string & path)
 static inline ColorType getColorType(int pngColorType)
 {
 	switch (pngColorType) {
-	case PNG_COLOR_TYPE_GRAY: return COLOR_TYPE_GRAY;
-	case PNG_COLOR_TYPE_GRAY_ALPHA: return COLOR_TYPE_GRAY_ALPHA;
-	case PNG_COLOR_TYPE_RGB: return COLOR_TYPE_RGB;
-	case PNG_COLOR_TYPE_RGB_ALPHA: return COLOR_TYPE_RGB_ALPHA;
-	case PNG_COLOR_TYPE_PALETTE: return COLOR_TYPE_PALETTE;
-	default: return COLOR_TYPE_UNKNOWN;
+	case PNG_COLOR_TYPE_GRAY: return kColorTypeGray;
+	case PNG_COLOR_TYPE_GRAY_ALPHA: return kColorTypeGrayAlpha;
+	case PNG_COLOR_TYPE_RGB: return kColorTypeRGB;
+	case PNG_COLOR_TYPE_RGB_ALPHA: return kColorTypeRGBA;
+	case PNG_COLOR_TYPE_PALETTE: return kColorTypePalette;
+	default: return kColorTypeUnkown;
 	}
 }
 
