@@ -784,8 +784,8 @@
 		48548BE116D86930008DBC84 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				48224C9716CE41D80075AB70 /* Scene.h */,
 				48224C9816CE43EB0075AB70 /* Scene.cpp */,
+				48224C9716CE41D80075AB70 /* Scene.h */,
 				48548BDE16D8692B008DBC84 /* SceneLayer.cpp */,
 				48548BDF16D8692C008DBC84 /* SceneLayer.h */,
 				48548BD416D82FC8008DBC84 /* SceneManager.cpp */,
