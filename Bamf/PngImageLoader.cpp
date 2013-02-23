@@ -26,6 +26,7 @@ Resource * PngImageLoader::load(uint64_t id, const std::string & path)
 	const char * filename = path.c_str();
 	int failed = pngio_read(&pngio, filename);
 	if(failed) {
+		pngio_destroy(&pngio);
 		return NULL;
 	}
 	

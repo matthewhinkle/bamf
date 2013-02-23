@@ -32,6 +32,8 @@ ImageResource::ImageResource(
 	
 	SDL_assert(length > 0);
 	this->data = new unsigned char[length];
+	memset(this->data, 0x0, dataSize);
+	
 	SDL_assert(memcpy(this->data, data, dataSize));
 }
 

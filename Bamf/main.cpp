@@ -24,6 +24,7 @@
 #include "CoreModule.h"
 #include "GraphicsModule.h"
 
+#include "Scene.h"
 #include "SpriteObject.h"
 
 class MoveCameraAction : public bamf::Action
@@ -100,10 +101,16 @@ int main(int argc, char *argv[])
 	crosshair.load(man);
 	crosshair.setHotspot(crosshair.getBounds().getCenter());
 	bamf::SpriteObject chSprite(&crosshair);
-	
+#if 0
+	bamf::Sprite bg("/bamf/bg.png");
+	bg.load(man);
+	bg.setHotspot(bg.getBounds().getCenter());
+	bamf::SpriteObject bgSprite(&bg);
+#endif
 	bamf::Scene scene;
-	scene.addObject(&spriteSprite);
-	scene.addObject(&chSprite);
+	scene.addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
+	scene.addObjectWithZValue(&chSprite, bamf::Scene::kForegroundNearLayer);
+	//scene.addObjectWithZValue(&bgSprite, bamf::Scene::kBackgroundLayer);
 	
 	bamf::SynchronousGameLoop * gameLoop = new bamf::SynchronousGameLoop();
 	
