@@ -29,9 +29,11 @@
 		483DC72316C238DC0034CC4B /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483DC72116C238DC0034CC4B /* Camera.cpp */; };
 		484351F416C909C9002CEDA9 /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 484351F216C909C9002CEDA9 /* Viewport.cpp */; };
 		48548BD616D82FC8008DBC84 /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48548BD416D82FC8008DBC84 /* SceneManager.cpp */; };
+		48548BDA16D84D68008DBC84 /* SpriteObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48548BD816D84D67008DBC84 /* SpriteObject.cpp */; };
+		48548BDD16D860F0008DBC84 /* MatrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48548BDC16D860F0008DBC84 /* MatrixStack.cpp */; };
+		48548BE016D8692C008DBC84 /* SceneLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48548BDE16D8692B008DBC84 /* SceneLayer.cpp */; };
 		4863335516BBADA30020F5A4 /* Pngio.c in Sources */ = {isa = PBXBuildFile; fileRef = 4863335316BBADA30020F5A4 /* Pngio.c */; };
 		48638EBC16CE097E009C659A /* CoreModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48638EBA16CE097D009C659A /* CoreModule.cpp */; };
-		48638EBE16CE16F9009C659A /* MatrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48638EBD16CE16F9009C659A /* MatrixStack.cpp */; };
 		48638EC016CE2123009C659A /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48638EBF16CE2123009C659A /* libSDL2-2.0.0.dylib */; };
 		4866BC0E16BB8A150051FDCB /* SynchronousGameLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */; };
 		48B8DD7716C1DA7E0048C9BB /* func_common.inl in Resources */ = {isa = PBXBuildFile; fileRef = 48B8DC9916C1DA7E0048C9BB /* func_common.inl */; };
@@ -286,11 +288,15 @@
 		484351F316C909C9002CEDA9 /* Viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
 		48548BD416D82FC8008DBC84 /* SceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneManager.cpp; sourceTree = "<group>"; };
 		48548BD516D82FC8008DBC84 /* SceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneManager.h; sourceTree = "<group>"; };
+		48548BD816D84D67008DBC84 /* SpriteObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteObject.cpp; sourceTree = "<group>"; };
+		48548BD916D84D67008DBC84 /* SpriteObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteObject.h; sourceTree = "<group>"; };
+		48548BDC16D860F0008DBC84 /* MatrixStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MatrixStack.cpp; sourceTree = "<group>"; };
+		48548BDE16D8692B008DBC84 /* SceneLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneLayer.cpp; sourceTree = "<group>"; };
+		48548BDF16D8692C008DBC84 /* SceneLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneLayer.h; sourceTree = "<group>"; };
 		4863335316BBADA30020F5A4 /* Pngio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Pngio.c; sourceTree = "<group>"; };
 		4863335416BBADA30020F5A4 /* Pngio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pngio.h; sourceTree = "<group>"; };
 		48638EBA16CE097D009C659A /* CoreModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoreModule.cpp; sourceTree = "<group>"; };
 		48638EBB16CE097D009C659A /* CoreModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreModule.h; sourceTree = "<group>"; };
-		48638EBD16CE16F9009C659A /* MatrixStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MatrixStack.cpp; sourceTree = "<group>"; };
 		48638EBF16CE2123009C659A /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "Bamf/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
 		4866BC0916BB85720051FDCB /* GameLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLoop.h; sourceTree = "<group>"; };
 		4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SynchronousGameLoop.cpp; sourceTree = "<group>"; };
@@ -698,7 +704,7 @@
 			children = (
 				4824D3ED16C4C87F001EDB07 /* Rectangle.h */,
 				481B5F0116C605740040DAA2 /* MatrixStack.h */,
-				48638EBD16CE16F9009C659A /* MatrixStack.cpp */,
+				48548BDC16D860F0008DBC84 /* MatrixStack.cpp */,
 				48224C9616CE3DB00075AB70 /* Lerp.h */,
 			);
 			name = Math;
@@ -759,6 +765,35 @@
 			name = Graphics;
 			sourceTree = "<group>";
 		};
+		48548BD716D84805008DBC84 /* AI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = AI;
+			sourceTree = "<group>";
+		};
+		48548BDB16D84D6C008DBC84 /* BamfObjects */ = {
+			isa = PBXGroup;
+			children = (
+				48548BD816D84D67008DBC84 /* SpriteObject.cpp */,
+				48548BD916D84D67008DBC84 /* SpriteObject.h */,
+			);
+			name = BamfObjects;
+			sourceTree = "<group>";
+		};
+		48548BE116D86930008DBC84 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				48224C9716CE41D80075AB70 /* Scene.h */,
+				48224C9816CE43EB0075AB70 /* Scene.cpp */,
+				48548BDE16D8692B008DBC84 /* SceneLayer.cpp */,
+				48548BDF16D8692C008DBC84 /* SceneLayer.h */,
+				48548BD416D82FC8008DBC84 /* SceneManager.cpp */,
+				48548BD516D82FC8008DBC84 /* SceneManager.h */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
 		4863335216BBAD570020F5A4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -776,21 +811,17 @@
 		4866BC0F16BB8A220051FDCB /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				48548BE116D86930008DBC84 /* Scenes */,
 				480C799A16CD821D00E0C525 /* Updateable.h */,
 				48224C9A16CE45670075AB70 /* Drawable.h */,
 				4824D3EF16C4CC14001EDB07 /* BamfObject.h */,
 				277B0C8C16CDAFD00061BF84 /* BamfObject.cpp */,
-				480D0CCF16CCB42B00600385 /* Module.h */,
 				4866BC0916BB85720051FDCB /* GameLoop.h */,
 				4866BC0C16BB8A150051FDCB /* SynchronousGameLoop.cpp */,
 				4866BC0D16BB8A150051FDCB /* SynchronousGameLoop.h */,
+				480D0CCF16CCB42B00600385 /* Module.h */,
 				48638EBA16CE097D009C659A /* CoreModule.cpp */,
 				48638EBB16CE097D009C659A /* CoreModule.h */,
-				48CAD5B816BB7227005CD223 /* main.cpp */,
-				48224C9716CE41D80075AB70 /* Scene.h */,
-				48224C9816CE43EB0075AB70 /* Scene.cpp */,
-				48548BD416D82FC8008DBC84 /* SceneManager.cpp */,
-				48548BD516D82FC8008DBC84 /* SceneManager.h */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -1105,6 +1136,8 @@
 		48CAD5B216BB7227005CD223 /* Bamf */ = {
 			isa = PBXGroup;
 			children = (
+				48548BDB16D84D6C008DBC84 /* BamfObjects */,
+				48548BD716D84805008DBC84 /* AI */,
 				A30AE7EE16CC137100D13952 /* Physics */,
 				2770107016C9936C0060738A /* utils */,
 				2770107316C9ACE90060738A /* network */,
@@ -1115,6 +1148,7 @@
 				482CCDA516BE093600590F7B /* Assets */,
 				4863335216BBAD570020F5A4 /* Resources */,
 				4866BC0F16BB8A220051FDCB /* Core */,
+				48CAD5B816BB7227005CD223 /* main.cpp */,
 				48CAD5B316BB7227005CD223 /* Supporting Files */,
 			);
 			path = Bamf;
@@ -1400,10 +1434,12 @@
 				480D0CD216CCC2C700600385 /* GraphicsModule.cpp in Sources */,
 				277B0C8D16CDAFD00061BF84 /* BamfObject.cpp in Sources */,
 				48638EBC16CE097E009C659A /* CoreModule.cpp in Sources */,
-				48638EBE16CE16F9009C659A /* MatrixStack.cpp in Sources */,
 				48224C9916CE43EB0075AB70 /* Scene.cpp in Sources */,
 				A30AE7FA16D5739500D13952 /* CollisionEvent.cpp in Sources */,
 				48548BD616D82FC8008DBC84 /* SceneManager.cpp in Sources */,
+				48548BDA16D84D68008DBC84 /* SpriteObject.cpp in Sources */,
+				48548BDD16D860F0008DBC84 /* MatrixStack.cpp in Sources */,
+				48548BE016D8692C008DBC84 /* SceneLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
