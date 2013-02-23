@@ -13,6 +13,7 @@
 
 #include "BamfObject.h"
 #include "MatrixStack.h"
+#include "SceneLayer.h"
 #include "SpriteStream.h"
 
 #include "Drawable.h"
@@ -26,23 +27,30 @@ public:
 	Scene();
 	virtual ~Scene();
 	
-	void addObject(BamfObject * bamf);
-	
+	void addObjectWithZValue(BamfObject * bamf, float layerZValue);
+		
 	BamfObject * removeObject(uint64_t id);
 	BamfObject * removeObject(BamfObject * bamf);
 	
-	inline BamfObject * getObjectById(uint64_t id) const {
-		std::unordered_map<uint64_t, BamfObject *>::const_iterator i = this->objectById.find(id);
-		
-		return i == this->objectById.end() ? NULL : i->second;
-	}
+	void removeLayerWithZValue(float zValue);
+	
+	BamfObject * getObjectById(uint64_t id) const;
 	
 	void update(unsigned dt);
 	
-	void draw(SpriteStream * spriteStream, unsigned delta);
+	void draw(SpriteStream * spriteStream, unsigned dt);
+	
+	/* common layers */
+	static const float kPhysicsLayer;
+	static const float kBackgroundLayer;
+	static const float kForegroundFarLayer;
+	static const float kForegroundMidLayer;
+	static const float kForegroundNearLayer;
+	static const float kHudLayer;
 	
 private:
-	std::unordered_map<uint64_t, BamfObject *> objectById;
+	std::unordered_map<uint64_t, SceneLayer *> layerByObjectId;
+	std::map<float, SceneLayer *> layerByZValue;
 	
 	Scene(const Scene &);
 	Scene & operator=(const Scene &);

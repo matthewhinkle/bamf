@@ -23,13 +23,15 @@ namespace bamf {
 class SceneLayer {
 public:
 
-	SceneLayer();
+	explicit SceneLayer();
 	virtual ~SceneLayer();
 	
 	void addObject(BamfObject * bamf);
 	
 	BamfObject * removeObject(uint64_t id);
 	BamfObject * removeObject(BamfObject * bamf);
+	
+	inline unsigned getObjectCount() const { return static_cast<unsigned>(this->objectById.size()); }
 	
 	inline BamfObject * getObjectById(uint64_t id) const {
 		std::unordered_map<uint64_t, BamfObject *>::const_iterator i = this->objectById.find(id);
@@ -43,7 +45,6 @@ public:
 	
 private:
 	std::unordered_map<uint64_t, BamfObject *> objectById;
-
 
 	SceneLayer(const SceneLayer &);
 	SceneLayer & operator=(const SceneLayer &);
