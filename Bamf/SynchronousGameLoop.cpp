@@ -121,6 +121,8 @@ int SynchronousGameLoop::run()
 	}
 	
 	unsigned timeLastTicked = SDL_GetTicks();
+	unsigned timeLastDrawn = timeLastTicked;
+	
 	float epoch = 0;
 	while(this->running) {
 		while(this->running && this->suspended) {
@@ -142,7 +144,8 @@ int SynchronousGameLoop::run()
 		epoch += dtFrameToEpoch(dtFrame);
 		epoch = this->update(epoch);
 		
-		if(dtFrame >= kMinFrameRenderTicks || epoch >= kMinFrameRenderTicks) {
+		if((time - timeLastDrawn) >= kMinFrameRenderTicks) {
+			timeLastDrawn = this->time;
 			this->draw(this->dt);
 		}
 	}
