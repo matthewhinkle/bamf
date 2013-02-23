@@ -21,7 +21,10 @@
 #include "Action.h"
 
 #include "Module.h"
+#include "CoreModule.h"
 #include "GraphicsModule.h"
+
+#include "SpriteObject.h"
 
 class MoveCameraAction : public bamf::Action
 {
@@ -87,25 +90,37 @@ bamf::Action * MoveCameraButtons::actionForInput()
 
 int main(int argc, char *argv[])
 {
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
+	bamf::ResourceManager man;
+	bamf::Sprite sprite("/bamf/mage.png");
+	sprite.load(man);
+	sprite.setHotspot(sprite.getBounds().getCenter());
+	bamf::SpriteObject spriteSprite(&sprite);
 	
-	SDL_Init(SDL_INIT_VIDEO);
+	bamf::Sprite crosshair("/bamf/crosshair.png");
+	crosshair.load(man);
+	crosshair.setHotspot(crosshair.getBounds().getCenter());
+	bamf::SpriteObject chSprite(&crosshair);
 	
-	bamf::GraphicsModule graphicsModule;
-	graphicsModule.init();
+	bamf::Scene scene;
+	scene.addObject(&spriteSprite);
+	scene.addObject(&chSprite);
 	
-	bamf::GameLoop * gameLoop = new bamf::SynchronousGameLoop(&graphicsModule);
-		
+	bamf::SynchronousGameLoop * gameLoop = new bamf::SynchronousGameLoop();
+	
+	bamf::CoreModule * core = gameLoop->getCoreModule();
+	bamf::SceneManager * sm = core->getSceneManager();
+	
+	sm->pushScene(&scene);
+	
 	bamf::InputManager inputManager;
 	bamf::InputMapping inputMapping;
-    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_RIGHT, 1000 * 0.016, 0, graphicsModule.getCamera()));
+	
+	#if 0
+    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_RIGHT, 1000 * 0.016, 0, gameLoop->.getCamera()));
     inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_LEFT, -1000 * 0.016, 0, graphicsModule.getCamera()));
     inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_UP, 0, 1000 * 0.016, graphicsModule.getCamera()));
     inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_DOWN, 0, -1000 * 0.016, graphicsModule.getCamera()));
-    
+    #endif
     inputManager.setInputMapping(&inputMapping);
 	gameLoop->addModule(&inputManager);
 	

@@ -36,10 +36,10 @@ enum {
 class SpriteStream {
 public:
 	
-	explicit SpriteStream(const Camera * camera);
+	explicit SpriteStream(Camera * camera);
 	virtual ~SpriteStream();
 	
-	void begin(const glm::mat4 & transform = glm::mat4(), int drawOptions = 0);
+	void begin(const glm::mat4 & transform = MatrixStack::kIdentMatrix, int drawOptions = 0);
 	void draw(const Sprite * sprite, const glm::vec2 & position = glm::vec2());
 	void end();
 	
@@ -58,12 +58,12 @@ private:
 			|| bottomLeft.y > viewArea.y + viewArea.height;
 	}
 	
-	const Camera * camera;
+	Camera * camera;
 
 	GLuint vbo;
 	
 	int drawOptions;
-	glm::mat4 transform;
+	MatrixStack matrixStack;
 	std::multimap<const Sprite *, glm::vec2> sprites;
 	std::vector< std::pair<const Sprite *, glm::vec2> > targets;
 

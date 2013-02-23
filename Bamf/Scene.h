@@ -12,6 +12,7 @@
 #include <unordered_map>
 
 #include "BamfObject.h"
+#include "MatrixStack.h"
 #include "SpriteStream.h"
 
 #include "Drawable.h"
@@ -19,7 +20,7 @@
 
 namespace bamf {
 
-class Scene {
+class Scene : public Updateable, public Drawable {
 public:
 
 	Scene();

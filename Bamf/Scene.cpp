@@ -23,7 +23,7 @@ void Scene::addObject(bamf::BamfObject * bamf)
 		return;
 	}
 	
-	this->objectById[bamf->getObjectID()] = bamf;
+	this->objectById[bamf->getId()] = bamf;
 }
 
 BamfObject * Scene::removeObject(uint64_t id)
@@ -41,17 +41,17 @@ BamfObject * Scene::removeObject(uint64_t id)
 
 BamfObject * Scene::removeObject(BamfObject * bamf)
 {
-	return bamf ? this->removeObject(bamf->getObjectID()) : NULL;
+	return bamf ? this->removeObject(bamf->getId()) : NULL;
 }
 
-void Scene::update(unsigned delta)
+void Scene::update(unsigned dt)
 {
-	std::for_each(this->objectById.begin(), this->objectById.end(), [=](std::pair<uint64_t, BamfObject *> i) { i.second->update(delta); });
+	std::for_each(this->objectById.begin(), this->objectById.end(), [=](std::pair<uint64_t, BamfObject *> i) { i.second->update(dt); });
 }
 
-void Scene::draw(bamf::SpriteStream * spriteStream, unsigned delta)
+void Scene::draw(bamf::SpriteStream * spriteStream, unsigned dt)
 {
-	std::for_each(this->objectById.begin(), this->objectById.end(), [=](std::pair<uint64_t, BamfObject *> i) { i.second->draw(spriteStream, delta); });
+	std::for_each(this->objectById.begin(), this->objectById.end(), [=](std::pair<uint64_t, BamfObject *> i) { i.second->draw(spriteStream, dt); });
 }
 
 }

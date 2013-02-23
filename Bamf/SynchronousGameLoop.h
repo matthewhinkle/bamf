@@ -18,7 +18,7 @@
 
 #include "GameLoop.h"
 #include "Module.h"
-#include "GraphicsModule.h"
+#include "CoreModule.h"
 
 namespace bamf {
 
@@ -37,11 +37,13 @@ public:
 		
 		@brief	create a new gameloop in a non-running state
 	 */
-	explicit SynchronousGameLoop(GraphicsModule * graphicsModule);
+	explicit SynchronousGameLoop(CoreModule * coreModule = NULL);
 	virtual ~SynchronousGameLoop();
 	
 	inline void addModule(Module * module) { this->modules.push_back(module); }
 	inline void removeModule(Module * module);
+	
+	inline CoreModule * getCoreModule() const { return this->coreModule; }
 	
 	inline bool isSuspended() const { return this->suspended; }
 		
@@ -51,17 +53,15 @@ public:
 	virtual void stop();
 	virtual void suspend();
 	
-	float update(float epoch);
-	void draw(unsigned delta);
-	
 	int run();
 	
 private:
-	static int run(void * loop);
-	void lerpPositions();
+	float update(float epoch);
+	void draw(unsigned dt);
 	
 	std::vector<Module *> modules;
-	GraphicsModule * graphicsModule;
+	CoreModule * coreModule;
+	const bool ownCore;
 		
 	bool running;
 	bool suspended;

@@ -24,7 +24,7 @@ enum {
 	kTexCoordOffset = 8 * kVertexDataSize
 };
 
-SpriteStream::SpriteStream(const Camera * camera)
+SpriteStream::SpriteStream(Camera * camera)
 	:
 	camera(camera)
 {
@@ -47,7 +47,8 @@ SpriteStream::~SpriteStream()
 
 void SpriteStream::begin(const glm::mat4 & transform, int drawOptions)
 {
-	this->transform = transform;
+	this->matrixStack.push();
+	this->matrixStack.mult(transform);
 	this->drawOptions = drawOptions;
 }
 
@@ -76,6 +77,9 @@ void SpriteStream::end()
 		this->targets.push_back(std::pair<const Sprite *, glm::vec2>(i->first, i->second));
 	}
 	
+	/* insert a transform sentry so we know when to load matrices during rendering */
+	this->targets.push_back(std::pair<const Sprite *, glm::vec2>(NULL, glm::vec2()));
+	
 	this->sprites.clear();
 }
 
@@ -93,12 +97,20 @@ void SpriteStream::flush()
 	std::vector<std::pair<const Sprite *, glm::vec2>>::iterator i;
 	std::vector<std::pair<const Sprite *, glm::vec2>>::const_iterator prevSprite;
 	
+	MatrixStack::loadMatrix(this->matrixStack.top());
+	
 	/* bind the first texture */
 	this->targets.begin()->first->getTexture()->bind();
 	
-	bamf::MatrixStack::loadMatrix(this->transform);
 	for(prevSprite = i = this->targets.begin(); i != this->targets.end(); i++, vertices += kVboSpriteStride) {
 		const Sprite * sprite = i->first;
+		
+		if(!(sprite)) {
+			/* transform sentry */
+			this->matrixStack.pop();
+			MatrixStack::loadMatrix(this->matrixStack.top());
+			continue;
+		}
 	
 		if(prevSprite->first != sprite) {
 			glUnmapBuffer(GL_ARRAY_BUFFER);
@@ -143,6 +155,11 @@ void SpriteStream::flush()
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		this->render((i - prevSprite) * kVerticesPerSprite);
 	}
+	
+	this->matrixStack.pop();
+	
+	this->matrixStack.reset();
+	this->matrixStack.mult(this->camera->computeTransform());
 	
 	this->targets.clear();
 }

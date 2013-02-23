@@ -78,6 +78,8 @@ void GraphicsModule::update(unsigned delta)
 	MatrixStack::loadMatrix(viewport->getPerspective());
 	MatrixStack::setMatrixMode(bamf::kMatrixModeModel);
 	
+	MatrixStack::loadMatrix(this->camera->computeTransform());
+	
 	this->spriteStream->flush();
 	
 	MatrixStack::loadMatrix();

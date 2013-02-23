@@ -18,23 +18,24 @@
 #include "PhysicsWorld.h"
 #include "RigidBody.h"
 
-glm::vec2 prev;
-bamf::Sprite sprite("/bamf/mage.png");
-bamf::Sprite crosshair("/bamf/crosshair.png");
+static inline float dtFrameToEpoch(float dtFrame);
 
 namespace bamf {
 
-SynchronousGameLoop::SynchronousGameLoop(GraphicsModule * graphicsModule)
+SynchronousGameLoop::SynchronousGameLoop(CoreModule * coreModule)
 	:
 	running(false),
 	suspended(false),
 	suspendMutex(SDL_CreateMutex()),
 	suspendCond(SDL_CreateCond()),
-	graphicsModule(graphicsModule),
+	ownCore(!(coreModule)),
+	coreModule(coreModule ? coreModule : new CoreModule()),
 	dt(0.016),
 	maxDtFrame(60),
 	time(0)
-{ }
+{
+	this->addModule(this->coreModule);
+}
 
 SynchronousGameLoop::~SynchronousGameLoop()
 {
@@ -47,6 +48,13 @@ SynchronousGameLoop::~SynchronousGameLoop()
 		SDL_DestroyCond(this->suspendCond);
 		this->suspendCond = NULL;
 	}
+	
+	if(this->ownCore && this->coreModule) {
+		delete this->coreModule;
+		this->coreModule = NULL;
+	}
+	
+	this->modules.clear();
 }
 
 void SynchronousGameLoop::removeModule(Module * module)
@@ -89,46 +97,9 @@ void SynchronousGameLoop::suspend()
 {
 	this->suspended = true;
 }
-	
-float SynchronousGameLoop::update(float epoch)
-{
-	for(; epoch >= this->dt; epoch -= this->dt, this->time += this->dt) {
-		std::vector<Module *>::iterator modIt;
-		for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
-			(*modIt)->update(this->dt);
-			prev = this->graphicsModule->getCamera()->getPosition();
-		}
-	}
-		
-	return epoch > 0.0f ? epoch : 0.0f;
-}
-
-void SynchronousGameLoop::draw(unsigned delta) {
-	/* temp draw code */
-	SpriteStream * ss = this->graphicsModule->getSpriteStream();
-	
-	this->graphicsModule->update(delta);
-	
-	ss->begin(this->graphicsModule->getCamera()->computeTransform(), bamf::kSpriteStreamClipEdges | bamf::kSpriteStreamEnforceDrawOrder);
-	for(int i = 0; i < 300; i++) {
-		for(int j = 0; j < 200; j++) {
-			ss->draw(&sprite, glm::vec2(i * 200, j * 300));
-		}
-	}
-	ss->draw(&crosshair, this->graphicsModule->getCamera()->getPosition());
-	ss->end();
-}
 
 int SynchronousGameLoop::run()
 {
-	/* temp development code */
-	ResourceManager man;
-	sprite.load(man);
-	sprite.setHotspot(sprite.getBounds().getCenter());
-	
-	crosshair.load(man);
-	crosshair.setHotspot(crosshair.getBounds().getCenter());
-	
     /* Collision Circle Test */
     /*CollisionCircle c1(glm::vec2(0,2), 2);
     CollisionCircle c2(glm::vec2(0,5), 1);    
@@ -140,14 +111,10 @@ int SynchronousGameLoop::run()
     PhysicsWorld pw(0);
     pw.addObject(c2);*/
     
-	/* actual code */
 	std::vector<Module *>::iterator modIt;
 	for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
 		(*modIt)->init();
 	}
-	
-	Camera * cam = graphicsModule->getCamera();
-	prev = graphicsModule->getCamera()->getPosition();
 	
 	unsigned timeLastTicked = SDL_GetTicks();
 	float epoch = 0;
@@ -160,31 +127,42 @@ int SynchronousGameLoop::run()
 			/* do not execute another iteration if we stopped while suspended */
 			continue;
 		}
-		
-		//cam->setPosition(glm::vec2(cam->getPosition().x + 5, cam->getPosition().y + 5));
-		
+				
 		unsigned time = SDL_GetTicks();
-		
-		printf("fps = %f\n", 1000.0f / (time - timeLastTicked));
-		
+				
 		unsigned dtFrame = glm::min(time - timeLastTicked, maxDtFrame);
 		timeLastTicked = time;
 
-		/* interpolate */
 		//pw.update();
 		
-		epoch += dtFrame / 1000.0f;
+		epoch += dtFrameToEpoch(dtFrame);
 		epoch = this->update(epoch);
-		
-		glm::vec2 pos = Lerp::lerp(prev, cam->getPosition(), epoch, dt);
-		
-		//printf("new = %f, %f\n", pos.x, pos.y);
-		//prev = pos;
-		//cam->setPosition(pos);
 		
 		this->draw(this->dt);
 	}
-		return 0;
+	
+	return 0;
 }
 
+float SynchronousGameLoop::update(float epoch)
+{
+	for(; epoch >= this->dt; epoch -= this->dt, this->time += this->dt) {
+		std::vector<Module *>::iterator modIt;
+		for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
+			(*modIt)->update(this->dt);
+		}
+	}
+		
+	return epoch > 0.0f ? epoch : 0.0f;
+}
+
+void SynchronousGameLoop::draw(unsigned dt) {
+	this->coreModule->draw(dt);
+	this->coreModule->prepareGraphicsModule(dt);
+}
+
+}
+
+static inline float dtFrameToEpoch(float dtFrame) {
+	return dtFrame / 1000.0f;
 }
