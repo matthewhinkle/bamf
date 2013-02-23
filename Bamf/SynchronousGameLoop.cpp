@@ -18,6 +18,10 @@
 #include "PhysicsWorld.h"
 #include "RigidBody.h"
 
+enum {
+	kMinFrameRenderTicks = 16
+};
+
 static inline float dtFrameToEpoch(float dtFrame);
 
 namespace bamf {
@@ -138,7 +142,9 @@ int SynchronousGameLoop::run()
 		epoch += dtFrameToEpoch(dtFrame);
 		epoch = this->update(epoch);
 		
-		this->draw(this->dt);
+		if(dtFrame >= kMinFrameRenderTicks) {
+			this->draw(this->dt);
+		}
 	}
 	
 	return 0;
