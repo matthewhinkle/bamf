@@ -142,7 +142,7 @@ int SynchronousGameLoop::run()
 		epoch += dtFrameToEpoch(dtFrame);
 		epoch = this->update(epoch);
 		
-		if(dtFrame >= kMinFrameRenderTicks) {
+		if(dtFrame >= kMinFrameRenderTicks || epoch >= kMinFrameRenderTicks) {
 			this->draw(this->dt);
 		}
 	}
