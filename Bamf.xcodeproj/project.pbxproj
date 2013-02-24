@@ -25,6 +25,7 @@
 		48257C3816BCF6060042A7D0 /* WavAudioLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48257C3616BCF6060042A7D0 /* WavAudioLoader.cpp */; };
 		48257C3B16BCF6910042A7D0 /* AudioResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48257C3916BCF6910042A7D0 /* AudioResource.cpp */; };
 		48290D0E16C20F650095F443 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48290D0C16C20F650095F443 /* Sprite.cpp */; };
+		482A834516D9C09900812AFA /* CollisionModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482A834316D9C09900812AFA /* CollisionModule.cpp */; };
 		482CCDAC16BE203B00590F7B /* Texture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482CCDAA16BE203B00590F7B /* Texture2D.cpp */; };
 		482CCDB016BE34E900590F7B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482CCDAF16BE34E900590F7B /* OpenGL.framework */; };
 		483DC72316C238DC0034CC4B /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483DC72116C238DC0034CC4B /* Camera.cpp */; };
@@ -150,7 +151,6 @@
 		A30AE7E216C98DAF00D13952 /* CollisionRectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30AE7E016C98DAF00D13952 /* CollisionRectangle.cpp */; };
 		A30AE7E516C98DD000D13952 /* CollisionCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30AE7E316C98DD000D13952 /* CollisionCircle.cpp */; };
 		A30AE7E816C98DEC00D13952 /* CollisionCapsule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30AE7E616C98DEB00D13952 /* CollisionCapsule.cpp */; };
-		A30AE7EB16C98E2700D13952 /* CollisionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30AE7E916C98E2600D13952 /* CollisionManager.cpp */; };
 		A30AE7F116CC139000D13952 /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30AE7EF16CC139000D13952 /* RigidBody.cpp */; };
 		A30AE7F416CC17A800D13952 /* PhysicsWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30AE7F216CC17A800D13952 /* PhysicsWorld.cpp */; };
 		A30AE7FA16D5739500D13952 /* CollisionEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30AE7F816D5739500D13952 /* CollisionEvent.cpp */; };
@@ -280,6 +280,8 @@
 		48257C3A16BCF6910042A7D0 /* AudioResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioResource.h; sourceTree = "<group>"; };
 		48290D0C16C20F650095F443 /* Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sprite.cpp; sourceTree = "<group>"; };
 		48290D0D16C20F650095F443 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
+		482A834316D9C09900812AFA /* CollisionModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionModule.cpp; sourceTree = "<group>"; };
+		482A834416D9C09900812AFA /* CollisionModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollisionModule.h; sourceTree = "<group>"; };
 		482CCDA616BE097600590F7B /* Asset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Asset.h; sourceTree = "<group>"; };
 		482CCDAA16BE203B00590F7B /* Texture2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture2D.cpp; sourceTree = "<group>"; };
 		482CCDAB16BE203B00590F7B /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2D.h; sourceTree = "<group>"; };
@@ -555,8 +557,6 @@
 		A30AE7E416C98DD000D13952 /* CollisionCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollisionCircle.h; sourceTree = "<group>"; };
 		A30AE7E616C98DEB00D13952 /* CollisionCapsule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionCapsule.cpp; sourceTree = "<group>"; };
 		A30AE7E716C98DEB00D13952 /* CollisionCapsule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollisionCapsule.h; sourceTree = "<group>"; };
-		A30AE7E916C98E2600D13952 /* CollisionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionManager.cpp; sourceTree = "<group>"; };
-		A30AE7EA16C98E2700D13952 /* CollisionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollisionManager.h; sourceTree = "<group>"; };
 		A30AE7EF16CC139000D13952 /* RigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RigidBody.cpp; sourceTree = "<group>"; };
 		A30AE7F016CC139000D13952 /* RigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigidBody.h; sourceTree = "<group>"; };
 		A30AE7F216CC17A800D13952 /* PhysicsWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsWorld.cpp; sourceTree = "<group>"; };
@@ -1180,10 +1180,10 @@
 				A30AE7E416C98DD000D13952 /* CollisionCircle.h */,
 				A30AE7E616C98DEB00D13952 /* CollisionCapsule.cpp */,
 				A30AE7E716C98DEB00D13952 /* CollisionCapsule.h */,
-				A30AE7E916C98E2600D13952 /* CollisionManager.cpp */,
-				A30AE7EA16C98E2700D13952 /* CollisionManager.h */,
 				A30AE7F816D5739500D13952 /* CollisionEvent.cpp */,
 				A30AE7F916D5739500D13952 /* CollisionEvent.h */,
+				482A834316D9C09900812AFA /* CollisionModule.cpp */,
+				482A834416D9C09900812AFA /* CollisionModule.h */,
 			);
 			name = Collisions;
 			sourceTree = "<group>";
@@ -1430,7 +1430,6 @@
 				A30AE7E216C98DAF00D13952 /* CollisionRectangle.cpp in Sources */,
 				A30AE7E516C98DD000D13952 /* CollisionCircle.cpp in Sources */,
 				A30AE7E816C98DEC00D13952 /* CollisionCapsule.cpp in Sources */,
-				A30AE7EB16C98E2700D13952 /* CollisionManager.cpp in Sources */,
 				2770106F16C991C80060738A /* InputManager.cpp in Sources */,
 				A30AE7F116CC139000D13952 /* RigidBody.cpp in Sources */,
 				A30AE7F416CC17A800D13952 /* PhysicsWorld.cpp in Sources */,
@@ -1444,6 +1443,7 @@
 				48548BDA16D84D68008DBC84 /* SpriteObject.cpp in Sources */,
 				48548BDD16D860F0008DBC84 /* MatrixStack.cpp in Sources */,
 				48548BE016D8692C008DBC84 /* SceneLayer.cpp in Sources */,
+				482A834516D9C09900812AFA /* CollisionModule.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
