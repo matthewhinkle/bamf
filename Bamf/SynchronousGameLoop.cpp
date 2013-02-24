@@ -101,9 +101,9 @@ void SynchronousGameLoop::suspend()
 {
 	this->suspended = true;
 }
-
+//test meh
 int SynchronousGameLoop::run()
-{    
+{
 	std::vector<Module *>::iterator modIt;
 	for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
 		(*modIt)->init();

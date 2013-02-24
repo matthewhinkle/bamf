@@ -30,11 +30,10 @@ public:
 	inline void setZRotation(float zRotation) { this->zRotation = zRotation; }
 	
 	inline Sprite * getSprite() { return this->sprite; }
-	
+
 	void update(unsigned dt) { }
-	
+
 	void draw(SpriteStream * spriteStream, unsigned dt);
-	
 private:
 	Sprite * sprite;
 	

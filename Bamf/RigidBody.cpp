@@ -11,13 +11,13 @@
 namespace bamf {
     
     RigidBody::RigidBody()
-		:
-		count(0)
     {
         cm = glm::vec2(0,0);
         linearVelocity = glm::vec2(0,0);
         mass = 0.0f;
+        
         std::cout << "duh fuck";
+        
     }
     RigidBody::~RigidBody(){
         
@@ -70,15 +70,14 @@ namespace bamf {
         std::cout << "pos: (" << p.x << ", " << p.y << ")" << "\n";
         std::cout << "vel: (" << v.x << ", " << v.y << ")" << "\n";
         std::cout << "force: (" << f.x << ", " << f.y << ")" << "\n";
+        
         linearVelocity = v + ((f/= 2.0f)*= 16);
         cm = p + (linearVelocity);
+        
         std::cout << "<----- V Calc-------------> \n";
         std::cout << "new pos: (" << cm.x << ", " << cm.y << ")" << "\n";
         std::cout << "new vel: (" << linearVelocity.x << ", " << linearVelocity.y << ")" << "\n";
         std::cout << "<-------------------------> \n";
-        //cm = p;
-        //linearVelocity = v;
-        std::cout << "cm pos: (" << cm.x << ", " << cm.y << ")" << "\n";
-        std::cout << "linVel: (" << linearVelocity.x << ", " << linearVelocity.y << ")" << "\n";
+
     }
 }

@@ -11,6 +11,7 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <fstream>
 #include <string>
 
 #include "SDL2/SDL.h"
@@ -21,8 +22,8 @@
 namespace bamf {
 
 typedef enum {
-	kColorTypeGray = GL_LUMINANCE,
-	kColorTypeGrayAlpha = GL_LUMINANCE,
+	kColorTypeGray = GL_RGB,
+	kColorTypeGrayAlpha = GL_RGB,
 	kColorTypeRGB = GL_RGB,
 	kColorTypeRGBA = GL_RGBA,
 	kColorTypePalette,

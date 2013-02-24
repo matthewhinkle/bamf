@@ -54,20 +54,14 @@ void SpriteStream::begin(const glm::mat4 & transform, int drawOptions)
 
 void SpriteStream::draw(const Sprite * sprite, const glm::vec2 & position)
 {
-	if(!(sprite)) {
-		return;
-	}
-
 	const glm::vec2 normPos = position - sprite->getHotspot();
 	if(this->drawOptions & kSpriteStreamClipEdges && this->isClipping(sprite, normPos)) {
 		return;
 	}
 	
 	if(this->drawOptions & kSpriteStreamEnforceDrawOrder) {
-		/* we need to stick to the draw order so send the sprute to the target array */
 		this->targets.push_back(std::pair<const Sprite *, glm::vec2>(sprite, normPos));
 	} else {
-		/* no draw order, send the sprite to the sprite map where it will be sorted by texture */
 		this->sprites.insert(std::pair<const Sprite *, glm::vec2>(sprite, normPos));
 	}
 }
@@ -119,11 +113,6 @@ void SpriteStream::flush()
 		}
 	
 		if(prevSprite->first != sprite) {
-			/**
-				sprites differ if their textures differ.  so render what we have and
-				then bind the new texture
-			 */
-		
 			glUnmapBuffer(GL_ARRAY_BUFFER);
 			this->render((i - prevSprite) * kVerticesPerSprite);
 			glBufferData(GL_ARRAY_BUFFER, kVboSize, NULL, GL_STREAM_DRAW);

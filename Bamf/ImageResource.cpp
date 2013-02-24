@@ -35,6 +35,8 @@ ImageResource::ImageResource(
 	memset(this->data, 0x0, dataSize);
 	
 	SDL_assert(memcpy(this->data, data, dataSize));
+	
+	SDL_assert(colorType == kColorTypeRGB || colorType == kColorTypeRGBA);
 }
 
 ImageResource::~ImageResource()

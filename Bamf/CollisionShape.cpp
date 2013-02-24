@@ -19,10 +19,10 @@ namespace bamf {
     CollisionShape::~CollisionShape(){
         
     }
-    void CollisionShape::setRigidBody(RigidBody r){
+    void CollisionShape::setRigidBody(RigidBody *r){
         rBody = r;
     }
-    RigidBody CollisionShape::getRigidBody(){
+    RigidBody* CollisionShape::getRigidBody(){
         return rBody;
     }
     bool CollisionShape::checkCollision(CollisionShape s){
