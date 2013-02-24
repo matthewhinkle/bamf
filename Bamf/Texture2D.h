@@ -9,7 +9,6 @@
 #ifndef __Bamf__Texture2D__
 #define __Bamf__Texture2D__
 
-#include <atomic>
 #include <string>
 
 #include "SDL2/SDL.h"

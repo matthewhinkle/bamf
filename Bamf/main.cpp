@@ -27,6 +27,10 @@
 #include "Scene.h"
 #include "SpriteObject.h"
 
+#include "CollisionCircle.h"
+#include "CollisionModule.h"
+#include "PhysicsWorld.h"
+
 class MoveCameraAction : public bamf::Action
 {
 protected:
@@ -96,21 +100,11 @@ int main(int argc, char *argv[])
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
 	bamf::SpriteObject spriteSprite(&sprite);
-	
-	bamf::Sprite crosshair("Resources/crosshair.png");
-	crosshair.load(man);
-	crosshair.setHotspot(crosshair.getBounds().getCenter());
-	bamf::SpriteObject chSprite(&crosshair);
-
-	bamf::Sprite bg("Resources/bg.png");
-	bg.load(man);
-	bg.setHotspot(bg.getBounds().getCenter());
-	bamf::SpriteObject bgSprite(&bg);
 
 	bamf::Scene scene;
 	scene.addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
-	scene.addObjectWithZValue(&chSprite, bamf::Scene::kForegroundNearLayer);
-	scene.addObjectWithZValue(&bgSprite, bamf::Scene::kBackgroundLayer);
+	//scene.addObjectWithZValue(&chSprite, bamf::Scene::kForegroundNearLayer);
+	//scene.addObjectWithZValue(&bgSprite, bamf::Scene::kBackgroundLayer);
 	
 	bamf::SynchronousGameLoop * gameLoop = new bamf::SynchronousGameLoop();
 	
@@ -130,6 +124,23 @@ int main(int argc, char *argv[])
     #endif
     inputManager.setInputMapping(&inputMapping);
 	gameLoop->addModule(&inputManager);
+	
+	
+	/* Collision Circle Test */
+    bamf::CollisionCircle c1(glm::vec2(0,2), 2);
+    bamf::CollisionCircle c2(glm::vec2(0,5), 1);
+    c1.checkCollision(c2);
+    c2.checkCollision(c1);
+    bamf::RigidBody r;
+    r.setForce(glm::vec2(0,1));
+    c2.setRigidBody(r);
+    bamf::PhysicsWorld pw(1);
+    pw.addObject(c2);
+	
+	bamf::CollisionModule collisionModule;
+	
+	gameLoop->addModule(&pw);
+	gameLoop->addModule(&collisionModule);
 	
 	gameLoop->start();
 	

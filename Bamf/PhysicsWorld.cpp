@@ -52,7 +52,7 @@ namespace bamf {
         s.getRigidBody().setPositon(p);
         
     }*/
-    void PhysicsWorld::update(){
+    void PhysicsWorld::update(unsigned dt){
         for(int i=0;i<objectList.size();i++)
         {
             objectList[i].getRigidBody().step();

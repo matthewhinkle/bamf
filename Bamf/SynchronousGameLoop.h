@@ -56,7 +56,7 @@ public:
 	int run();
 	
 private:
-	float update(float epoch);
+	unsigned update(unsigned epoch);
 	void draw(unsigned dt);
 	
 	std::vector<Module *> modules;
@@ -65,7 +65,7 @@ private:
 		
 	bool running;
 	bool suspended;
-	float dt;
+	unsigned dt;
 	unsigned time;
 	unsigned maxDtFrame;
 	

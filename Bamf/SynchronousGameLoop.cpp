@@ -34,7 +34,7 @@ SynchronousGameLoop::SynchronousGameLoop(CoreModule * coreModule)
 	suspendCond(SDL_CreateCond()),
 	ownCore(!(coreModule)),
 	coreModule(coreModule ? coreModule : new CoreModule()),
-	dt(0.016),
+	dt(16),
 	maxDtFrame(60),
 	time(0)
 {
@@ -103,18 +103,7 @@ void SynchronousGameLoop::suspend()
 }
 
 int SynchronousGameLoop::run()
-{
-    /* Collision Circle Test */
-    CollisionCircle c1(glm::vec2(0,2), 2);
-    CollisionCircle c2(glm::vec2(0,5), 1);    
-    c1.checkCollision(c2);
-    c2.checkCollision(c1);
-    RigidBody r;
-    r.setForce(glm::vec2(0,1));
-    c2.setRigidBody(r);
-    PhysicsWorld pw(1);
-    pw.addObject(c2);
-    
+{    
 	std::vector<Module *>::iterator modIt;
 	for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
 		(*modIt)->init();
@@ -139,8 +128,7 @@ int SynchronousGameLoop::run()
 		unsigned dtFrame = glm::min(time - timeLastTicked, maxDtFrame);
 		timeLastTicked = time;
 
-		pw.update();		
-		epoch += dtFrameToEpoch(dtFrame);
+		epoch += dtFrame;
 		epoch = this->update(epoch);
 		
 		if((time - timeLastDrawn) >= kMinFrameRenderTicks) {
@@ -152,7 +140,7 @@ int SynchronousGameLoop::run()
 	return 0;
 }
 
-float SynchronousGameLoop::update(float epoch)
+unsigned SynchronousGameLoop::update(unsigned epoch)
 {
 	for(; epoch >= this->dt; epoch -= this->dt, this->time += this->dt) {
 		std::vector<Module *>::iterator modIt;
@@ -161,7 +149,7 @@ float SynchronousGameLoop::update(float epoch)
 		}
 	}
 		
-	return epoch > 0.0f ? epoch : 0.0f;
+	return epoch > 0 ? epoch : 0;
 }
 
 void SynchronousGameLoop::draw(unsigned dt) {
@@ -169,8 +157,4 @@ void SynchronousGameLoop::draw(unsigned dt) {
 	this->coreModule->prepareGraphicsModule(dt);
 }
 
-}
-
-static inline float dtFrameToEpoch(float dtFrame) {
-	return dtFrame / 1000.0f;
 }

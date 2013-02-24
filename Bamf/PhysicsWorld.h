@@ -15,9 +15,11 @@
 #include "glm.hpp"
 #include "CollisionShape.h"
 
+#include "Module.h"
+
 namespace bamf {
     
-class PhysicsWorld {
+class PhysicsWorld : public Module {
 public:
     PhysicsWorld(uint64_t id);
     ~PhysicsWorld();
@@ -27,8 +29,10 @@ public:
     void applyForce(glm::vec2 f);
     void applyImpulse(glm::vec2 i);
     void applyTorque(glm::vec2 t);
-    void update();
     //void step(CollisionShape s);
+	
+	inline void init() { }
+	void update(unsigned dt);
 protected:
     
 private:
