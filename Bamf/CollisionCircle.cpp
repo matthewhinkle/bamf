@@ -18,6 +18,12 @@ namespace bamf {
     CollisionCircle::~CollisionCircle(){
         
     }
+    glm::vec2 CollisionCircle::getPosition() {
+        return position;
+    }
+    void CollisionCircle::setPosition(glm::vec2 p) {
+        position = p;
+    }
     bool CollisionCircle::checkCollision(CollisionCircle & c){
         glm::vec2 s = this->position - c.position;
         float radius = ((this->radius)+(c.radius));
