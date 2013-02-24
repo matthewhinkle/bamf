@@ -7,10 +7,15 @@
 //
 
 #include "CollisionShape.h"
+#include "RigidBody.h"
+
 
 namespace bamf {
+    
     CollisionShape::CollisionShape()
-    {}
+    {
+        
+    }
     CollisionShape::~CollisionShape(){
         
     }

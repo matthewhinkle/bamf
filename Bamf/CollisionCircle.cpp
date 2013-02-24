@@ -20,8 +20,8 @@ namespace bamf {
     }
     bool CollisionCircle::checkCollision(CollisionCircle & c){
         glm::vec2 s = this->position - c.position;
-        int radius = ((this->radius)+(c.radius));
-        int magnitudeSquared = ((s.x)*(s.x))+((s.y)*(s.y));
+        float radius = ((this->radius)+(c.radius));
+        float magnitudeSquared = ((s.x)*(s.x))+((s.y)*(s.y));
         if(magnitudeSquared <= (radius * radius))
         {
             std::cout << "True";

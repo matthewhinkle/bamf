@@ -28,7 +28,7 @@ public:
     void applyImpulse(glm::vec2 i);
     void applyTorque(glm::vec2 t);
     void update();
-    void step(CollisionShape s);
+    //void step(CollisionShape s);
 protected:
     
 private:
@@ -36,6 +36,7 @@ private:
     glm::vec2 gravity;
     std::vector<CollisionShape> objectList;
     int timeStep = 16;
+    int updateCount = 0;
 };
 }
 #endif /* defined(__Bamf__PhysicsWorld__) */

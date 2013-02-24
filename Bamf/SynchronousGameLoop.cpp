@@ -87,7 +87,7 @@ int SynchronousGameLoop::run()
 {
 	/* temp development code */
 	ResourceManager man;
-	Sprite sprite("/bamf/mage.png");
+	Sprite sprite("/bamf/logo.png");
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
 	
@@ -97,22 +97,22 @@ int SynchronousGameLoop::run()
 	
     
     /* Collision Circle Test */
-    /*CollisionCircle c1(glm::vec2(0,2), 2);
+    CollisionCircle c1(glm::vec2(0,2), 2);
     CollisionCircle c2(glm::vec2(0,5), 1);    
     c1.checkCollision(c2);
     c2.checkCollision(c1);
     RigidBody r;
     r.setForce(glm::vec2(0,1));
     c2.setRigidBody(r);
-    PhysicsWorld pw(0);
-    pw.addObject(c2);*/
+    PhysicsWorld pw(1);
+    pw.addObject(c2);
     
 	/* actual code */
 	std::vector<Module *>::iterator modIt;
 	for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
 		(*modIt)->init();
 	}
-
+    
 	Uint32 timeLastTicked = SDL_GetTicks();
 	while(this->running) {
 		while(this->running && this->suspended) {
@@ -127,7 +127,7 @@ int SynchronousGameLoop::run()
 		unsigned time = static_cast<unsigned>(SDL_GetTicks());
 		unsigned delta = time - timeLastTicked;
 		timeLastTicked = time;
-		//pw.update();
+		pw.update();
 		/* temp draw code */
 		SpriteStream * ss = graphicsModule->getSpriteStream();
 		

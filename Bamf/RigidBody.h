@@ -33,18 +33,21 @@ public:
     
     void setForce(glm::vec2 f);
     glm::vec2 getForce();
-    //void step();
+    
+    void step();
+    
     void update();
 protected:
     
 private:
     uint64_t id;
-    glm::vec2 position;
+    glm::vec2 cm;
     glm::vec2 linearVelocity;
     glm::vec2 force;
     float angularVelocity;
     float mass;
     bool affectedByGravity;
+    int count = 0;
 };
 }
 #endif /* defined(__Bamf__RigidBody__) */

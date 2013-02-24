@@ -12,11 +12,15 @@ namespace bamf {
     
     RigidBody::RigidBody()
     {
+        cm = glm::vec2(0,0);
+        linearVelocity = glm::vec2(0,0);
+        mass = 0.0f;
+        std::cout << "duh fuck";
+        
     }
     RigidBody::~RigidBody(){
         
     }
-    
     void RigidBody::setMass(float m)
     {
         mass = m;
@@ -26,23 +30,17 @@ namespace bamf {
     }
     
     void RigidBody::setPositon(glm::vec2 p){
-        std::cout << "new pos x: " << p.x << "\n";
-        std::cout << "new pos y: " << p.x << "\n";
-        position = p;
+        cm = p;
     }
     glm::vec2 RigidBody::getPosition(){
-        return position;
+        return cm;
     }
-    
     void RigidBody::setLinearVeloctiy(glm::vec2 v){
-        std::cout << "new vel x: " << v.x << "\n";
-        std::cout << "new vel y: " << v.x << "\n";
         linearVelocity = v;
     }
     glm::vec2 RigidBody::getLinearVeloctiy(){
         return linearVelocity;
     }
-    
     void RigidBody::setAngularVelocity(float v){
         angularVelocity = v;
     }
@@ -55,13 +53,31 @@ namespace bamf {
     glm::vec2 RigidBody::getForce() {
         return force;
     }
-    /*void step(){
-        glm::vec2 p = position;
+    void RigidBody::step(){
+        glm::vec2 p = cm;
         glm::vec2 v = linearVelocity;
         glm::vec2 f = force;
-        position = p + (v *= 16);
-        v = v + ((f /= s.getRigidBody().getMass()) *= 16);
-        s.getRigidBody().setLinearVeloctiy(v);
-        s.getRigidBody().setPositon(p);
-    }*/
+        mass = 1.0f;
+        count++;
+        
+        std::cout << "<-----Pre Calc-------------> \n";
+        std::cout << "count: " << count << "\n";
+        std::cout << "rigidBodyId: " << id << "\n";
+        std::cout << "pnt" << this << "\n";
+        std::cout << "cm: (" << cm.x << ", " << cm.y << ")" << "\n";
+        std::cout << "linVel: (" << linearVelocity.x << ", " << linearVelocity.y << ")" << "\n";
+        std::cout << "pos: (" << p.x << ", " << p.y << ")" << "\n";
+        std::cout << "vel: (" << v.x << ", " << v.y << ")" << "\n";
+        std::cout << "force: (" << f.x << ", " << f.y << ")" << "\n";
+        linearVelocity = v + ((f/= 2.0f)*= 16);
+        cm = p + (linearVelocity);
+        std::cout << "<----- V Calc-------------> \n";
+        std::cout << "new pos: (" << cm.x << ", " << cm.y << ")" << "\n";
+        std::cout << "new vel: (" << linearVelocity.x << ", " << linearVelocity.y << ")" << "\n";
+        std::cout << "<-------------------------> \n";
+        //cm = p;
+        //linearVelocity = v;
+        std::cout << "cm pos: (" << cm.x << ", " << cm.y << ")" << "\n";
+        std::cout << "linVel: (" << linearVelocity.x << ", " << linearVelocity.y << ")" << "\n";
+    }
 }
