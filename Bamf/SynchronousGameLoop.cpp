@@ -139,7 +139,7 @@ int SynchronousGameLoop::run()
 		unsigned dtFrame = glm::min(time - timeLastTicked, maxDtFrame);
 		timeLastTicked = time;
 
-		//pw.update();		
+		pw.update();		
 		epoch += dtFrameToEpoch(dtFrame);
 		epoch = this->update(epoch);
 		

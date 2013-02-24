@@ -60,6 +60,7 @@ BamfObject * Scene::removeObject(uint64_t id)
 	
 	BamfObject * bamf = i->second->removeObject(id);
 	if(i->second->getObjectCount() <= 0) {
+		/* the layer is empty so we delete it */
 		delete i->second;
 		i->second = NULL;
 		this->layerByObjectId.erase(i);

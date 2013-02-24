@@ -11,12 +11,13 @@
 namespace bamf {
     
     RigidBody::RigidBody()
+		:
+		count(0)
     {
         cm = glm::vec2(0,0);
         linearVelocity = glm::vec2(0,0);
         mass = 0.0f;
         std::cout << "duh fuck";
-        
     }
     RigidBody::~RigidBody(){
         
