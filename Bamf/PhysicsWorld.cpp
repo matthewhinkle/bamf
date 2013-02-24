@@ -55,7 +55,7 @@ namespace bamf {
     void PhysicsWorld::update(){
         for(int i=0;i<objectList.size();i++)
         {
-            objectList[i].getRigidBody().step();
+            objectList[i].getRigidBody()->step();
             std::cout << "i: " << i << "\n";
             updateCount++;
             
