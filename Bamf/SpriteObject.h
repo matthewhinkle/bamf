@@ -15,18 +15,19 @@
 #include "Sprite.h"
 #include "SpriteStream.h"
 
+#include "CollisionShape.h"
+
 namespace bamf {
 
 class SpriteObject : public BamfObject {
 public:
 
-	explicit SpriteObject(Sprite * sprite);
+	explicit SpriteObject(Sprite * sprite, RigidBody * rigidBody);
 	virtual ~SpriteObject();
 	
-	inline const glm::vec2 & getPosition() const { return this->position; }
+	inline const glm::vec2 & getPosition() const { return this->rigidBody->getPosition(); }
 	inline float getZRotation() const { return this->zRotation; }
 	
-	inline void setPosition(const glm::vec2 & position) { this->position = position; }
 	inline void setZRotation(float zRotation) { this->zRotation = zRotation; }
 	
 	inline Sprite * getSprite() { return this->sprite; }
@@ -37,7 +38,7 @@ public:
 private:
 	Sprite * sprite;
 	
-	glm::vec2 position;
+	RigidBody * rigidBody;
 	float zRotation;
 	
 	SpriteObject(const SpriteObject &);

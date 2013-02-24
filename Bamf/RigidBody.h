@@ -23,7 +23,7 @@ public:
     float getMass();
     
     void setPositon(glm::vec2 p);
-    glm::vec2 getPosition();
+    const glm::vec2 & getPosition();
     
     void setLinearVeloctiy(glm::vec2 v);
     glm::vec2 getLinearVeloctiy();

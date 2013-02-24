@@ -10,11 +10,11 @@
 
 namespace bamf {
 
-SpriteObject::SpriteObject(Sprite * sprite)
+SpriteObject::SpriteObject(Sprite * sprite, RigidBody * rigidBody)
 	:
 	sprite(sprite),
-	position(0.0f, 0.0f),
-	zRotation(0.0f)
+	zRotation(0.0f),
+	rigidBody(rigidBody)
 { }
 
 SpriteObject::~SpriteObject() { }
@@ -22,7 +22,7 @@ SpriteObject::~SpriteObject() { }
 void SpriteObject::draw(SpriteStream * spriteStream, unsigned dt)
 {
 	spriteStream->begin();
-	spriteStream->draw(this->sprite, this->position);
+	spriteStream->draw(this->sprite, this->getPosition());
 	spriteStream->end();
 }
 

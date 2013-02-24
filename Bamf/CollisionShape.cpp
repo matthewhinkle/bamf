@@ -25,8 +25,5 @@ namespace bamf {
     RigidBody* CollisionShape::getRigidBody(){
         return rBody;
     }
-    bool CollisionShape::checkCollision(CollisionShape s){
-        return false;
-    }
     
 }

@@ -32,9 +32,7 @@ public:
 	
 	virtual const glm::vec2 & getPosition() const = 0;
 	virtual float getZRotation() const = 0;
-	
-	virtual void setPosition(const glm::vec2 & position) = 0;
-	
+		
 	virtual void update(unsigned dt) = 0;
 	virtual void draw(SpriteStream * spriteStream, unsigned dt) = 0;
 	

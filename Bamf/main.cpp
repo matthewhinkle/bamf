@@ -96,17 +96,26 @@ bamf::Action * MoveCameraButtons::actionForInput()
 
 int main(int argc, char *argv[])
 {
+	bamf::RigidBody r;
+	bamf::RigidBody r2;
+
 	bamf::ResourceManager man;
-	bamf::Rectangle bounds(0, 0, 800, 800);
-	bamf::Sprite sprite("Resources/mage.png", &bounds);
+	bamf::Sprite sprite("Resources/mage.png");
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
-	bamf::SpriteObject spriteSprite(&sprite);
+	bamf::SpriteObject spriteSprite(&sprite, &r);
 	
-	spriteSprite.setPosition(glm::vec2(0.0f, -200.0));
-
+	bamf::Rectangle bounds(0, 0, 1096, 200);
+	bamf::Sprite red("Resources/green.png", &bounds);
+	red.load(man);
+	red.setHotspot(red.getBounds().getCenter());
+	bamf::SpriteObject redSprite(&red, &r2);
+	
+	
+	
 	bamf::Scene scene;
 	scene.addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
+	scene.addObjectWithZValue(&redSprite, bamf::Scene::kForegroundMidLayer);
 	//scene.addObjectWithZValue(&chSprite, bamf::Scene::kForegroundNearLayer);
 	//scene.addObjectWithZValue(&bgSprite, bamf::Scene::kBackgroundLayer);
 	
@@ -132,17 +141,17 @@ int main(int argc, char *argv[])
 	
 	/* Collision Circle Test */
     bamf::CollisionCircle c1(glm::vec2(0,2), 2);
-    bamf::CollisionCircle c2(glm::vec2(1,100), 1);
+    bamf::CollisionCircle c2(glm::vec2(1,50), 100);
     c1.checkCollision(c2);
     c2.checkCollision(c1);
-    bamf::RigidBody r;
-    r.setForce(glm::vec2(0,-1));
+	r.setForce(glm::vec2(0, -1));
     c2.setRigidBody(&r);
     bamf::PhysicsWorld pw(1);
-    
-    bamf::RigidBody r2;
-    bamf::CollisionRectangle rectangle(glm::vec2(0,0),glm::vec2(1,1));
+	
+    bamf::CollisionRectangle rectangle(glm::vec2(-548,-200),glm::vec2(548,-400));
+	
     rectangle.setRigidBody(&r2);
+	r2.setPositon(glm::vec2(0, -200));
     pw.addObject(c2);
     pw.addObject(rectangle);
 	

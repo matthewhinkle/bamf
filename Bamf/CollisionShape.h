@@ -18,7 +18,6 @@ class CollisionShape {
 public:
     CollisionShape();
     virtual ~CollisionShape();
-    virtual bool checkCollision(CollisionShape s);
     void setRigidBody(RigidBody *r);
     RigidBody* getRigidBody();
     inline uint64_t getId() const { return this->id; }

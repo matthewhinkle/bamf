@@ -56,16 +56,19 @@ namespace bamf {
         for(int i=0;i<objectList.size();i++)
         {
             objectList[i].getRigidBody()->step();
-            if(objectList[1].checkCollision(objectList[0]))
+			
+			CollisionCircle * circle = (CollisionCircle *) &objectList[0];
+			circle->setPosition(objectList[0].getRigidBody()->getPosition());
+			
+			CollisionRectangle * rect = (CollisionRectangle *) &objectList[1];
+            if(rect->checkCollision(*circle))
             {
                 objectList[0].getRigidBody()->setForce(glm::vec2(0,0));
                 objectList[0].getRigidBody()->setLinearVeloctiy(glm::vec2(0,0));
             }
-            std::cout << "i: " << i << "\n";
             updateCount++;
             
         }
-        std::cout << "update: " << updateCount << "\n";
     }
     
 

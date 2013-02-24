@@ -14,6 +14,8 @@
 #include "glm/glm.hpp"
 #include "glm.hpp"
 #include "CollisionShape.h"
+#include "CollisionCircle.h"
+#include "CollisionRectangle.h"
 
 #include "Module.h"
 
