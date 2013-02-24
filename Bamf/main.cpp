@@ -96,10 +96,13 @@ bamf::Action * MoveCameraButtons::actionForInput()
 int main(int argc, char *argv[])
 {
 	bamf::ResourceManager man;
-	bamf::Sprite sprite("Resources/mage.png");
+	bamf::Rectangle bounds(0, 0, 800, 800);
+	bamf::Sprite sprite("Resources/mage.png", &bounds);
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
 	bamf::SpriteObject spriteSprite(&sprite);
+	
+	spriteSprite.setPosition(glm::vec2(0.0f, -200.0));
 
 	bamf::Scene scene;
 	scene.addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
@@ -122,6 +125,7 @@ int main(int argc, char *argv[])
     inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_UP, 0, 1000 * 0.016, graphicsModule.getCamera()));
     inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_DOWN, 0, -1000 * 0.016, graphicsModule.getCamera()));
     #endif
+	
     inputManager.setInputMapping(&inputMapping);
 	gameLoop->addModule(&inputManager);
 	
@@ -133,7 +137,7 @@ int main(int argc, char *argv[])
     c2.checkCollision(c1);
     bamf::RigidBody r;
     r.setForce(glm::vec2(0,1));
-    c2.setRigidBody(r);
+    c2.setRigidBody(&r);
     bamf::PhysicsWorld pw(1);
     pw.addObject(c2);
 	
