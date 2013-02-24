@@ -111,7 +111,7 @@ int SynchronousGameLoop::run()
     c2.checkCollision(c1);
     RigidBody r;
     r.setForce(glm::vec2(0,1));
-    c2.setRigidBody(r);
+    c2.setRigidBody(&r);
     PhysicsWorld pw(1);
     pw.addObject(c2);
     
@@ -139,7 +139,8 @@ int SynchronousGameLoop::run()
 		unsigned dtFrame = glm::min(time - timeLastTicked, maxDtFrame);
 		timeLastTicked = time;
 
-		//pw.update();		
+		pw.update();
+		
 		epoch += dtFrameToEpoch(dtFrame);
 		epoch = this->update(epoch);
 		
