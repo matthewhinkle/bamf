@@ -11,21 +11,23 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <fstream>
 #include <string>
 
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_opengl.h"
 
 #include "Resource.h"
 
 namespace bamf {
 
 typedef enum {
-	COLOR_TYPE_GRAY = 1,
-	COLOR_TYPE_GRAY_ALPHA,
-	COLOR_TYPE_RGB,
-	COLOR_TYPE_RGB_ALPHA,
-	COLOR_TYPE_PALETTE,
-	COLOR_TYPE_UNKNOWN
+	kColorTypeGray = GL_RGB,
+	kColorTypeGrayAlpha = GL_RGB,
+	kColorTypeRGB = GL_RGB,
+	kColorTypeRGBA = GL_RGBA,
+	kColorTypePalette,
+	kColorTypeUnkown
 } ColorType;
 
 /**

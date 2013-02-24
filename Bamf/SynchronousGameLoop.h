@@ -14,8 +14,11 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_opengl.h"
 
+#include "glm/glm.hpp"
+
 #include "GameLoop.h"
 #include "Module.h"
+#include "CoreModule.h"
 
 namespace bamf {
 
@@ -34,14 +37,16 @@ public:
 		
 		@brief	create a new gameloop in a non-running state
 	 */
-	SynchronousGameLoop();
+	explicit SynchronousGameLoop(CoreModule * coreModule = NULL);
 	virtual ~SynchronousGameLoop();
 	
 	inline void addModule(Module * module) { this->modules.push_back(module); }
 	inline void removeModule(Module * module);
 	
-	inline bool isSuspended() const { return this->suspended; }
+	inline CoreModule * getCoreModule() const { return this->coreModule; }
 	
+	inline bool isSuspended() const { return this->suspended; }
+		
 	/* GameLoop interface */
 	virtual void restart();
 	virtual void start();
@@ -51,12 +56,18 @@ public:
 	int run();
 	
 private:
-	static int run(void * loop);
+	float update(float epoch);
+	void draw(unsigned dt);
 	
 	std::vector<Module *> modules;
+	CoreModule * coreModule;
+	const bool ownCore;
 		
 	bool running;
 	bool suspended;
+	float dt;
+	unsigned time;
+	unsigned maxDtFrame;
 	
 	/* these objects are for implementing suspend, not for syncrhonization */
 	SDL_mutex * suspendMutex;

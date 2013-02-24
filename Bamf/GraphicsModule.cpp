@@ -64,9 +64,7 @@ void GraphicsModule::init()
 		
 		this->camera = new Camera();
 		this->spriteStream = new SpriteStream(this->camera);
-		
-		SDL_GL_SetSwapInterval(kVerticalSync);
-		
+				
 		glClearColor(0, 0, 0, 1);
 	}
 }
@@ -79,6 +77,8 @@ void GraphicsModule::update(unsigned delta)
 	MatrixStack::setMatrixMode(bamf::kMatrixModeProjection);
 	MatrixStack::loadMatrix(viewport->getPerspective());
 	MatrixStack::setMatrixMode(bamf::kMatrixModeModel);
+	
+	MatrixStack::loadMatrix(this->camera->computeTransform());
 	
 	this->spriteStream->flush();
 	

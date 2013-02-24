@@ -9,24 +9,19 @@
 #include "BamfObject.h"
 
 namespace bamf {
-    
-    uint64_t BamfObject::getObjectID() {
-        return this->objectId;
-    }
-    
-    void BamfObject::setObjectID(uint64_t objectID) {
-        this->objectId = objectID;
-    }
-	
-	void BamfObject::update(unsigned delta) {
-		/* update */
-	}
-	
-	void BamfObject::draw(bamf::SpriteStream * spriteStream, unsigned delta) {
-		// spriteStream.begin()
-		// spriteStream.draw()
-		// ...
-		// spriteStream.end()
-	}
-    
+
+uint64_t BamfObject::idCounter = 0;
+
+BamfObject::BamfObject()
+	:
+	id(nextId())
+{ }
+
+BamfObject::~BamfObject() { }
+
+uint64_t BamfObject::nextId()
+{
+	return __sync_fetch_and_add(&BamfObject::idCounter, 1);
+}
+
 }

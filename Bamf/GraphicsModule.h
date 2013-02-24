@@ -24,8 +24,8 @@ public:
 	GraphicsModule(int x, int y, int width, int height, bool fullscreen = false);
 	virtual ~GraphicsModule();
 	
-	inline Camera * getCamera() { return this->camera; }
-	inline SpriteStream * getSpriteStream() { return this->spriteStream; }
+	inline Camera * getCamera() const { return this->camera; }
+	inline SpriteStream * getSpriteStream() const { return this->spriteStream; }
 	
 	/* Module interface */
 	void init();

@@ -8,6 +8,7 @@
 
 #include "SynchronousGameLoop.h"
 
+#include "Lerp.h"
 #include "Sprite.h"
 #include "ResourceManager.h"
 #include "SpriteStream.h"
@@ -17,17 +18,28 @@
 #include "PhysicsWorld.h"
 #include "RigidBody.h"
 
-extern bamf::GraphicsModule * graphicsModule;
+enum {
+	kMinFrameRenderTicks = 16
+};
+
+static inline float dtFrameToEpoch(float dtFrame);
 
 namespace bamf {
 
-SynchronousGameLoop::SynchronousGameLoop()
+SynchronousGameLoop::SynchronousGameLoop(CoreModule * coreModule)
 	:
 	running(false),
 	suspended(false),
 	suspendMutex(SDL_CreateMutex()),
-	suspendCond(SDL_CreateCond())
-{ }
+	suspendCond(SDL_CreateCond()),
+	ownCore(!(coreModule)),
+	coreModule(coreModule ? coreModule : new CoreModule()),
+	dt(0.016),
+	maxDtFrame(60),
+	time(0)
+{
+	this->addModule(this->coreModule);
+}
 
 SynchronousGameLoop::~SynchronousGameLoop()
 {
@@ -40,6 +52,13 @@ SynchronousGameLoop::~SynchronousGameLoop()
 		SDL_DestroyCond(this->suspendCond);
 		this->suspendCond = NULL;
 	}
+	
+	if(this->ownCore && this->coreModule) {
+		delete this->coreModule;
+		this->coreModule = NULL;
+	}
+	
+	this->modules.clear();
 }
 
 void SynchronousGameLoop::removeModule(Module * module)
@@ -85,17 +104,6 @@ void SynchronousGameLoop::suspend()
 
 int SynchronousGameLoop::run()
 {
-	/* temp development code */
-	ResourceManager man;
-	Sprite sprite("/bamf/logo.png");
-	sprite.load(man);
-	sprite.setHotspot(sprite.getBounds().getCenter());
-	
-	Sprite crosshair("/bamf/crosshair.png");
-	crosshair.load(man);
-	crosshair.setHotspot(crosshair.getBounds().getCenter());
-	
-    
     /* Collision Circle Test */
     CollisionCircle c1(glm::vec2(0,2), 2);
     CollisionCircle c2(glm::vec2(0,5), 1);    
@@ -107,13 +115,15 @@ int SynchronousGameLoop::run()
     PhysicsWorld pw(1);
     pw.addObject(c2);
     
-	/* actual code */
 	std::vector<Module *>::iterator modIt;
 	for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
 		(*modIt)->init();
 	}
-    
-	Uint32 timeLastTicked = SDL_GetTicks();
+	
+	unsigned timeLastTicked = SDL_GetTicks();
+	unsigned timeLastDrawn = timeLastTicked;
+	
+	float epoch = 0;
 	while(this->running) {
 		while(this->running && this->suspended) {
 			SDL_CondWait(this->suspendCond, this->suspendMutex);
@@ -123,30 +133,44 @@ int SynchronousGameLoop::run()
 			/* do not execute another iteration if we stopped while suspended */
 			continue;
 		}
-		
-		unsigned time = static_cast<unsigned>(SDL_GetTicks());
-		unsigned delta = time - timeLastTicked;
+				
+		unsigned time = SDL_GetTicks();
+				
+		unsigned dtFrame = glm::min(time - timeLastTicked, maxDtFrame);
 		timeLastTicked = time;
-		pw.update();
-		/* temp draw code */
-		SpriteStream * ss = graphicsModule->getSpriteStream();
+
+		//pw.update();		
+		epoch += dtFrameToEpoch(dtFrame);
+		epoch = this->update(epoch);
 		
-		ss->begin(graphicsModule->getCamera()->computeTransform(), bamf::kSpriteStreamClipEdges | bamf::kSpriteStreamEnforceDrawOrder);
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 2; j++) {
-				ss->draw(&sprite, glm::vec2(i * 200, j * 300));
-			}
-		}
-		ss->draw(&crosshair, graphicsModule->getCamera()->getPosition());
-		ss->end();
-		
-		/* actual code */
-		for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
-			(*modIt)->update(delta);
+		if((time - timeLastDrawn) >= kMinFrameRenderTicks) {
+			timeLastDrawn = this->time;
+			this->draw(this->dt);
 		}
 	}
 	
 	return 0;
 }
 
+float SynchronousGameLoop::update(float epoch)
+{
+	for(; epoch >= this->dt; epoch -= this->dt, this->time += this->dt) {
+		std::vector<Module *>::iterator modIt;
+		for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
+			(*modIt)->update(this->dt);
+		}
+	}
+		
+	return epoch > 0.0f ? epoch : 0.0f;
+}
+
+void SynchronousGameLoop::draw(unsigned dt) {
+	this->coreModule->draw(dt);
+	this->coreModule->prepareGraphicsModule(dt);
+}
+
+}
+
+static inline float dtFrameToEpoch(float dtFrame) {
+	return dtFrame / 1000.0f;
 }

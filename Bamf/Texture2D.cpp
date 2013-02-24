@@ -47,11 +47,11 @@ void Texture2D::bind()
 		glTexImage2D(
 			GL_TEXTURE_2D,
 			0,
-			GL_RGBA,
+			this->image->getColorType(),
 			width,
 			height,
 			0,
-			GL_RGBA,
+			this->image->getColorType(),
 			GL_UNSIGNED_BYTE,
 			this->image->getData()
 		);

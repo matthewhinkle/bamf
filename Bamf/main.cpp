@@ -6,24 +6,13 @@
 //
 //
 
-#include <stdio.h>
+#include <iostream>
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_opengl.h"
 
-#include <iostream>
-
-#include "Texture2D.h"
-#include "Texture2DLoader.h"
-#include "ResourceLoader.h"
 #include "ResourceManager.h"
 #include "SynchronousGameLoop.h"
-#include "ImageResource.h"
-#include "MatrixStack.h"
-
-#include "Sprite.h"
-#include "SpriteStream.h"
-#include "Rectangle.h"
 
 #include "Camera.h"
 
@@ -32,7 +21,11 @@
 #include "Action.h"
 
 #include "Module.h"
+#include "CoreModule.h"
 #include "GraphicsModule.h"
+
+#include "Scene.h"
+#include "SpriteObject.h"
 
 class MoveCameraAction : public bamf::Action
 {
@@ -96,30 +89,45 @@ bamf::Action * MoveCameraButtons::actionForInput()
     return new MoveCameraAction(_movesX, _movesY, _cam);
 }
 
-bamf::GraphicsModule * graphicsModule = new bamf::GraphicsModule();
-
 int main(int argc, char *argv[])
 {
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
+	bamf::ResourceManager man;
+	bamf::Sprite sprite("Resources/mage.png");
+	sprite.load(man);
+	sprite.setHotspot(sprite.getBounds().getCenter());
+	bamf::SpriteObject spriteSprite(&sprite);
 	
-	SDL_Init(SDL_INIT_VIDEO);
+	bamf::Sprite crosshair("Resources/crosshair.png");
+	crosshair.load(man);
+	crosshair.setHotspot(crosshair.getBounds().getCenter());
+	bamf::SpriteObject chSprite(&crosshair);
+
+	bamf::Sprite bg("Resources/bg.png");
+	bg.load(man);
+	bg.setHotspot(bg.getBounds().getCenter());
+	bamf::SpriteObject bgSprite(&bg);
+
+	bamf::Scene scene;
+	scene.addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
+	scene.addObjectWithZValue(&chSprite, bamf::Scene::kForegroundNearLayer);
+	scene.addObjectWithZValue(&bgSprite, bamf::Scene::kBackgroundLayer);
 	
-	bamf::GameLoop * gameLoop = new bamf::SynchronousGameLoop();
+	bamf::SynchronousGameLoop * gameLoop = new bamf::SynchronousGameLoop();
 	
-	graphicsModule->init();
+	bamf::CoreModule * core = gameLoop->getCoreModule();
+	bamf::SceneManager * sm = core->getSceneManager();
 	
-	gameLoop->addModule(graphicsModule);
+	sm->pushScene(&scene);
 	
 	bamf::InputManager inputManager;
 	bamf::InputMapping inputMapping;
-    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_RIGHT, 5, 0, graphicsModule->getCamera()));
-    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_LEFT, -5, 0, graphicsModule->getCamera()));
-    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_UP, 0, 5, graphicsModule->getCamera()));
-    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_DOWN, 0, -5, graphicsModule->getCamera()));
-    
+	
+	#if 0
+    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_RIGHT, 1000 * 0.016, 0, gameLoop->.getCamera()));
+    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_LEFT, -1000 * 0.016, 0, graphicsModule.getCamera()));
+    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_UP, 0, 1000 * 0.016, graphicsModule.getCamera()));
+    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_DOWN, 0, -1000 * 0.016, graphicsModule.getCamera()));
+    #endif
     inputManager.setInputMapping(&inputMapping);
 	gameLoop->addModule(&inputManager);
 	
