@@ -56,6 +56,11 @@ namespace bamf {
         for(int i=0;i<objectList.size();i++)
         {
             objectList[i].getRigidBody()->step();
+            if(objectList[1].checkCollision(objectList[0]))
+            {
+                objectList[0].getRigidBody()->setForce(glm::vec2(0,0));
+                objectList[0].getRigidBody()->setLinearVeloctiy(glm::vec2(0,0));
+            }
             std::cout << "i: " << i << "\n";
             updateCount++;
             

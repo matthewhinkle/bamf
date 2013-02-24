@@ -28,6 +28,7 @@
 #include "SpriteObject.h"
 
 #include "CollisionCircle.h"
+#include "CollisionRectangle.h"
 #include "CollisionModule.h"
 #include "PhysicsWorld.h"
 
@@ -129,17 +130,21 @@ int main(int argc, char *argv[])
     inputManager.setInputMapping(&inputMapping);
 	gameLoop->addModule(&inputManager);
 	
-	
 	/* Collision Circle Test */
     bamf::CollisionCircle c1(glm::vec2(0,2), 2);
-    bamf::CollisionCircle c2(glm::vec2(0,5), 1);
+    bamf::CollisionCircle c2(glm::vec2(1,100), 1);
     c1.checkCollision(c2);
     c2.checkCollision(c1);
     bamf::RigidBody r;
-    r.setForce(glm::vec2(0,1));
+    r.setForce(glm::vec2(0,-1));
     c2.setRigidBody(&r);
     bamf::PhysicsWorld pw(1);
+    
+    bamf::RigidBody r2;
+    bamf::CollisionRectangle rectangle(glm::vec2(0,0),glm::vec2(1,1));
+    rectangle.setRigidBody(&r2);
     pw.addObject(c2);
+    pw.addObject(rectangle);
 	
 	bamf::CollisionModule collisionModule;
 	

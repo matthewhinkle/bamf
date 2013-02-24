@@ -19,6 +19,8 @@ namespace bamf{
         CollisionCircle(glm::vec2 p, int r);
         ~CollisionCircle();
         bool checkCollision(CollisionCircle & c);
+        glm::vec2 getPosition();
+        void setPosition(glm::vec2);
     protected:
         
     private:
