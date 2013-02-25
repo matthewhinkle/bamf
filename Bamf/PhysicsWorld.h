@@ -16,6 +16,7 @@
 #include "CollisionShape.h"
 #include "CollisionCircle.h"
 #include "CollisionRectangle.h"
+#include "CollisionEvent.h"
 
 #include "Module.h"
 
@@ -23,8 +24,8 @@ namespace bamf {
     
 class PhysicsWorld : public Module {
 public:
-    PhysicsWorld(uint64_t id);
-    ~PhysicsWorld();
+    explicit PhysicsWorld();
+    virtual ~PhysicsWorld();
     void setGravity(glm::vec2 g);
     void setGravity(float x, float y);
     void addObject(CollisionShape o);
@@ -35,6 +36,8 @@ public:
 	
 	inline void init() { }
 	void update(unsigned dt);
+    void update(unsigned dt,std::vector<CollisionEvent> collisions);
+
 protected:
     
 private:

@@ -105,8 +105,8 @@ int main(int argc, char *argv[])
 	sprite.setHotspot(sprite.getBounds().getCenter());
 	bamf::SpriteObject spriteSprite(&sprite, &r);
 	
-	bamf::Rectangle bounds(0, 0, 1096, 200);
-	bamf::Sprite red("Resources/green.png", &bounds);
+	bamf::Rectangle bounds(0, 500, 1096, 200);
+	bamf::Sprite red("Resources/bg.png", &bounds);
 	red.load(man);
 	red.setHotspot(red.getBounds().getCenter());
 	bamf::SpriteObject redSprite(&red, &r2);
@@ -140,23 +140,23 @@ int main(int argc, char *argv[])
 	gameLoop->addModule(&inputManager);
 	
 	/* Collision Circle Test */
-    bamf::CollisionCircle c1(glm::vec2(0,2), 2);
-    bamf::CollisionCircle c2(glm::vec2(1,50), 100);
-    c1.checkCollision(c2);
-    c2.checkCollision(c1);
-	r.setForce(glm::vec2(0, -1));
-    c2.setRigidBody(&r);
-    bamf::PhysicsWorld pw(1);
+    bamf::PhysicsWorld pw;
 	
-    bamf::CollisionRectangle rectangle(glm::vec2(-548,-200),glm::vec2(548,-400));
-	
-    rectangle.setRigidBody(&r2);
-	r2.setPositon(glm::vec2(0, -200));
-    pw.addObject(c2);
+    bamf::CollisionRectangle rectangle(glm::vec2(2.0f,100.0f),2.0f,2.0f);
+	bamf::CollisionRectangle rectangle2(glm::vec2(0.0f,0.0f),1000.0f,1.0f);
+    rectangle.setRigidBody(&r);
+    rectangle2.setRigidBody(&r2);
+    
+    std::cout << "collision: " << rectangle.checkCollision(rectangle2) << "\n";
+    
     pw.addObject(rectangle);
-	
+    pw.addObject(rectangle2);
+    
 	bamf::CollisionModule collisionModule;
-	
+    
+	collisionModule.addCollidable(rectangle);
+    collisionModule.addCollidable(rectangle2);
+
 	gameLoop->addModule(&pw);
 	gameLoop->addModule(&collisionModule);
 	
