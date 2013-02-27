@@ -14,13 +14,17 @@
 #include "BamfObject.h"
 #include "SpriteStream.h"
 
+#include "Scene.h"
+#include "Updateable.h"
+#include "Drawable.h"
+
 namespace bamf {
 
 /**
 	A single layer in a Scene.  Objects drawn on the
 	same layer have no defined order
  */
-class SceneLayer {
+class SceneLayer : public Updateable, public Drawable {
 public:
 
 	explicit SceneLayer();
@@ -39,7 +43,7 @@ public:
 		return i == this->objectById.end() ? NULL : i->second;
 	}
 	
-	void update(unsigned dt);
+	void update(Scene * scene, unsigned dt);
 	
 	void draw(SpriteStream * spriteStream, unsigned delta);
 	
