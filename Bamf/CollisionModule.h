@@ -10,6 +10,9 @@
 #define __Bamf__CollisionModule__
 
 #include "Module.h"
+#include "CollisionEvent.h"
+#include "CollisionShape.h"
+#include <vector>
 
 namespace bamf {
 
@@ -22,6 +25,10 @@ public:
 	void init() { }
 	
 	void update(unsigned dt) { }
+    std::vector<CollisionEvent> checkCollisions();
+    void addCollidable(CollisionShape s);
+private:
+    std::vector<CollisionShape> collidables;
 
 };
 

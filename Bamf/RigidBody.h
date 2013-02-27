@@ -16,8 +16,8 @@ namespace bamf {
 
 class RigidBody{
 public:
-    RigidBody();
-    ~RigidBody();
+    explicit RigidBody();
+    virtual ~RigidBody();
     
     void setMass(float m);
     float getMass();
