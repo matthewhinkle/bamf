@@ -18,6 +18,12 @@ namespace bamf {
     CollisionRectangle::~CollisionRectangle() {
         
     }
+    glm::vec2 CollisionRectangle::getPosition() {
+        return position;
+    }
+    void CollisionRectangle::setPosition(glm::vec2 p) {
+        position = p;
+    }
     std::vector<glm::vec2> CollisionRectangle::getVertices() {
         std::vector<glm::vec2> vertices;
         //add v1 - bottom left vertex
@@ -91,7 +97,6 @@ namespace bamf {
         return false;
     }
     bool CollisionRectangle::checkCollision(CollisionRectangle r) {
-        //std:: cout << "<---- Collison Check rect vs rect ----> \n";
         std::vector<glm::vec2> verts1 = this->getVertices();
         std::vector<glm::vec2> verts2 = r.getVertices();
         std::vector<glm::vec2> axes1 = this->getAxes(verts1);

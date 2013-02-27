@@ -28,22 +28,22 @@ public:
     virtual ~PhysicsWorld();
     void setGravity(glm::vec2 g);
     void setGravity(float x, float y);
-    void addObject(CollisionShape o);
+    void addObject(CollisionRectangle r);
     void applyForce(glm::vec2 f);
     void applyImpulse(glm::vec2 i);
     void applyTorque(glm::vec2 t);
+    
     //void step(CollisionShape s);
 	
 	inline void init() { }
 	void update(unsigned dt);
-    void update(unsigned dt,std::vector<CollisionEvent> collisions);
 
 protected:
     
 private:
     uint64_t id;
     glm::vec2 gravity;
-    std::vector<CollisionShape> objectList;
+    std::vector<CollisionRectangle> objectList;
     int timeStep = 16;
     int updateCount = 0;
 };

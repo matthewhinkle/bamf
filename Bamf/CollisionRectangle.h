@@ -21,15 +21,20 @@ class CollisionRectangle: public CollisionShape {
 public:
     CollisionRectangle(glm::vec2 pos, float w, float h);
     ~CollisionRectangle();
+    
     bool checkCollision(CollisionCircle c);
     bool checkCollision(CollisionRectangle r);
     std::vector<glm::vec2> getVertices();
     std::vector<glm::vec2> getAxes(std::vector<glm::vec2> verts);
     glm::vec2 getProjection(glm::vec2 axis,std::vector<glm::vec2> verts);
+    
+    glm::vec2 getPosition();
+    void setPosition(glm::vec2 p);
+    
 protected:
     
 private:
-    glm::vec2 position;
+    
     float width;
     float height;
 };

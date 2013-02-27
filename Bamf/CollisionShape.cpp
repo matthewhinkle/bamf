@@ -12,18 +12,23 @@
 
 namespace bamf {
     
-    CollisionShape::CollisionShape()
-    {
+    CollisionShape::CollisionShape() {
         
     }
-    CollisionShape::~CollisionShape(){
+    CollisionShape::~CollisionShape() {
         
     }
-    void CollisionShape::setRigidBody(RigidBody *r){
+    void CollisionShape::setRigidBody(RigidBody *r) {
         rBody = r;
     }
     RigidBody* CollisionShape::getRigidBody(){
         return rBody;
+    }
+    void CollisionShape::setPosition(glm::vec2 p) {
+        position = p;
+    }
+    glm::vec2 CollisionShape::getPosition() {
+        return position;
     }
     
 }
