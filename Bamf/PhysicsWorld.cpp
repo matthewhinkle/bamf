@@ -41,7 +41,7 @@ namespace bamf {
                     objectList[i].getRigidBody()->setForce(glm::vec2(0,0));
                     objectList[i].getRigidBody()->setLinearVeloctiy(glm::vec2(0,0));
                     objectList[j].getRigidBody()->setForce(glm::vec2(0,0));
-                    objectList[j].getRigidBody()->setLinearVeloctiy(glm::vec2(-1,0));
+                    //objectList[j].getRigidBody()->setLinearVeloctiy(glm::vec2(-1,0));
                 }
                }
              }

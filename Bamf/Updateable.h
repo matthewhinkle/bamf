@@ -9,6 +9,8 @@
 #ifndef Bamf_Updateable_h
 #define Bamf_Updateable_h
 
+#include "Scene.h"
+
 namespace bamf {
 
 class Updateable {
@@ -17,7 +19,7 @@ public:
 	Updateable() { }
 	virtual ~Updateable() { }
 	
-	void update(unsigned dt);
+	void update(Scene * scene, unsigned dt);
 	
 private:
 	Updateable(const Updateable &);

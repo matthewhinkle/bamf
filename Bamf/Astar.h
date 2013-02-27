@@ -117,8 +117,7 @@ template<
 	VertexInfo<T, R> * startInfo = new VertexInfo<T, R>(start, dist(start, goal), dist(start, start));
 	this->insert(start, startInfo);
 	open.push(startInfo);
-
-	int iteration = 0;
+	
 	while(!(open.empty())) {
 		VertexInfo<T, R> * parentInfo = open.top();
 		open.pop();

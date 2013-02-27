@@ -10,12 +10,12 @@
 
 namespace bamf {
 
-SpriteObject::SpriteObject(Sprite * sprite, RigidBody * rigidBody)
+SpriteObject::SpriteObject(Sprite * sprite, CollisionRectangle * collisionShape)
 	:
-	sprite(sprite),
-	zRotation(0.0f),
-	rigidBody(rigidBody)
-{ }
+	sprite(sprite)
+{
+	this->setCollisionShape(collisionShape);
+}
 
 SpriteObject::~SpriteObject() { }
 

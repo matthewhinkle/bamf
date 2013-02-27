@@ -147,18 +147,22 @@ int main(int argc, char *argv[])
 */
 	bamf::RigidBody r;
 	bamf::RigidBody r2;
+	
+	bamf::CollisionRectangle rectangle(glm::vec2(0.0f,300.0f),100.0f,350.0f);
+	
+	bamf::CollisionRectangle rectangle2(glm::vec2(0.0f,-300.0f),1000.0f,100.0f);
 
 	bamf::ResourceManager man;
 	bamf::Sprite sprite("Resources/mage.png");
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
-	bamf::SpriteObject spriteSprite(&sprite, &r);
+	bamf::SpriteObject spriteSprite(&sprite, &rectangle);
 	
 	bamf::Rectangle bounds(0, 0, 1000, 100);
-	bamf::Sprite red("Resources/bg.png", &bounds);
+	bamf::Sprite red("Resources/green.png", &bounds);
 	red.load(man);
 	red.setHotspot(red.getBounds().getCenter());
-	bamf::SpriteObject redSprite(&red, &r2);
+	bamf::SpriteObject redSprite(&red, &rectangle2);
 	
 	bamf::Scene scene;
 	scene.addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
@@ -175,21 +179,23 @@ int main(int argc, char *argv[])
 	
 	bamf::InputManager inputManager;
 	bamf::InputMapping inputMapping;
-	
-	/**
-	    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_RIGHT, 1000 * 0.016, 0, gameLoop->.getCamera()));
-	    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_LEFT, -1000 * 0.016, 0, graphicsModule.getCamera()));
-	    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_UP, 0, 1000 * 0.016, graphicsModule.getCamera()));
-	    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_DOWN, 0, -1000 * 0.016, graphicsModule.getCamera()));
-	*/
-	
+
+#if 0
+	inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_RIGHT, 1000 * 0.016, 0, gameLoop->.getCamera()));
+	inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_LEFT, -1000 * 0.016, 0, graphicsModule.getCamera()));
+	inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_UP, 0, 1000 * 0.016, graphicsModule.getCamera()));
+	inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_DOWN, 0, -1000 * 0.016, graphicsModule.getCamera()));
+#endif
+
     inputManager.setInputMapping(&inputMapping);
 	gameLoop->addModule(&inputManager);
 
 	/* Collision Circle Test */
     bamf::PhysicsWorld pw;
-    bamf::CollisionRectangle rectangle(glm::vec2(0.0f,300.0f),100.0f,350.0f);
-	bamf::CollisionRectangle rectangle2(glm::vec2(0.0f,-300.0f),1000.0f,100.0f);
+	
+	spriteSprite.setCollisionShape(&rectangle);
+	redSprite.setCollisionShape(&rectangle2);
+    
     rectangle2.checkCollision(rectangle);
     r.setPositon(rectangle.getPosition());
     r.setForce(glm::vec2(0,-.005));
@@ -197,11 +203,9 @@ int main(int argc, char *argv[])
     rectangle.setRigidBody(&r);
     rectangle2.setRigidBody(&r2);
     
-    std::cout << "collision: " << rectangle.checkCollision(rectangle2) << "\n";
-    
     pw.addObject(rectangle);
     pw.addObject(rectangle2);
-    
+	
 	bamf::CollisionModule collisionModule;
     
 	//collisionModule.addCollidable(rectangle);

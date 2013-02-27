@@ -8,13 +8,16 @@
 
 #include "BamfObject.h"
 
+#include "Scene.h"
+
 namespace bamf {
 
 uint64_t BamfObject::idCounter = 0;
 
-BamfObject::BamfObject()
+BamfObject::BamfObject(bool owned)
 	:
-	id(nextId())
+	id(nextId()),
+	owned(owned)
 { }
 
 BamfObject::~BamfObject() { }
