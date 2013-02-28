@@ -75,17 +75,17 @@ namespace bamf {
 						jBody->setForce(glm::vec2());
 						
 						jBody->setPositon(jBody->getPosition() + vnorm);
-						//jBody->setForce(glm::vec2(0, -0.05));
-						
-						std::cout << "collide " << objectList[i]->getId() << " with " << objectList[j]->getId() << std::endl;
 					} else {
-						glm::vec2 v = iBody->getLinearVeloctiy();
+						glm::vec2 v = jBody->getLinearVeloctiy();
+						glm::vec2 vnorm = glm::normalize(-v);
+						
 						v.y = 0;
+						v.x = 0;
 						
-						iBody->setLinearVeloctiy(v);
-						iBody->setForce(glm::vec2());
+						jBody->setLinearVeloctiy(v);
+						jBody->setForce(glm::vec2());
 						
-						printf("collide2\n");
+						jBody->setPositon(jBody->getPosition() + vnorm);
 					}
 					/** end of the hax */
 					

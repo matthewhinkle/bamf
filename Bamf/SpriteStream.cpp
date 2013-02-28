@@ -6,6 +6,8 @@
 //
 //
 
+#include <iostream>
+
 #include "SpriteStream.h"
 
 namespace bamf {
@@ -56,6 +58,7 @@ void SpriteStream::draw(const Sprite * sprite, const glm::vec2 & position)
 {
 	const glm::vec2 normPos = position - sprite->getHotspot();
 	if(this->drawOptions & kSpriteStreamClipEdges && this->isClipping(sprite, normPos)) {
+		std::cout << "clipping id = " << sprite->getTexture()->getName() << std::endl;
 		return;
 	}
 	

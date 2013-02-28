@@ -65,7 +65,7 @@ void GraphicsModule::init()
 		this->camera = new Camera();
 		this->spriteStream = new SpriteStream(this->camera);
 				
-		glClearColor(0, 0, 0, 1);
+		setClearColor();
 	}
 }
 
