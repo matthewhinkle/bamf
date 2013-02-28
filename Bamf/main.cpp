@@ -39,6 +39,7 @@
 #include "Astar.h"
 
 #include "NetworkingModule.h"
+#include "UpdateExecutor.h"
 
 class MoveCameraAction : public bamf::Action
 {
@@ -344,8 +345,7 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 
 int main(int argc, char *argv[])
 {
-    float f = 2342398347593;
-    std::cout << sizeof(f);
+    
 /**
 	glm::vec2 o(0, 0);
 	glm::vec2 a(10, 10);
@@ -386,7 +386,6 @@ int main(int argc, char *argv[])
 	red.setHotspot(red.getBounds().getCenter());
 	bamf::SpriteObject redSprite(&red);
 	
-    
     bamf::PhysicsWorld pw;
     
 	bamf::Scene * scene = createScene(man, &pw);
@@ -441,7 +440,7 @@ int main(int argc, char *argv[])
 	gameLoop->addModule(&pw);
 	gameLoop->addModule(&collisionModule);
     
-    gameLoop->addModule(new bamf::NetworkingModule());
+    gameLoop->addModule(new bamf::NetworkingModule(core));
 	
 	gameLoop->start();
 	

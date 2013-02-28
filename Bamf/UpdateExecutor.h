@@ -15,18 +15,31 @@
 #include <stdio.h>
 #include <string.h>
 #include "SpriteObject.h"
+#include "CoreModule.h"
 
 namespace bamf {
     
     class UpdateExecutor : public SMSPacketExecutor {
         
+    private:
+        CoreModule * _core;
+        
     public:
+        UpdateExecutor(CoreModule * core);
+        
         unsigned char packetHeader();
         void executePacket(Socket * sender, SMSPacket * packet);
         
         static SMSPacket * toPacket(BamfObject * object);
-        static BamfObject * fromPacket(SMSPacket * packet);
+        BamfObject * fromPacket(SMSPacket * packet);
         
+        static void test(BamfObject * object)
+        {
+            /*
+            SMSPacket * packet = toPacket(object);
+            BamfObject * newObject = fromPacket(packet);
+             */
+        }
     };
     
 }

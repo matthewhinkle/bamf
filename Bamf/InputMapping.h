@@ -14,6 +14,8 @@
 #include "KeyPressType.h"
 #include "IQuitHandler.h"
 #include "DefaultQuitHandler.h"
+#include "NetworkingModule.h"
+#include "UpdateExecutor.h"
 
 namespace bamf {
 
@@ -23,6 +25,7 @@ class InputMapping
 private:
     std::vector<IKeyMapping *> * keyMappings;
     IQuitHandler * quitHandler;
+    
     
 public:
     InputMapping();

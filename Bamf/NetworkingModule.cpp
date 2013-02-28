@@ -10,15 +10,20 @@
 
 namespace bamf {
     
-    NetworkingModule::NetworkingModule()
+    NetworkingModule * NetworkingModule::_instance = NULL;
+    
+    NetworkingModule::NetworkingModule(CoreModule * core)
     : sockets(new std::vector<Socket *>())
     , templatePacket(new SMSPacket())
     ,dispatch(new SMSPacketDispatcher())
+    ,_core(core)
     {
+        _instance = this;
     }
     
     void NetworkingModule::init()
     {
+        this->dispatch->registerPacket(new UpdateExecutor(this->_core));
         //first setup our server socket
         this->serverSocket = new ServerSocket(ServerSocket(IPV4, TCP, false));
         this->serverSocket->doBind(1337);
@@ -40,6 +45,19 @@ namespace bamf {
                 socket->doRead(memoryBlock, 160);
                 SMSPacket * packet = (SMSPacket *) this->templatePacket->fromMemoryBlock(memoryBlock);
                 this->dispatch->dispactPacket(socket, packet);
+            }
+        }
+    }
+    
+    void NetworkingModule::sendPacket(SMSPacket * packet)
+    {
+        BamfObject * object = _core->getSceneManager()->getCurrentScene()->getObjectById(0);
+        if(object != NULL) {
+            packet = UpdateExecutor::toPacket(object);
+            std::cout << "Attempting to send packet updates!!!";
+            for(int i = 0; i < this->sockets->size(); i++) {
+                Socket * socket = (*this->sockets)[i];
+                socket->doWrite(packet->asMemoryBlock(), packet->getLength());
             }
         }
     }

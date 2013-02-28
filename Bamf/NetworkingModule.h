@@ -15,6 +15,8 @@
 #include <vector>
 #include "SMSPacket.h"
 #include "SMSPacketDispatcher.h"
+#include "CoreModule.h"
+#include "UpdateExecutor.h"
 
 #include <stdio.h>
 
@@ -27,13 +29,18 @@ private:
     std::vector<Socket *> * sockets;
     SMSPacket * templatePacket;
     SMSPacketDispatcher * dispatch;
+    CoreModule * _core;
+    static NetworkingModule * _instance;
     
 public:
-    NetworkingModule();
+    NetworkingModule(CoreModule * core);
     
     void init();
 		void update(Scene * scene, unsigned delta);
+        void sendPacket(SMSPacket * packet);
     
+        static NetworkingModule * getInstance() { return _instance;};
+        void setInstance(NetworkingModule * instance) { _instance = instance;}
 };
     
 }

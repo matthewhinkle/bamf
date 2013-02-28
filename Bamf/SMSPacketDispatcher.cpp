@@ -12,7 +12,12 @@ namespace bamf {
     
     SMSPacketDispatcher::SMSPacketDispatcher() {
         this->executors = new std::vector<SMSPacketExecutor *>();
-        this->executors->push_back(new PingExecutor);
+        this->executors->push_back(new PingExecutor());
+    }
+    
+    void SMSPacketDispatcher::registerPacket(SMSPacketExecutor * packetExecutor)
+    {
+        this->executors->push_back(packetExecutor);
     }
     
     void SMSPacketDispatcher::dispactPacket(Socket * sender, SMSPacket * packet)
