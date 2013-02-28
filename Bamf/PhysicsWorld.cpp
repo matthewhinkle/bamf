@@ -8,6 +8,10 @@
 
 #include "PhysicsWorld.h"
 namespace bamf {
+
+	static const float kEpsilon = 1e-6;
+	
+	static inline bool hasZeroVelocity(RigidBody * rbody);
     
     PhysicsWorld::PhysicsWorld(){
         
@@ -51,15 +55,33 @@ namespace bamf {
             for(int j = i + 1; j < objectList.size(); j++) {
                 if(objectList[i]->checkCollision(objectList[j]))
                 {
+					RigidBody * iBody = objectList[i]->getRigidBody();
+					RigidBody * jBody = objectList[j]->getRigidBody();
+					
+					if(hasZeroVelocity(iBody) && hasZeroVelocity(jBody)) {
+						continue;
+					} else if(hasZeroVelocity(iBody) && !(hasZeroVelocity(jBody))) {
+						glm::vec2 v = jBody->getLinearVeloctiy();
+						v.y += 0.01;
+						jBody->setLinearVeloctiy(v);
+					} else {
+						glm::vec2 v = iBody->getLinearVeloctiy();
+						v.y += 0.01;
+						iBody->setLinearVeloctiy(v);
+					}
+					
+				#if 0
+				
                     /*std::cout << "Collision Occured: i.id -  " << objectList[i].getId() << " | j.id - " << objectList[j].getId() << "\n";*/
                     objectList[i]->getRigidBody()->setForce(glm::vec2(0,0));
 					
 					glm::vec2 pos = objectList[i]->getRigidBody()->getPosition();
 					
-					objectList[i]->getRigidBody()->setPositon(glm::vec2(pos.x, pos.y + 1));
+					//objectList[i]->getRigidBody()->setPositon(glm::vec2(pos.x, pos.y + 1));
                     objectList[i]->getRigidBody()->setLinearVeloctiy(glm::vec2(0,0));
                     objectList[j]->getRigidBody()->setForce(glm::vec2(0,0));
                     //objectList[j].getRigidBody()->setLinearVeloctiy(glm::vec2(-1,0));
+				#endif
                 }
              }
         }
@@ -73,4 +95,9 @@ namespace bamf {
             objectList[i]->setPosition(objectList[i]->getRigidBody()->getPosition());
         }
     }
+	
+	static inline bool hasZeroVelocity(RigidBody * rbody) {
+		return glm::abs(glm::length(rbody->getLinearVeloctiy())) < kEpsilon;
+	}
+	
 }
