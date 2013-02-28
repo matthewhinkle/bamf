@@ -47,9 +47,9 @@ BamfObject * SceneLayer::removeObject(BamfObject * bamf)
 	return bamf ? this->removeObject(bamf->getId()) : NULL;
 }
 
-void SceneLayer::update(unsigned dt)
+void SceneLayer::update(Scene * scene, unsigned dt)
 {
-	std::for_each(this->objectById.begin(), this->objectById.end(), [=](std::pair<uint64_t, BamfObject *> i) { i.second->update(dt); });
+	std::for_each(this->objectById.begin(), this->objectById.end(), [=](std::pair<uint64_t, BamfObject *> i) { i.second->update(scene, dt); });
 }
 
 void SceneLayer::draw(bamf::SpriteStream * spriteStream, unsigned dt)

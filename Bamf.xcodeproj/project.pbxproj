@@ -13,6 +13,18 @@
 		277B0C8A16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */; };
 		277B0C8B16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */; };
 		277B0C8D16CDAFD00061BF84 /* BamfObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8C16CDAFD00061BF84 /* BamfObject.cpp */; };
+		2792A2E716DED50400EDAC68 /* NetworkingModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */; };
+		2792A2E816DED50400EDAC68 /* NetworkingModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */; };
+		2792A2E916DED50400EDAC68 /* PacketIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DD16DED50400EDAC68 /* PacketIO.cpp */; };
+		2792A2EA16DED50400EDAC68 /* PacketIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DD16DED50400EDAC68 /* PacketIO.cpp */; };
+		2792A2EB16DED50400EDAC68 /* PingExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */; };
+		2792A2EC16DED50400EDAC68 /* PingExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */; };
+		2792A2ED16DED50400EDAC68 /* SMSPacket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2E116DED50400EDAC68 /* SMSPacket.cpp */; };
+		2792A2EE16DED50400EDAC68 /* SMSPacket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2E116DED50400EDAC68 /* SMSPacket.cpp */; };
+		2792A2EF16DED50400EDAC68 /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2E416DED50400EDAC68 /* Socket.cpp */; };
+		2792A2F016DED50400EDAC68 /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2E416DED50400EDAC68 /* Socket.cpp */; };
+		2792A2F416DED56700EDAC68 /* SMSPacketDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2F216DED56700EDAC68 /* SMSPacketDispatcher.cpp */; };
+		2792A2F516DED56700EDAC68 /* SMSPacketDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2F216DED56700EDAC68 /* SMSPacketDispatcher.cpp */; };
 		480168FB16D9675D00FA3B3D /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 480168FA16D9675D00FA3B3D /* bg.png */; };
 		480C799C16CD852300E0C525 /* crosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = 480C799B16CD852300E0C525 /* crosshair.png */; };
 		480D0CD216CCC2C700600385 /* GraphicsModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 480D0CD016CCC2C700600385 /* GraphicsModule.cpp */; };
@@ -139,6 +151,7 @@
 		48B8DDD916C1DA7E0048C9BB /* vector_query.inl in Resources */ = {isa = PBXBuildFile; fileRef = 48B8DD6E16C1DA7E0048C9BB /* vector_query.inl */; };
 		48B8DDDA16C1DA7E0048C9BB /* verbose_operator.inl in Resources */ = {isa = PBXBuildFile; fileRef = 48B8DD7016C1DA7E0048C9BB /* verbose_operator.inl */; };
 		48B8DDDB16C1DA7E0048C9BB /* wrap.inl in Resources */ = {isa = PBXBuildFile; fileRef = 48B8DD7216C1DA7E0048C9BB /* wrap.inl */; };
+		48BAB34C16DECD5800D75908 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 48BAB34B16DECD5800D75908 /* green.png */; };
 		48CAD5B716BB7227005CD223 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CAD5B516BB7227005CD223 /* InfoPlist.strings */; };
 		48CAD5B916BB7227005CD223 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48CAD5B816BB7227005CD223 /* main.cpp */; };
 		48CAD5BD16BB7227005CD223 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 48CAD5BB16BB7227005CD223 /* Credits.rtf */; };
@@ -178,12 +191,29 @@
 		277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultQuitHandler.cpp; sourceTree = "<group>"; };
 		277B0C8916CD8A320061BF84 /* DefaultQuitHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultQuitHandler.h; sourceTree = "<group>"; };
 		277B0C8C16CDAFD00061BF84 /* BamfObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BamfObject.cpp; sourceTree = "<group>"; };
+		2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkingModule.cpp; sourceTree = "<group>"; };
+		2792A2DC16DED50400EDAC68 /* NetworkingModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingModule.h; sourceTree = "<group>"; };
+		2792A2DD16DED50400EDAC68 /* PacketIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketIO.cpp; sourceTree = "<group>"; };
+		2792A2DE16DED50400EDAC68 /* PacketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketIO.h; sourceTree = "<group>"; };
+		2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PingExecutor.cpp; sourceTree = "<group>"; };
+		2792A2E016DED50400EDAC68 /* PingExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingExecutor.h; sourceTree = "<group>"; };
+		2792A2E116DED50400EDAC68 /* SMSPacket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMSPacket.cpp; sourceTree = "<group>"; };
+		2792A2E216DED50400EDAC68 /* SMSPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSPacket.h; sourceTree = "<group>"; };
+		2792A2E316DED50400EDAC68 /* SMSPacketExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSPacketExecutor.h; sourceTree = "<group>"; };
+		2792A2E416DED50400EDAC68 /* Socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socket.cpp; sourceTree = "<group>"; };
+		2792A2E516DED50400EDAC68 /* Socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket.h; sourceTree = "<group>"; };
+		2792A2E616DED50400EDAC68 /* SocketConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketConstants.h; sourceTree = "<group>"; };
+		2792A2F116DED52900EDAC68 /* IFixedLengthPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFixedLengthPacket.h; sourceTree = "<group>"; };
+		2792A2F216DED56700EDAC68 /* SMSPacketDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMSPacketDispatcher.cpp; sourceTree = "<group>"; };
+		2792A2F316DED56700EDAC68 /* SMSPacketDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSPacketDispatcher.h; sourceTree = "<group>"; };
 		480168FA16D9675D00FA3B3D /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = Resources/bg.png; sourceTree = "<group>"; };
 		480C799A16CD821D00E0C525 /* Updateable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Updateable.h; sourceTree = "<group>"; };
 		480C799B16CD852300E0C525 /* crosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = crosshair.png; path = Resources/crosshair.png; sourceTree = "<group>"; };
 		480D0CCF16CCB42B00600385 /* Module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Module.h; sourceTree = "<group>"; };
 		480D0CD016CCC2C700600385 /* GraphicsModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GraphicsModule.cpp; sourceTree = "<group>"; };
 		480D0CD116CCC2C700600385 /* GraphicsModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicsModule.h; sourceTree = "<group>"; };
+		480D30EB16DC1A710067CBBD /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graph.h; sourceTree = "<group>"; };
+		480D30EF16DC380E0067CBBD /* Astar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Astar.h; sourceTree = "<group>"; };
 		481B5EA516C59A030040DAA2 /* begin_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = begin_code.h; sourceTree = "<group>"; };
 		481B5EA616C59A030040DAA2 /* close_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = close_code.h; sourceTree = "<group>"; };
 		481B5EA716C59A030040DAA2 /* doxyfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = doxyfile; sourceTree = "<group>"; };
@@ -528,6 +558,7 @@
 		48B8DD7116C1DA7E0048C9BB /* wrap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wrap.hpp; sourceTree = "<group>"; };
 		48B8DD7216C1DA7E0048C9BB /* wrap.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wrap.inl; sourceTree = "<group>"; };
 		48B8DD7416C1DA7E0048C9BB /* xstream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = xstream.hpp; sourceTree = "<group>"; };
+		48BAB34B16DECD5800D75908 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = green.png; path = Resources/green.png; sourceTree = "<group>"; };
 		48CAD5A816BB7227005CD223 /* Bamf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bamf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48CAD5B416BB7227005CD223 /* Bamf-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bamf-Info.plist"; sourceTree = "<group>"; };
 		48CAD5B616BB7227005CD223 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -614,8 +645,31 @@
 		2770107316C9ACE90060738A /* network */ = {
 			isa = PBXGroup;
 			children = (
+				2792A2F216DED56700EDAC68 /* SMSPacketDispatcher.cpp */,
+				2792A2F316DED56700EDAC68 /* SMSPacketDispatcher.h */,
+				2792A2F116DED52900EDAC68 /* IFixedLengthPacket.h */,
+				2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */,
+				2792A2DC16DED50400EDAC68 /* NetworkingModule.h */,
+				2792A2DD16DED50400EDAC68 /* PacketIO.cpp */,
+				2792A2DE16DED50400EDAC68 /* PacketIO.h */,
+				2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */,
+				2792A2E016DED50400EDAC68 /* PingExecutor.h */,
+				2792A2E116DED50400EDAC68 /* SMSPacket.cpp */,
+				2792A2E216DED50400EDAC68 /* SMSPacket.h */,
+				2792A2E316DED50400EDAC68 /* SMSPacketExecutor.h */,
+				2792A2E416DED50400EDAC68 /* Socket.cpp */,
+				2792A2E516DED50400EDAC68 /* Socket.h */,
+				2792A2E616DED50400EDAC68 /* SocketConstants.h */,
 			);
 			name = network;
+			sourceTree = "<group>";
+		};
+		480D30E916DC1A2F0067CBBD /* Data Structures */ = {
+			isa = PBXGroup;
+			children = (
+				480D30EB16DC1A710067CBBD /* Graph.h */,
+			);
+			name = "Data Structures";
 			sourceTree = "<group>";
 		};
 		481B5EA416C59A030040DAA2 /* SDL2 */ = {
@@ -770,6 +824,7 @@
 		48548BD716D84805008DBC84 /* AI */ = {
 			isa = PBXGroup;
 			children = (
+				480D30EF16DC380E0067CBBD /* Astar.h */,
 			);
 			name = AI;
 			sourceTree = "<group>";
@@ -831,6 +886,7 @@
 		48B8D9F016C1D2550048C9BB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				48BAB34B16DECD5800D75908 /* green.png */,
 				480168FA16D9675D00FA3B3D /* bg.png */,
 				480C799B16CD852300E0C525 /* crosshair.png */,
 				48F9AFEF16C9DA730048ECB5 /* mage.png */,
@@ -1139,6 +1195,7 @@
 		48CAD5B216BB7227005CD223 /* Bamf */ = {
 			isa = PBXGroup;
 			children = (
+				480D30E916DC1A2F0067CBBD /* Data Structures */,
 				48548BDB16D84D6C008DBC84 /* BamfObjects */,
 				48548BD716D84805008DBC84 /* AI */,
 				A30AE7EE16CC137100D13952 /* Physics */,
@@ -1378,6 +1435,7 @@
 				48F9AFF016C9DA730048ECB5 /* mage.png in Resources */,
 				480C799C16CD852300E0C525 /* crosshair.png in Resources */,
 				480168FB16D9675D00FA3B3D /* bg.png in Resources */,
+				48BAB34C16DECD5800D75908 /* green.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1444,6 +1502,12 @@
 				48548BDD16D860F0008DBC84 /* MatrixStack.cpp in Sources */,
 				48548BE016D8692C008DBC84 /* SceneLayer.cpp in Sources */,
 				482A834516D9C09900812AFA /* CollisionModule.cpp in Sources */,
+				2792A2E716DED50400EDAC68 /* NetworkingModule.cpp in Sources */,
+				2792A2E916DED50400EDAC68 /* PacketIO.cpp in Sources */,
+				2792A2EB16DED50400EDAC68 /* PingExecutor.cpp in Sources */,
+				2792A2ED16DED50400EDAC68 /* SMSPacket.cpp in Sources */,
+				2792A2EF16DED50400EDAC68 /* Socket.cpp in Sources */,
+				2792A2F416DED56700EDAC68 /* SMSPacketDispatcher.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1452,6 +1516,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				277B0C8B16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */,
+				2792A2E816DED50400EDAC68 /* NetworkingModule.cpp in Sources */,
+				2792A2EA16DED50400EDAC68 /* PacketIO.cpp in Sources */,
+				2792A2EC16DED50400EDAC68 /* PingExecutor.cpp in Sources */,
+				2792A2EE16DED50400EDAC68 /* SMSPacket.cpp in Sources */,
+				2792A2F016DED50400EDAC68 /* Socket.cpp in Sources */,
+				2792A2F516DED56700EDAC68 /* SMSPacketDispatcher.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

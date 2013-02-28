@@ -29,7 +29,7 @@ public:
 	
 	/* Module interface */
 	void init();
-	void update(unsigned delta);
+	void update(Scene * scene, unsigned delta);
 
 private:
 	Camera * camera;

@@ -8,6 +8,9 @@
 
 #include "Scene.h"
 
+#include "BamfObject.h"
+#include "SceneLayer.h"
+
 namespace bamf {
 
 const float Scene::kPhysicsLayer = 0.0f;
@@ -94,9 +97,9 @@ BamfObject * Scene::getObjectById(uint64_t id) const {
 	return i->second->getObjectById(id);
 }
 
-void Scene::update(unsigned dt)
+void Scene::update( unsigned dt)
 {
-	std::for_each(this->layerByZValue.begin(), this->layerByZValue.end(), [=](std::pair<float, SceneLayer *> i) { i.second->update(dt); });
+	std::for_each(this->layerByZValue.begin(), this->layerByZValue.end(), [=](std::pair<float, SceneLayer *> i) { i.second->update(this, dt); });
 }
 
 void Scene::draw(SpriteStream * spriteStream, unsigned dt)

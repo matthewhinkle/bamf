@@ -20,6 +20,8 @@
 #include "Module.h"
 #include "CoreModule.h"
 
+#include "Scene.h"
+
 namespace bamf {
 
 /**

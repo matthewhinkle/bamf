@@ -6,6 +6,8 @@
 //
 //
 
+#include <functional>
+#include <algorithm>
 #include <iostream>
 
 #include "SDL2/SDL.h"
@@ -32,6 +34,9 @@
 #include "CollisionRectangle.h"
 #include "CollisionModule.h"
 #include "PhysicsWorld.h"
+
+#include "Graph.h"
+#include "Astar.h"
 
 class MoveCameraAction : public bamf::Action
 {
@@ -95,23 +100,69 @@ bamf::Action * MoveCameraButtons::actionForInput()
     return new MoveCameraAction(_movesX, _movesY, _cam);
 }
 
+template<class T> class Hashit;
+
+template<>
+class Hashit<glm::vec2> {
+public:
+	size_t operator()(glm::vec2 v) const {
+		return std::hash<float>()(v.x) ^ std::hash<float>()(v.y);
+	}
+};
+
+float weight(glm::vec2 v1, glm::vec2 v2) {
+	return glm::distance(v1, v2);
+}
+
+float dist(glm::vec2 v1, glm::vec2 v2) {
+	return glm::distance(v1, v2);
+}
+
 int main(int argc, char *argv[])
 {
+/**
+	glm::vec2 o(0, 0);
+	glm::vec2 a(10, 10);
+	glm::vec2 b(-10, -10);
+	glm::vec2 g(-11, -11);
+	
+	bamf::Graph<glm::vec2, float, Hashit<glm::vec2>> graph;
+
+	graph.addEdge(o, a, (float) glm::distance(o, a));
+	graph.addEdge(o, b, (float) glm::distance(o, b));
+	graph.addEdge(a, g, (float) glm::distance(a, g));
+	graph.addEdge(b, g, (float) glm::distance(b, g));
+	
+	bamf::Astar<glm::vec2, float, Hashit<glm::vec2>> astar(&graph);
+	
+	std::function< float(glm::vec2, glm::vec2) > f(dist);
+	
+	bamf::Path<glm::vec2> * p = astar.search(o, g, f);
+	
+	assert(p->value == o);
+	assert(p->next->value == b);
+	assert(p->next->next->value == g);
+	
+	return 0;
+*/
 	bamf::RigidBody r;
 	bamf::RigidBody r2;
+	
+	bamf::CollisionRectangle rectangle(glm::vec2(0.0f,300.0f),100.0f,350.0f);
+	
+	bamf::CollisionRectangle rectangle2(glm::vec2(0.0f,-300.0f),1000.0f,100.0f);
 
 	bamf::ResourceManager man;
 	bamf::Sprite sprite("Resources/mage.png");
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
-	bamf::SpriteObject spriteSprite(&sprite, &r);
+	bamf::SpriteObject spriteSprite(&sprite, &rectangle);
+	
 	bamf::Rectangle bounds(0, 0, 1000, 100);
-	bamf::Sprite red("Resources/bg.png", &bounds);
+	bamf::Sprite red("Resources/green.png", &bounds);
 	red.load(man);
 	red.setHotspot(red.getBounds().getCenter());
-	bamf::SpriteObject redSprite(&red, &r2);
-	
-	
+	bamf::SpriteObject redSprite(&red, &rectangle2);
 	
 	bamf::Scene scene;
 	scene.addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
@@ -128,34 +179,31 @@ int main(int argc, char *argv[])
 	
 	bamf::InputManager inputManager;
 	bamf::InputMapping inputMapping;
-	
-	#if 0
-    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_RIGHT, 1000 * 0.016, 0, gameLoop->.getCamera()));
-    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_LEFT, -1000 * 0.016, 0, graphicsModule.getCamera()));
-    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_UP, 0, 1000 * 0.016, graphicsModule.getCamera()));
-    inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_DOWN, 0, -1000 * 0.016, graphicsModule.getCamera()));
-    #endif
-	
+
+#if 0
+	inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_RIGHT, 1000 * 0.016, 0, gameLoop->.getCamera()));
+	inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_LEFT, -1000 * 0.016, 0, graphicsModule.getCamera()));
+	inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_UP, 0, 1000 * 0.016, graphicsModule.getCamera()));
+	inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_DOWN, 0, -1000 * 0.016, graphicsModule.getCamera()));
+#endif
+
     inputManager.setInputMapping(&inputMapping);
 	gameLoop->addModule(&inputManager);
-	
+
 	/* Collision Circle Test */
-    
     bamf::PhysicsWorld pw;
-    bamf::CollisionRectangle rectangle(glm::vec2(0.0f,300.0f),sprite.getBounds().width,sprite.getBounds().height);
-	bamf::CollisionRectangle rectangle2(glm::vec2(0.0f,-300.0f),1000.0f,100.0f);
-   // rectangle2.checkCollision(rectangle);
+	
+	spriteSprite.setCollisionShape(&rectangle);
+	redSprite.setCollisionShape(&rectangle2);
+
     r.setPositon(rectangle.getPosition());
     r.setForce(glm::vec2(0,-.005));
     r2.setPositon(rectangle2.getPosition());
     rectangle.setRigidBody(&r);
     rectangle2.setRigidBody(&r2);
-    
-   // std::cout << "collision: " << rectangle.checkCollision(rectangle2) << "\n";
-    
     pw.addObject(&rectangle);
     pw.addObject(&rectangle2);
-    
+
 	bamf::CollisionModule collisionModule;
     
 	//collisionModule.addCollidable(rectangle);

@@ -145,7 +145,7 @@ unsigned SynchronousGameLoop::update(unsigned epoch)
 	for(; epoch >= this->dt; epoch -= this->dt, this->time += this->dt) {
 		std::vector<Module *>::iterator modIt;
 		for(modIt = this->modules.begin(); modIt != this->modules.end(); modIt++) {
-			(*modIt)->update(this->dt);
+			(*modIt)->update(this->coreModule->getSceneManager()->getCurrentScene(), this->dt);
 		}
 	}
 		

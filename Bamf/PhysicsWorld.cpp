@@ -38,9 +38,8 @@ namespace bamf {
     std::vector<CollisionEvent> PhysicsWorld::getCollisions() {
         return collisions;
     }
-    
-    void PhysicsWorld::update(unsigned dt){
-        
+
+    void PhysicsWorld::update(Scene * scene, unsigned dt){
         std::vector<CollisionEvent> events;
         /*std::cout << "<---- physics update ----> \n";
         std::cout << "<---- collisons loop ----> \n";*/
@@ -53,13 +52,11 @@ namespace bamf {
                if(j != i) {
                 if(objectList[i]->checkCollision(objectList[j]))
                 {
-                   /* std::cout << "Collision Occured: i.id -  " << objectList[i]->getId() << " | j.id - " << objectList[j]->getId() << "\n";*/
-                    CollisionEvent e(objectList[i],objectList[j]);
-                    events.push_back(e);
+                    /*std::cout << "Collision Occured: i.id -  " << objectList[i].getId() << " | j.id - " << objectList[j].getId() << "\n";*/
                     objectList[i]->getRigidBody()->setForce(glm::vec2(0,0));
                     objectList[i]->getRigidBody()->setLinearVeloctiy(glm::vec2(0,0));
                     objectList[j]->getRigidBody()->setForce(glm::vec2(0,0));
-                    objectList[j]->getRigidBody()->setLinearVeloctiy(glm::vec2(-1,0));
+                    //objectList[j].getRigidBody()->setLinearVeloctiy(glm::vec2(-1,0));
                 }
                }
              }

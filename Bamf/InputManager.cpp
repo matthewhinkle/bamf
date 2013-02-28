@@ -22,7 +22,7 @@ void InputManager::init()
     
 }
 
-void InputManager::update(unsigned int delta)
+void InputManager::update(Scene * scene, unsigned int delta)
 {
     SDL_Event e;
     while(SDL_PollEvent(&e)) {

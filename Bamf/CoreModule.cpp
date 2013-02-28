@@ -30,14 +30,14 @@ void CoreModule::init()
 	this->graphicsModule.init();
 }
 
-void CoreModule::update(unsigned dt)
+void CoreModule::update(Scene * scene, unsigned dt)
 {
-	this->sceneManager.update(dt);
+	this->sceneManager.update(scene, dt);
 }
 
 void CoreModule::prepareGraphicsModule(unsigned dt)
 {
-	this->graphicsModule.update(dt);
+	this->graphicsModule.update(this->sceneManager.getCurrentScene(), dt);
 }
 
 void CoreModule::draw(unsigned dt)

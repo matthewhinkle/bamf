@@ -21,7 +21,7 @@ public:
 	
 	virtual void init() = 0;
 	
-	virtual void update(unsigned delta) = 0;
+	virtual void update(Scene * scene, unsigned delta) = 0;
 
 private:
 	Module(const Module &);

@@ -37,7 +37,6 @@ public:
     void step();
     
     void update();
-protected:
     
 private:
     uint64_t id;

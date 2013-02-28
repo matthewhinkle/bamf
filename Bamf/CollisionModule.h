@@ -24,7 +24,7 @@ public:
 	
 	void init() { }
 	
-	void update(unsigned dt) { }
+	void update(Scene * scene, unsigned dt) { }
     std::vector<CollisionEvent> checkCollisions();
     void addCollidable(CollisionShape s);
 private:
