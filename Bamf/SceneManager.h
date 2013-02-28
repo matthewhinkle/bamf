@@ -32,7 +32,7 @@ public:
 	
 	inline Scene * getCurrentScene() { return this->scenes.empty() ? NULL : this->scenes.top(); }
 	
-	void update(unsigned dt);
+	void update(Scene * scene, unsigned dt);
 	
 	void draw(SpriteStream * spriteStream, unsigned dt);
 	

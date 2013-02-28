@@ -46,7 +46,7 @@ Scene * SceneManager::popScene(unsigned num)
 	return popped;
 }
 
-void SceneManager::update(unsigned dt)
+void SceneManager::update(Scene * scene, unsigned dt)
 {
 	Scene * currentScene = this->getCurrentScene();
 	if(!(currentScene)) {
