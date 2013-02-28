@@ -118,6 +118,20 @@ float dist(glm::vec2 v1, glm::vec2 v2) {
 	return glm::distance(v1, v2);
 }
 
+static std::vector<bamf::BamfObject *> createScene(bamf::ResourceManager & man) {
+	std::vector<bamf::BamfObject *> objects;
+
+	bamf::Sprite ground("Resourcs/art/ground.png");
+	ground.load(man);
+	
+	int h = 70;
+	int w = 70;
+	for(int i = -512, i < 40000; i += w) {
+		bamf::SpriteObject * groundObject = new bamf::SpriteObject(&ground);
+		objects.push_back(groundObject);
+	}
+}
+
 int main(int argc, char *argv[])
 {
 /**
@@ -149,17 +163,16 @@ int main(int argc, char *argv[])
 	bamf::RigidBody r2;
 	
 	bamf::CollisionRectangle rectangle(glm::vec2(0.0f,300.0f),100.0f,350.0f);
-	
 	bamf::CollisionRectangle rectangle2(glm::vec2(0.0f,-300.0f),1000.0f,100.0f);
 
 	bamf::ResourceManager man;
-	bamf::Sprite sprite("Resources/mage.png");
+	bamf::Sprite sprite("Resources/art/character/front.png");
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
 	bamf::SpriteObject spriteSprite(&sprite, &rectangle);
 	
 	bamf::Rectangle bounds(0, 0, 1000, 100);
-	bamf::Sprite red("Resources/green.png", &bounds);
+	bamf::Sprite red("Resources/art/ground.png");
 	red.load(man);
 	red.setHotspot(red.getBounds().getCenter());
 	bamf::SpriteObject redSprite(&red, &rectangle2);
