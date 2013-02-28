@@ -48,17 +48,19 @@ namespace bamf {
             /*std::cout << "i= "<< i << " | id = " << objectList[i]->getId() << " \n";
             std::cout << "pos: (" << objectList[i]->getPosition().x << ", " << objectList[i]->getPosition().y << " )\n";
             std::cout << "rigid body pos: (" << objectList[i]->getRigidBody()->getPosition().x << ", " << objectList[i]->getRigidBody()->getPosition().y << " )\n";*/
-            for(int j = 0; j < objectList.size(); j++) {
-               if(j != i) {
+            for(int j = i + 1; j < objectList.size(); j++) {
                 if(objectList[i]->checkCollision(objectList[j]))
                 {
                     /*std::cout << "Collision Occured: i.id -  " << objectList[i].getId() << " | j.id - " << objectList[j].getId() << "\n";*/
                     objectList[i]->getRigidBody()->setForce(glm::vec2(0,0));
+					
+					glm::vec2 pos = objectList[i]->getRigidBody()->getPosition();
+					
+					objectList[i]->getRigidBody()->setPositon(glm::vec2(pos.x, pos.y + 1));
                     objectList[i]->getRigidBody()->setLinearVeloctiy(glm::vec2(0,0));
                     objectList[j]->getRigidBody()->setForce(glm::vec2(0,0));
                     //objectList[j].getRigidBody()->setLinearVeloctiy(glm::vec2(-1,0));
                 }
-               }
              }
         }
         collisions = events;

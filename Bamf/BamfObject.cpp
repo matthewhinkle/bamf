@@ -17,6 +17,14 @@ uint64_t BamfObject::idCounter = 0;
 BamfObject::BamfObject(bool owned)
 	:
 	id(nextId()),
+	owned(owned),
+	state(new ObjectState())
+{ }
+
+BamfObject::BamfObject(ObjectState * state, bool owned)
+	:
+	id(nextId()),
+	state(state),
 	owned(owned)
 { }
 
