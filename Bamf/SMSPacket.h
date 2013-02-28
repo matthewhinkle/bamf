@@ -23,6 +23,7 @@ namespace bamf {
     public:
         SMSPacket();
         SMSPacket(std::string message);
+        SMSPacket(void * memory);
         ~SMSPacket();
         
         int getLength();

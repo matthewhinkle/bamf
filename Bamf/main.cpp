@@ -38,6 +38,8 @@
 #include "Graph.h"
 #include "Astar.h"
 
+#include "NetworkingModule.h"
+
 class MoveCameraAction : public bamf::Action
 {
 protected:
@@ -174,6 +176,8 @@ float dist(glm::vec2 v1, glm::vec2 v2) {
 
 int main(int argc, char *argv[])
 {
+    float f = 2342398347593;
+    std::cout << sizeof(f);
 /**
 	glm::vec2 o(0, 0);
 	glm::vec2 a(10, 10);
@@ -270,6 +274,8 @@ int main(int argc, char *argv[])
 
 	gameLoop->addModule(&pw);
 	gameLoop->addModule(&collisionModule);
+    
+    gameLoop->addModule(new bamf::NetworkingModule());
 	
 	gameLoop->start();
 	

@@ -25,11 +25,13 @@ namespace bamf {
         this->serverSocket->doListen();
     }
     
-    void NetworkingModule::update(unsigned int delta) {
+    void NetworkingModule::update(Scene * scene, unsigned delta)
+    {
         //first check and see if the server socket has any connections
         Socket * socket = this->serverSocket->doAccept();
         if(socket != NULL) {
             this->sockets->push_back(socket);
+            std::cout << "Got a new socket connection!\n";
         }
         for(int i = 0; i < this->sockets->size(); i++) {
             Socket * socket = (*this->sockets)[i];
