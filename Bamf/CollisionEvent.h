@@ -16,15 +16,15 @@ namespace bamf {
  
     class CollisionEvent {
     public:
-        CollisionEvent(CollisionShape s1, CollisionShape s2);
+        CollisionEvent(CollisionShape * s1, CollisionShape * s2);
         ~CollisionEvent();
-        CollisionShape getShapeOne();
-        CollisionShape getShapeTwo();
+        CollisionShape* getShapeOne();
+        CollisionShape* getShapeTwo();
     protected:
         
     private:
-        CollisionShape shape1;
-        CollisionShape shape2;
+        CollisionShape * shape1;
+        CollisionShape * shape2;
 
     };
 }

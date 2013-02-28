@@ -254,17 +254,15 @@ int main(int argc, char *argv[])
 	
 	spriteSprite.setCollisionShape(&rectangle);
 	redSprite.setCollisionShape(&rectangle2);
-    
-    rectangle2.checkCollision(rectangle);
+
     r.setPositon(rectangle.getPosition());
     r.setForce(glm::vec2(0,-.005));
     r2.setPositon(rectangle2.getPosition());
     rectangle.setRigidBody(&r);
     rectangle2.setRigidBody(&r2);
-    
-    pw.addObject(rectangle);
-    pw.addObject(rectangle2);
-	
+    pw.addObject(&rectangle);
+    pw.addObject(&rectangle2);
+
 	bamf::CollisionModule collisionModule;
     
 	//collisionModule.addCollidable(rectangle);
