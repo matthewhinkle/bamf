@@ -36,6 +36,7 @@ public:
 	
 	virtual glm::vec2 getPosition() const = 0;
 	inline CollisionRectangle * getCollisionShape() const { return this->collisionShape; }
+	inline RigidBody * getRigidBody() const { return this->collisionShape->getRigidBody(); }
 	
 	inline void setCollisionShape(CollisionRectangle * collisionShape) { this->collisionShape = collisionShape; }
 	
