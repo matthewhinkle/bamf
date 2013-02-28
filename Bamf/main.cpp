@@ -392,6 +392,7 @@ int main(int argc, char *argv[])
 	bamf::Scene * scene = createScene(man, &pw);
 	//scene.addObjectWithZValue(&redSprite, bamf::Scene::kForegroundMidLayer);
 	scene->addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
+    pw.addObject(spriteSprite.getCollisionShape());
 	//scene.addObjectWithZValue(&chSprite, bamf::Scene::kForegroundNearLayer);
 	//scene.addObjectWithZValue(&bgSprite, bamf::Scene::kBackgroundLayer);
 	
