@@ -19,6 +19,7 @@
 #include "CollisionEvent.h"
 
 #include "Module.h"
+#include "Scene.h"
 
 namespace bamf {
     
@@ -36,7 +37,7 @@ public:
     //void step(CollisionShape s);
 	
 	inline void init() { }
-	void update(unsigned dt);
+	void update(Scene * scene, unsigned dt);
 
 protected:
     

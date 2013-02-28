@@ -29,7 +29,7 @@ public:
 	
 	/* Module interface */
 	void init();
-	void update(unsigned dt);
+	void update(Scene * scene, unsigned dt);
 	
 	void prepareGraphicsModule(unsigned dt);
 	

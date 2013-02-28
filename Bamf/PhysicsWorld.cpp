@@ -25,7 +25,7 @@ namespace bamf {
     {
         objectList.push_back(r);
     }
-    void PhysicsWorld::update(unsigned dt){
+    void PhysicsWorld::update(Scene * scene, unsigned dt){
         /*std::cout << "<---- physics update ----> \n";
         std::cout << "<---- collisons loop ----> \n";*/
         for(int i = 0; i < objectList.size(); i++) {

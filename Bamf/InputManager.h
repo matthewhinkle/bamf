@@ -18,6 +18,8 @@
 
 #include "SDL2/SDL.h"
 
+#include "Scene.h"
+
 namespace bamf {
 
 class InputManager : public Module
@@ -31,7 +33,7 @@ public:
     
     void init();
 	
-	void update(unsigned delta);
+	void update(Scene * scene, unsigned delta);
     
     /**
       * Grabs and processes all user input (shoud be called each loop of game loop)

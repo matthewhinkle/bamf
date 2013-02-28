@@ -69,7 +69,7 @@ void GraphicsModule::init()
 	}
 }
 
-void GraphicsModule::update(unsigned delta)
+void GraphicsModule::update(Scene * scene, unsigned delta)
 {
 	Viewport * viewport = this->camera->getViewport();
 	viewport->clear();
