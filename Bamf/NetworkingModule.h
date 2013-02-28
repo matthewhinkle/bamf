@@ -16,6 +16,8 @@
 #include "SMSPacket.h"
 #include "SMSPacketDispatcher.h"
 
+#include <stdio.h>
+
 namespace bamf {
     
 class NetworkingModule : public Module {
@@ -30,7 +32,7 @@ public:
     NetworkingModule();
     
     void init();
-	void update(unsigned delta);
+		void update(Scene * scene, unsigned delta);
     
 };
     

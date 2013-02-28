@@ -106,7 +106,6 @@ namespace bamf {
         socklen_t clilen = sizeof(cli_addr);
         int newsockfd = accept(this->sockfd, (struct sockaddr *) &cli_addr, &clilen);
         if (newsockfd < 0) {
-            perror("Accept");
             return NULL;
         }
         return new Socket(newsockfd);
