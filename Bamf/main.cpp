@@ -174,7 +174,7 @@ float dist(glm::vec2 v1, glm::vec2 v2) {
 	return glm::distance(v1, v2);
 }
 
-static bamf::Scene * createScene(bamf::ResourceManager & man) {
+static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld * pw) {
 	bamf::Scene * scene = new bamf::Scene();
 
 	bamf::Sprite * ground = new bamf::Sprite("Resources/art/ground.png");
@@ -183,6 +183,7 @@ static bamf::Scene * createScene(bamf::ResourceManager & man) {
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(i, -418));
 		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+        pw->addObject(groundObject->getCollisionShape());
 	}
 	
 	bamf::Sprite * water = new bamf::Sprite("Resources/art/water.png");
@@ -191,12 +192,14 @@ static bamf::Scene * createScene(bamf::ResourceManager & man) {
 		bamf::SpriteObject * waterObject = new bamf::SpriteObject(water);
 		waterObject->setPosition(glm::vec2(i, -392));
 		scene->addObjectWithZValue(waterObject, bamf::Scene::kForegroundMidLayer);
+        pw->addObject(waterObject->getCollisionShape());
 	}
 	
 	for(int i = -338; i < 140; i += ground->getBounds().width - 1) {
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(i, -418));
 		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+        pw->addObject(groundObject->getCollisionShape());
 	}
 	
 	bamf::Sprite * spikes = new bamf::Sprite("Resources/art/spikes.png");
@@ -204,19 +207,23 @@ static bamf::Scene * createScene(bamf::ResourceManager & man) {
 	bamf::SpriteObject * spikesObject = new bamf::SpriteObject(spikes);
 	spikesObject->setPosition(glm::vec2(146, -386));
 	scene->addObjectWithZValue(spikesObject, bamf::Scene::kForegroundMidLayer);
+    pw->addObject(spikesObject->getCollisionShape());
 	
 	bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 	groundObject->setPosition(glm::vec2(216, -418));
 	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+    pw->addObject(groundObject->getCollisionShape());
 	
 	spikesObject = new bamf::SpriteObject(spikes);
 	spikesObject->setPosition(glm::vec2(286, -386));
 	scene->addObjectWithZValue(spikesObject, bamf::Scene::kForegroundMidLayer);
+    pw->addObject(spikesObject->getCollisionShape());
 	
 	for(int i = 358; i < 400; i += ground->getBounds().width - 1) {
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(i, -418));
 		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+        pw->addObject(groundObject->getCollisionShape());
 	}
 	
 	bamf::Sprite * fence = new bamf::Sprite("Resources/art/fence.png");
@@ -225,6 +232,7 @@ static bamf::Scene * createScene(bamf::ResourceManager & man) {
 		bamf::SpriteObject * fenceObject = new bamf::SpriteObject(fence);
 		fenceObject->setPosition(glm::vec2(i, -354));
 		scene->addObjectWithZValue(fenceObject, bamf::Scene::kForegroundFarLayer);
+        pw->addObject(fenceObject->getCollisionShape());
 	}
 	
 	bamf::Sprite * brokenFence = new bamf::Sprite("Resources/art/fence_broken.png");
@@ -232,12 +240,14 @@ static bamf::Scene * createScene(bamf::ResourceManager & man) {
 	bamf::SpriteObject * brokenFenceObject = new bamf::SpriteObject(brokenFence);
 	brokenFenceObject->setPosition(glm::vec2(-326, -354));
 	scene->addObjectWithZValue(brokenFenceObject, bamf::Scene::kForegroundFarLayer);
+    pw->addObject(brokenFenceObject->getCollisionShape());
 	
 	bamf::Sprite * grass = new bamf::Sprite("Resources/art/grass.png");
 	grass->load(man);
 	bamf::SpriteObject * grassObject = new bamf::SpriteObject(grass);
 	grassObject->setPosition(glm::vec2(-290, -354));
 	scene->addObjectWithZValue(grassObject, bamf::Scene::kForegroundFarLayer);
+    pw->addObject(grassObject->getCollisionShape());
 	
 	grassObject = new bamf::SpriteObject(grass);
 	grassObject->setPosition(glm::vec2(-270, -354));
@@ -248,66 +258,79 @@ static bamf::Scene * createScene(bamf::ResourceManager & man) {
 	bamf::SpriteObject * blockObject = new bamf::SpriteObject(block);
 	blockObject->setPosition(glm::vec2(320, -140));
 	scene->addObjectWithZValue(blockObject, bamf::Scene::kForegroundNearLayer);
+    pw->addObject(blockObject->getCollisionShape());
 	
 	bamf::Sprite * bonus = new bamf::Sprite("Resources/art/bonus.png");
 	bonus->load(man);
 	bamf::SpriteObject * bonusObject = new bamf::SpriteObject(bonus);
 	bonusObject->setPosition(glm::vec2(390, -140));
 	scene->addObjectWithZValue(bonusObject, bamf::Scene::kForegroundNearLayer);
+    pw->addObject(bonusObject->getCollisionShape());
 	
 	blockObject = new bamf::SpriteObject(block);
 	blockObject->setPosition(glm::vec2(460, -140));
 	scene->addObjectWithZValue(blockObject, bamf::Scene::kForegroundNearLayer);
+    pw->addObject(blockObject->getCollisionShape());
 	
 	blockObject = new bamf::SpriteObject(block);
 	blockObject->setPosition(glm::vec2(146, -256));
 	scene->addObjectWithZValue(blockObject, bamf::Scene::kForegroundNearLayer);
+    pw->addObject(blockObject->getCollisionShape());
 	
 	bamf::Sprite * shortHill = new bamf::Sprite("Resources/art/hill_short.png");
 	shortHill->load(man);
 	bamf::SpriteObject * shortHillObject = new bamf::SpriteObject(shortHill);
 	shortHillObject->setPosition(glm::vec2(-120, -354));
 	scene->addObjectWithZValue(shortHillObject, bamf::Scene::kForegroundFarLayer);
+    pw->addObject(shortHillObject->getCollisionShape());
 	
 	bamf::Sprite * longHill = new bamf::Sprite("Resources/art/hill_long.png");
 	longHill->load(man);
 	bamf::SpriteObject * longHillObject = new bamf::SpriteObject(longHill);
 	longHillObject->setPosition(glm::vec2(-180, -354));
 	scene->addObjectWithZValue(longHillObject, bamf::Scene::kForegroundFarLayer);
+    pw->addObject(longHillObject->getCollisionShape());
 	
 	bamf::Sprite * crate = new bamf::Sprite("Resources/art/crate.png");
 	crate->load(man);
 	bamf::SpriteObject * crateObject = new bamf::SpriteObject(crate);
 	crateObject->setPosition(glm::vec2(40, -354));
 	scene->addObjectWithZValue(crateObject, bamf::Scene::kForegroundFarLayer);
+    pw->addObject(crateObject->getCollisionShape());
 	
 	grassObject = new bamf::SpriteObject(grass);
 	grassObject->setPosition(glm::vec2(90, -354));
 	scene->addObjectWithZValue(grassObject, bamf::Scene::kForegroundNearLayer);
+    pw->addObject(grassObject->getCollisionShape());
 	
 	bamf::Sprite * shroom = new bamf::Sprite("Resources/art/shroom.png");
 	shroom->load(man);
 	bamf::SpriteObject * shroomObject = new bamf::SpriteObject(shroom);
 	shroomObject->setPosition(glm::vec2(0, -350));
 	scene->addObjectWithZValue(shroomObject, bamf::Scene::kForegroundFarLayer);
+    pw->addObject(shroomObject->getCollisionShape());
 	
 	bamf::SpriteObject * waterObject = new bamf::SpriteObject(water);
 	waterObject->setPosition(glm::vec2(426, -392));
 	scene->addObjectWithZValue(waterObject, bamf::Scene::kForegroundMidLayer);
+    pw->addObject(waterObject->getCollisionShape());
 
 	waterObject = new bamf::SpriteObject(water);
 	waterObject->setPosition(glm::vec2(495, -392));
 	scene->addObjectWithZValue(waterObject, bamf::Scene::kForegroundNearLayer);
+    pw->addObject(waterObject->getCollisionShape());
 	
 	bamf::Sprite * bush = new bamf::Sprite("Resources/art/bush.png");
 	bush->load(man);
 	bamf::SpriteObject * bushObject = new bamf::SpriteObject(bush);
 	bushObject->setPosition(glm::vec2(340, -76));
 	scene->addObjectWithZValue(bushObject, bamf::Scene::kForegroundMidLayer);
+    pw->addObject(bushObject->getCollisionShape());
 	
 	shortHillObject = new bamf::SpriteObject(shortHill);
 	shortHillObject->setPosition(glm::vec2(380, -76));
 	scene->addObjectWithZValue(shortHillObject, bamf::Scene::kForegroundFarLayer);
+    pw->addObject(shortHillObject->getCollisionShape());
 	
 	bamf::Sprite * background = new bamf::Sprite("Resources/art/background.png");
 	background->load(man);
@@ -363,7 +386,10 @@ int main(int argc, char *argv[])
 	red.setHotspot(red.getBounds().getCenter());
 	bamf::SpriteObject redSprite(&red);
 	
-	bamf::Scene * scene = createScene(man);
+    
+    bamf::PhysicsWorld pw;
+    
+	bamf::Scene * scene = createScene(man, &pw);
 	//scene.addObjectWithZValue(&redSprite, bamf::Scene::kForegroundMidLayer);
 	scene->addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
 	//scene.addObjectWithZValue(&chSprite, bamf::Scene::kForegroundNearLayer);
@@ -395,9 +421,8 @@ int main(int argc, char *argv[])
 
     inputManager.setInputMapping(&inputMapping);
 	gameLoop->addModule(&inputManager);
-
-	/* Collision Circle Test */
-    bamf::PhysicsWorld pw;
+    
+    
 #if 0
     r.setPositon(rectangle.getPosition());
     r.setForce(glm::vec2(0,-.005));
