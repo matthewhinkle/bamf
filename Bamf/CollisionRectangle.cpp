@@ -12,11 +12,17 @@
 namespace bamf {
     
     uint64_t CollisionRectangle::idCounter = 0;
+	
+	CollisionRectangle::CollisionRectangle(const Rectangle & r)
+		:
+		CollisionRectangle(glm::vec2(r.x, r.y), r.width, r.height)
+	{ }
     
     CollisionRectangle::CollisionRectangle(glm::vec2 pos, float w, float h){
         position = pos;
         width = w;
         height = h;
+		rBody = new RigidBody();
 	}
     
     CollisionRectangle::~CollisionRectangle() {

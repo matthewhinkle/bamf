@@ -10,18 +10,19 @@
 
 namespace bamf {
 
-SpriteObject::SpriteObject(Sprite * sprite, CollisionRectangle * collisionShape)
+SpriteObject::SpriteObject(Sprite * sprite, bool owned)
 	:
-	sprite(sprite)
+	sprite(sprite),
+	bamf::BamfObject(owned)
 {
-	this->setCollisionShape(collisionShape);
+	this->state->collisionShape = new CollisionRectangle(sprite->getBounds());
 }
 
 SpriteObject::~SpriteObject() { }
 
 void SpriteObject::draw(SpriteStream * spriteStream, unsigned dt)
 {
-	spriteStream->begin();
+	spriteStream->begin(MatrixStack::kIdentMatrix, kSpriteStreamClipEdges);
 	spriteStream->draw(this->sprite, this->getPosition());
 	spriteStream->end();
 }

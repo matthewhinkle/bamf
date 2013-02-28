@@ -17,6 +17,8 @@
 #include "Drawable.h"
 #include "Updateable.h"
 
+#include "ObjectState.h"
+
 #include "CollisionRectangle.h"
 
 namespace bamf {
@@ -30,15 +32,19 @@ class BamfObject : public Updateable, public Drawable {
 public:
 
 	explicit BamfObject(bool owned = false);
+	BamfObject(ObjectState * state, bool owned = false);
 	virtual ~BamfObject();
     
 	inline uint64_t getId() const { return this->id; }
 	
 	virtual glm::vec2 getPosition() const = 0;
-	inline CollisionRectangle * getCollisionShape() const { return this->collisionShape; }
-	inline RigidBody * getRigidBody() const { return this->collisionShape->getRigidBody(); }
+	inline CollisionRectangle * getCollisionShape() const { return this->state->collisionShape; }
+	inline RigidBody * getRigidBody() const { return this->state->collisionShape->getRigidBody(); }
 	
-	inline void setCollisionShape(CollisionRectangle * collisionShape) { this->collisionShape = collisionShape; }
+	inline ObjectState * getState() const { return this->state; }
+	
+	virtual void setPosition(const glm::vec2 & position) = 0;
+	inline void setCollisionShape(CollisionRectangle * collisionShape) { this->state->collisionShape = collisionShape; }
 	
 	void update(Scene * scene, unsigned dt) { }
 	void draw(SpriteStream * spriteStream, unsigned dt) { }
@@ -46,8 +52,9 @@ public:
 	inline bool operator<(const BamfObject & bamf) { return this->id < bamf.id; }
 	
 protected:
-	CollisionRectangle * collisionShape;
 	bool owned;
+	
+	ObjectState * state;
 
 private:
 	uint64_t id;

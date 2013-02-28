@@ -20,16 +20,19 @@ namespace bamf {
 class SpriteObject : public BamfObject {
 public:
 
-	explicit SpriteObject(Sprite * sprite, CollisionRectangle * collisionShape = NULL);
+	explicit SpriteObject(Sprite * sprite, bool owned = false);
 	virtual ~SpriteObject();
 	
-	inline glm::vec2 getPosition() const { return this->collisionShape->getRigidBody()->getPosition(); }
+	inline glm::vec2 getPosition() const { return this->state->collisionShape->getRigidBody()->getPosition(); }
 	
 	inline Sprite * getSprite() { return this->sprite; }
+	
+	inline void setPosition(const glm::vec2 & position) {
+		this->state->collisionShape->getRigidBody()->setPositon(position);
+	}
 
-	void update(unsigned dt) { }
-
-	void draw(SpriteStream * spriteStream, unsigned dt);
+	virtual void update(Scene * scene, unsigned dt) { }
+	virtual void draw(SpriteStream * spriteStream, unsigned dt);
 	
 private:
 	Sprite * sprite;

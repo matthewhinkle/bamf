@@ -20,6 +20,7 @@ namespace bamf {
 class CollisionRectangle: public CollisionShape {
 public:
 	CollisionRectangle();
+	CollisionRectangle(const Rectangle & r);
     CollisionRectangle(glm::vec2 pos, float w, float h);
     ~CollisionRectangle();
     
