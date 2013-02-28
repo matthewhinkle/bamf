@@ -100,6 +100,60 @@ bamf::Action * MoveCameraButtons::actionForInput()
     return new MoveCameraAction(_movesX, _movesY, _cam);
 }
 
+class MoveActorButtons : public bamf::IKeyMapping
+{
+protected:
+    int _keyCode;
+    bamf::BamfObject * _object;
+    float _x;
+    float _y;
+public:
+    MoveActorButtons(int keyCode, bamf::BamfObject * object, float x, float y);
+    bool appliesForInput(bamf::KeyPressType type, int keyCode, ...);
+    bamf::Action * actionForInput();
+};
+
+class MoveActorAction : public bamf::Action
+{
+protected:
+    float _x;
+    float _y;
+    bamf::BamfObject * _object;
+public:
+    MoveActorAction(float x, float y, bamf::BamfObject * object);
+    void executeAction();
+};
+
+
+MoveActorButtons::MoveActorButtons(int keyCode, bamf::BamfObject * object, float x, float y)
+{
+    this->_keyCode = keyCode;
+    this->_object = object;
+    this->_x = x;
+    this->_y = y;
+}
+
+bool MoveActorButtons::appliesForInput(bamf::KeyPressType type, int keyCode, ...)
+{
+    return keyCode == this->_keyCode && type == bamf::KEY_DOWN;
+}
+
+bamf::Action * MoveActorButtons::actionForInput()
+{
+    return new MoveActorAction(this->_x, this->_y, this->_object);
+}
+
+MoveActorAction::MoveActorAction(float x, float y, bamf::BamfObject * object) {
+    this->_x = x;
+    this->_y = y;
+    this->_object = object;
+}
+
+void MoveActorAction::executeAction()
+{
+    this->_object->getRigidBody()->setLinearVeloctiy(glm::vec2(this->_x, this->_y));
+}
+
 template<class T> class Hashit;
 
 template<>
@@ -186,6 +240,11 @@ int main(int argc, char *argv[])
 	inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_UP, 0, 1000 * 0.016, graphicsModule.getCamera()));
 	inputMapping.addKeyMapping(new MoveCameraButtons(SDLK_DOWN, 0, -1000 * 0.016, graphicsModule.getCamera()));
 #endif
+    
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_w, &spriteSprite, 0, 1));
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_d, &spriteSprite, 1, 0));
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_s, &spriteSprite, 0, -1));
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_a, &spriteSprite, -1, 0));
 
     inputManager.setInputMapping(&inputMapping);
 	gameLoop->addModule(&inputManager);
