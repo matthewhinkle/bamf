@@ -20,9 +20,9 @@ namespace bamf {
 class CollisionRectangle: public CollisionShape {
 public:
 	CollisionRectangle();
-	CollisionRectangle(const Rectangle & r);
+	CollisionRectangle(const Rectangle & bounds, const glm::vec2 & hotSpot = glm::vec2());
     CollisionRectangle(glm::vec2 pos, float w, float h);
-    ~CollisionRectangle();
+    virtual ~CollisionRectangle();
     
     bool checkCollision(CollisionCircle c);
     bool checkCollision(CollisionRectangle * r);
@@ -40,7 +40,8 @@ private:
     uint64_t id;
     static uint64_t idCounter;
 	static inline uint64_t nextId();
-    
+	
+	glm::vec2 hotSpot;
     glm::vec2 position;
     float width;
     float height;

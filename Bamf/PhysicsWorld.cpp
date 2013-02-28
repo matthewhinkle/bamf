@@ -7,6 +7,9 @@
 //
 
 #include "PhysicsWorld.h"
+
+#include <iostream>
+
 namespace bamf {
 
 	static const float kEpsilon = 1e-6;
@@ -55,6 +58,7 @@ namespace bamf {
             for(int j = i + 1; j < objectList.size(); j++) {
                 if(objectList[i]->checkCollision(objectList[j]))
                 {
+					/** hax hax hax, please remove the hax! :) */
 					RigidBody * iBody = objectList[i]->getRigidBody();
 					RigidBody * jBody = objectList[j]->getRigidBody();
 					
@@ -62,16 +66,30 @@ namespace bamf {
 						continue;
 					} else if(hasZeroVelocity(iBody) && !(hasZeroVelocity(jBody))) {
 						glm::vec2 v = jBody->getLinearVeloctiy();
-						v.y += 0.01;
+						glm::vec2 vnorm = glm::normalize(-v);
+						
+						v.y = 0;
+						v.x = 0;
+						
 						jBody->setLinearVeloctiy(v);
+						jBody->setForce(glm::vec2());
+						
+						jBody->setPositon(jBody->getPosition() + vnorm);
+						//jBody->setForce(glm::vec2(0, -0.05));
+						
+						std::cout << "collide " << objectList[i]->getId() << " with " << objectList[j]->getId() << std::endl;
 					} else {
 						glm::vec2 v = iBody->getLinearVeloctiy();
-						v.y += 0.01;
+						v.y = 0;
+						
 						iBody->setLinearVeloctiy(v);
+						iBody->setForce(glm::vec2());
+						
+						printf("collide2\n");
 					}
+					/** end of the hax */
 					
 				#if 0
-				
                     /*std::cout << "Collision Occured: i.id -  " << objectList[i].getId() << " | j.id - " << objectList[j].getId() << "\n";*/
                     objectList[i]->getRigidBody()->setForce(glm::vec2(0,0));
 					
