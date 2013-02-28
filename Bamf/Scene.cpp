@@ -41,6 +41,8 @@ Scene::~Scene()
 
 void Scene::addObjectWithZValue(BamfObject * bamf, float layerZValue)
 {
+	if(!(bamf)) return;
+
 	std::map<float, SceneLayer *>::const_iterator i = this->layerByZValue.find(layerZValue);
 	
 	if(i == this->layerByZValue.end()) {
@@ -48,9 +50,11 @@ void Scene::addObjectWithZValue(BamfObject * bamf, float layerZValue)
 		SceneLayer * layer = new SceneLayer();
 		layer->addObject(bamf);
 		this->layerByZValue.insert(std::pair<float, SceneLayer *>(layerZValue, layer));
+		this->layerByObjectId.insert(std::pair<uint64_t, SceneLayer *>(bamf->getId(), layer));
 	} else {
 		/* layer exists, add the object */
 		i->second->addObject(bamf);
+		this->layerByObjectId.insert(std::pair<uint64_t, SceneLayer *>(bamf->getId(), i->second));
 	}
 }
 
