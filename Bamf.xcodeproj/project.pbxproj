@@ -13,6 +13,18 @@
 		277B0C8A16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */; };
 		277B0C8B16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */; };
 		277B0C8D16CDAFD00061BF84 /* BamfObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8C16CDAFD00061BF84 /* BamfObject.cpp */; };
+		2792A2E716DED50400EDAC68 /* NetworkingModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */; };
+		2792A2E816DED50400EDAC68 /* NetworkingModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */; };
+		2792A2E916DED50400EDAC68 /* PacketIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DD16DED50400EDAC68 /* PacketIO.cpp */; };
+		2792A2EA16DED50400EDAC68 /* PacketIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DD16DED50400EDAC68 /* PacketIO.cpp */; };
+		2792A2EB16DED50400EDAC68 /* PingExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */; };
+		2792A2EC16DED50400EDAC68 /* PingExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */; };
+		2792A2ED16DED50400EDAC68 /* SMSPacket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2E116DED50400EDAC68 /* SMSPacket.cpp */; };
+		2792A2EE16DED50400EDAC68 /* SMSPacket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2E116DED50400EDAC68 /* SMSPacket.cpp */; };
+		2792A2EF16DED50400EDAC68 /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2E416DED50400EDAC68 /* Socket.cpp */; };
+		2792A2F016DED50400EDAC68 /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2E416DED50400EDAC68 /* Socket.cpp */; };
+		2792A2F416DED56700EDAC68 /* SMSPacketDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2F216DED56700EDAC68 /* SMSPacketDispatcher.cpp */; };
+		2792A2F516DED56700EDAC68 /* SMSPacketDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2F216DED56700EDAC68 /* SMSPacketDispatcher.cpp */; };
 		480168FB16D9675D00FA3B3D /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 480168FA16D9675D00FA3B3D /* bg.png */; };
 		480C799C16CD852300E0C525 /* crosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = 480C799B16CD852300E0C525 /* crosshair.png */; };
 		480D0CD216CCC2C700600385 /* GraphicsModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 480D0CD016CCC2C700600385 /* GraphicsModule.cpp */; };
@@ -179,6 +191,21 @@
 		277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultQuitHandler.cpp; sourceTree = "<group>"; };
 		277B0C8916CD8A320061BF84 /* DefaultQuitHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultQuitHandler.h; sourceTree = "<group>"; };
 		277B0C8C16CDAFD00061BF84 /* BamfObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BamfObject.cpp; sourceTree = "<group>"; };
+		2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkingModule.cpp; sourceTree = "<group>"; };
+		2792A2DC16DED50400EDAC68 /* NetworkingModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingModule.h; sourceTree = "<group>"; };
+		2792A2DD16DED50400EDAC68 /* PacketIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketIO.cpp; sourceTree = "<group>"; };
+		2792A2DE16DED50400EDAC68 /* PacketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketIO.h; sourceTree = "<group>"; };
+		2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PingExecutor.cpp; sourceTree = "<group>"; };
+		2792A2E016DED50400EDAC68 /* PingExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingExecutor.h; sourceTree = "<group>"; };
+		2792A2E116DED50400EDAC68 /* SMSPacket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMSPacket.cpp; sourceTree = "<group>"; };
+		2792A2E216DED50400EDAC68 /* SMSPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSPacket.h; sourceTree = "<group>"; };
+		2792A2E316DED50400EDAC68 /* SMSPacketExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSPacketExecutor.h; sourceTree = "<group>"; };
+		2792A2E416DED50400EDAC68 /* Socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socket.cpp; sourceTree = "<group>"; };
+		2792A2E516DED50400EDAC68 /* Socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket.h; sourceTree = "<group>"; };
+		2792A2E616DED50400EDAC68 /* SocketConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketConstants.h; sourceTree = "<group>"; };
+		2792A2F116DED52900EDAC68 /* IFixedLengthPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFixedLengthPacket.h; sourceTree = "<group>"; };
+		2792A2F216DED56700EDAC68 /* SMSPacketDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMSPacketDispatcher.cpp; sourceTree = "<group>"; };
+		2792A2F316DED56700EDAC68 /* SMSPacketDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSPacketDispatcher.h; sourceTree = "<group>"; };
 		480168FA16D9675D00FA3B3D /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = Resources/bg.png; sourceTree = "<group>"; };
 		480C799A16CD821D00E0C525 /* Updateable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Updateable.h; sourceTree = "<group>"; };
 		480C799B16CD852300E0C525 /* crosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = crosshair.png; path = Resources/crosshair.png; sourceTree = "<group>"; };
@@ -618,6 +645,21 @@
 		2770107316C9ACE90060738A /* network */ = {
 			isa = PBXGroup;
 			children = (
+				2792A2F216DED56700EDAC68 /* SMSPacketDispatcher.cpp */,
+				2792A2F316DED56700EDAC68 /* SMSPacketDispatcher.h */,
+				2792A2F116DED52900EDAC68 /* IFixedLengthPacket.h */,
+				2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */,
+				2792A2DC16DED50400EDAC68 /* NetworkingModule.h */,
+				2792A2DD16DED50400EDAC68 /* PacketIO.cpp */,
+				2792A2DE16DED50400EDAC68 /* PacketIO.h */,
+				2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */,
+				2792A2E016DED50400EDAC68 /* PingExecutor.h */,
+				2792A2E116DED50400EDAC68 /* SMSPacket.cpp */,
+				2792A2E216DED50400EDAC68 /* SMSPacket.h */,
+				2792A2E316DED50400EDAC68 /* SMSPacketExecutor.h */,
+				2792A2E416DED50400EDAC68 /* Socket.cpp */,
+				2792A2E516DED50400EDAC68 /* Socket.h */,
+				2792A2E616DED50400EDAC68 /* SocketConstants.h */,
 			);
 			name = network;
 			sourceTree = "<group>";
@@ -1460,6 +1502,12 @@
 				48548BDD16D860F0008DBC84 /* MatrixStack.cpp in Sources */,
 				48548BE016D8692C008DBC84 /* SceneLayer.cpp in Sources */,
 				482A834516D9C09900812AFA /* CollisionModule.cpp in Sources */,
+				2792A2E716DED50400EDAC68 /* NetworkingModule.cpp in Sources */,
+				2792A2E916DED50400EDAC68 /* PacketIO.cpp in Sources */,
+				2792A2EB16DED50400EDAC68 /* PingExecutor.cpp in Sources */,
+				2792A2ED16DED50400EDAC68 /* SMSPacket.cpp in Sources */,
+				2792A2EF16DED50400EDAC68 /* Socket.cpp in Sources */,
+				2792A2F416DED56700EDAC68 /* SMSPacketDispatcher.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1468,6 +1516,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				277B0C8B16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */,
+				2792A2E816DED50400EDAC68 /* NetworkingModule.cpp in Sources */,
+				2792A2EA16DED50400EDAC68 /* PacketIO.cpp in Sources */,
+				2792A2EC16DED50400EDAC68 /* PingExecutor.cpp in Sources */,
+				2792A2EE16DED50400EDAC68 /* SMSPacket.cpp in Sources */,
+				2792A2F016DED50400EDAC68 /* Socket.cpp in Sources */,
+				2792A2F516DED56700EDAC68 /* SMSPacketDispatcher.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
