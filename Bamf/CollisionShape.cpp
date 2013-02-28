@@ -23,12 +23,12 @@ namespace bamf {
     }
     RigidBody* CollisionShape::getRigidBody(){
         return rBody;
-    }
-    void CollisionShape::setPosition(glm::vec2 p) {
+    }    
+    /*void CollisionShape::setPosition(glm::vec2 p) {
         position = p;
     }
     glm::vec2 CollisionShape::getPosition() {
         return position;
-    }
+    }*/
     
 }

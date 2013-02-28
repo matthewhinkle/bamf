@@ -24,7 +24,7 @@ public:
     ~CollisionRectangle();
     
     bool checkCollision(CollisionCircle c);
-    bool checkCollision(CollisionRectangle r);
+    bool checkCollision(CollisionRectangle * r);
     std::vector<glm::vec2> getVertices();
     std::vector<glm::vec2> getAxes(std::vector<glm::vec2> verts);
     glm::vec2 getProjection(glm::vec2 axis,std::vector<glm::vec2> verts);
@@ -32,10 +32,15 @@ public:
     glm::vec2 getPosition();
     void setPosition(glm::vec2 p);
     
+    inline uint64_t getId() const { return this->id; }
 protected:
     
 private:
+    uint64_t id;
+    static uint64_t idCounter;
+	static inline uint64_t nextId();
     
+    glm::vec2 position;
     float width;
     float height;
 };

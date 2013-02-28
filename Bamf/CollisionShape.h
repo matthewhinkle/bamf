@@ -22,8 +22,8 @@ public:
     
     virtual bool checkCollision(CollisionShape s) {}
     
-    virtual void setPosition(glm::vec2 p);
-    virtual glm::vec2 getPosition();
+    /*virtual void setPosition(glm::vec2 p);
+    virtual glm::vec2 getPosition();*/
     
     RigidBody* getRigidBody();
     void setRigidBody(RigidBody *r);
@@ -31,10 +31,9 @@ public:
     inline uint64_t getId() const { return this->id; }
     
 protected:
-    uint64_t id;
-    glm::vec2 position;
     RigidBody *rBody;
 private:
+    uint64_t id;
     //CollisionShape(const CollisionShape &);
     //CollisionShape & operator=(const CollisionShape);
 };
