@@ -23,7 +23,7 @@ namespace bamf {
         
     }
     void PhysicsWorld::setGravity(glm::vec2 g){
-        gravity =g;
+        gravity = g;
     }
     void PhysicsWorld::setGravity(float x, float y){
         gravity = glm::vec2(x,y);
@@ -33,6 +33,7 @@ namespace bamf {
         /*std::pair<uint64_t, CollisionRectangle*> p(r->getId(),r);
         collisionSahpes.insert(p);*/
     }
+    
     /*void PhysicsWorld::removeObject(uint64_t id) {
         
         collisionSahpes.erase(collisionSahpes.find(id));
@@ -54,7 +55,8 @@ namespace bamf {
             
             /*std::cout << "i= "<< i << " | id = " << objectList[i]->getId() << " \n";
             std::cout << "pos: (" << objectList[i]->getPosition().x << ", " << objectList[i]->getPosition().y << " )\n";
-            std::cout << "rigid body pos: (" << objectList[i]->getRigidBody()->getPosition().x << ", " << objectList[i]->getRigidBody()->getPosition().y << " )\n";*/
+            std::cout << "rigid body pos: (" << objectList[i]->getRigidBody()->getPosition().x << ", " << objectList[i]->getRigidBody()->getPosition().y << " )\n";
+            std::cout << "width: " << objectList[i]->getWidth() << "| height: " << objectList[i]->getHeight() << "\n";*/
             for(int j = i + 1; j < objectList.size(); j++) {
                 if(objectList[i]->checkCollision(objectList[j]))
                 {
@@ -107,10 +109,13 @@ namespace bamf {
         //std::cout << "<---- physics loop ----> \n";
         for(int i=0;i<objectList.size();i++) {
             /*std::cout << "i= "<< i << " | id = " << objectList[i]->getId() << " \n";
-            std::cout << "pos: (" << objectList[i]->getPosition().x << ", " << objectList[i]->getPosition().y << " )\n";
-            std::cout << "rigid body pos: (" << objectList[i]->getRigidBody()->getPosition().x << ", " << objectList[i]->getRigidBody()->getPosition().y << " )\n";*/
+            std::cout << "pre step pos: (" << objectList[i]->getPosition().x << ", " << objectList[i]->getPosition().y << " )\n";
+            std::cout << "pre step rigid body pos: (" << objectList[i]->getRigidBody()->getPosition().x << ", " << objectList[i]->getRigidBody()->getPosition().y << " )\n";*/
             objectList[i]->getRigidBody()->step();
             objectList[i]->setPosition(objectList[i]->getRigidBody()->getPosition());
+
+            /*std::cout << "pos: (" << objectList[i]->getPosition().x << ", " << objectList[i]->getPosition().y << " )\n";
+            std::cout << "rigid body pos: (" << objectList[i]->getRigidBody()->getPosition().x << ", " << objectList[i]->getRigidBody()->getPosition().y << " )\n";*/
         }
     }
 	

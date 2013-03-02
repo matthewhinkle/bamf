@@ -29,7 +29,8 @@ public:
     std::vector<glm::vec2> getVertices();
     std::vector<glm::vec2> getAxes(std::vector<glm::vec2> verts);
     glm::vec2 getProjection(glm::vec2 axis,std::vector<glm::vec2> verts);
-    
+    float getWidth();
+    float getHeight();
     glm::vec2 getPosition();
     void setPosition(glm::vec2 p);
     

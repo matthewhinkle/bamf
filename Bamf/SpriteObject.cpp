@@ -14,7 +14,7 @@ SpriteObject::SpriteObject(Sprite * sprite, bool owned)
 	:
 	sprite(sprite),
 	bamf::BamfObject(owned)
-{
+{    
 	this->state->collisionShape = new CollisionRectangle(sprite->getBounds(), this->sprite->getHotspot());
 }
 
