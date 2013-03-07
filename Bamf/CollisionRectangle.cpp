@@ -21,11 +21,12 @@ namespace bamf {
 		this->id = nextId();
 	}
     
-    CollisionRectangle::CollisionRectangle(glm::vec2 pos, float w, float h){
-        position = pos;
+    CollisionRectangle::CollisionRectangle(glm::vec2 p, float w, float h){
+        position = p;
         width = w;
         height = h;
 		rBody = new RigidBody();
+        //std::cout << "Rect Construct - id: " << id << " hotspot: (" << hotSpot.x << ", " << hotSpot.y << ") \n";
 	}
     
     CollisionRectangle::~CollisionRectangle() {
@@ -39,37 +40,37 @@ namespace bamf {
     void CollisionRectangle::setPosition(glm::vec2 p) {
         position = p;
     }
-    
+    float CollisionRectangle::getWidth() {
+        return width;
+    }
+    float CollisionRectangle::getHeight() {
+        return height;
+    }
     std::vector<glm::vec2> CollisionRectangle::getVertices() {
         std::vector<glm::vec2> vertices;
-		#if 0
-		/**
-        //add v1 - bottom left vertex
-        vertices.push_back(glm::vec2(position.x - (width/2.0f), position.y - (height/2.0f)));
-        //add v2 - top right vertex
-        vertices.push_back(glm::vec2(position.x - (width/2.0f), position.y + (height/2.0f)));
-        //add v3 - top left vertex
-        vertices.push_back(glm::vec2(position.x + (width/2.0f), position.y + (height/2.0f)));
-        //add v4 - bottom right vertex
-        vertices.push_back(glm::vec2(position.x + (width/2.0f), position.y - (height/2.0f)));
-		*/
-		#endif
-		
-		glm::vec2 normPos = this->getRigidBody()->getPosition() - this->hotSpot;
-		
-		// bottom left
+        
+		glm::vec2 normPos = this->getPosition() - this->hotSpot;
+		//bottom left
 		vertices.push_back(glm::vec2(normPos.x, normPos.y));
-		// top right
+		//top left
+		vertices.push_back(glm::vec2(normPos.x , normPos.y + height));
+		//top right
 		vertices.push_back(glm::vec2(normPos.x + width, normPos.y + height));
-		// top left
-		vertices.push_back(glm::vec2(normPos.x, normPos.y + height));
-		// bottom right
+		//bottom right
 		vertices.push_back(glm::vec2(normPos.x + width, normPos.y));
+        
+        /*std::cout << "<---> \n";
+        std::cout << "vert[0] (" << vertices[0].x << ", "  << vertices[0].y  << ") \n";
+        std::cout << "vert[1] (" << vertices[1].x  << ", "  << vertices[1].y  << ") \n";
+        std::cout << "vert[2] (" << vertices[2].x  << ", "  << vertices[2].y  << ") \n";
+        std::cout << "vert[3] (" << vertices[3].x  << ", "  << vertices[3].y  << ") \n";
+        std::cout << "<---> \n";*/
         
         return vertices;
     }
     
     std::vector<glm::vec2> CollisionRectangle::getAxes(std::vector<glm::vec2> verts) {
+        
         std::vector<glm::vec2> axes;
         glm::vec2 p1;
         glm::vec2 p2;
@@ -99,7 +100,12 @@ namespace bamf {
         edge = p1 - p2;
         normal = glm::vec2(-edge.y, edge.x);
         axes.push_back(normal);
-        
+        /*std::cout << "<---> \n";
+        std::cout << "axes[0] (" << axes[0].x << ", "  << axes[0].y  << ") \n";
+        std::cout << "axes[1] (" << axes[1].x  << ", "  << axes[1].y  << ") \n";
+        std::cout << "axes[2] (" << axes[2].x  << ", "  << axes[2].y  << ") \n";
+        std::cout << "axes[3] (" << axes[3].x  << ", "  << axes[3].y  << ") \n";
+        std::cout << "<---> \n";*/
         return axes;
     }
     glm::vec2 CollisionRectangle::getProjection(glm::vec2 axis, std::vector<glm::vec2> verts){
@@ -117,6 +123,9 @@ namespace bamf {
             }
         }
         glm::vec2 proj(min,max);
+        /*std::cout << "<---> \n";
+        std::cout << "proj (" << proj.x  << ", "  << proj.y  << ") \n";
+        std::cout << "<---> \n";*/
         return proj;
     }    
     /*bool CollisionRectangle::checkCollision(CollisionCircle c) {
@@ -127,43 +136,24 @@ namespace bamf {
         return false;
     }*/
     bool CollisionRectangle::checkCollision(CollisionRectangle * r) {
-		/* naive rectangle collisions hax */
-		glm::vec2 myNormPos = this->getRigidBody()->getPosition() - this->hotSpot;
-		Rectangle myWorldBounds(
-			myNormPos.x,
-			myNormPos.y,
-			this->width,
-			this->height
-		);
-		
-		glm::vec2 theirNormPos = r->getRigidBody()->getPosition() - r->hotSpot;
-		Rectangle theirWorldBounds(
-			theirNormPos.x,
-			theirNormPos.y,
-			r->width,
-			r->height
-		);
-		
-		std::vector<glm::vec2> myVertices = this->getVertices();
-		std::vector<glm::vec2> theirVertices = r->getVertices();
-		
-		for(int i = 0; i < myVertices.size(); i++) {
-			if(!(theirWorldBounds.isPointOutside(myVertices[i]))) {
-				return true;
-			}
-			
-			if(!(myWorldBounds.isPointOutside(theirVertices[i]))) {
-				return true;
-			}
-		}
-			
-		return false;
-	
-	#if 0
+
+        /*std::cout << "<--- checkCollision ---> \n ";
+        std::cout << "<--- this ---> \n ";
+        std::cout << "rBody : (" << this->getRigidBody()->getPosition().x << ", " << this->getRigidBody()->getPosition().y << ") \n";
+        std::cout << "pos : (" << position.x << ", " << position.y << ") \n";
+        std::cout << "hot spot : (" << hotSpot.x << ", " << hotSpot.y << ") \n";
+        std::cout << "norm : (" << myNormPos.x << ", " << myNormPos.y << ") \n";
+        std::cout << "<--- r ---> \n ";
+        std::cout << "rBody : (" << r->getRigidBody()->getPosition().x << ", " << r->getRigidBody()->getPosition().y << ") \n";
+        std::cout << "pos : (" << r->position.x << ", " << r->position.y << ") \n";
+        std::cout << "hot spot : (" << r->hotSpot.x << ", " << r->hotSpot.y << ") \n";
+        std::cout << "norm : (" << theirNormPos.x << ", " << theirNormPos.y << ") \n";*/	
+
         std::vector<glm::vec2> verts1 = this->getVertices();
         std::vector<glm::vec2> verts2 = r->getVertices();
         std::vector<glm::vec2> axes1 = this->getAxes(verts1);
         std::vector<glm::vec2> axes2 = r->getAxes(verts2);
+        
         /*std:: cout << "verts1 \n";
         std:: cout << "verts1[0] : (" << verts1[0].x << ", " << verts1[0].y << ") \n";
         std:: cout << "verts1[1] : (" << verts1[1].x << ", " << verts1[1].y << ") \n";
@@ -177,6 +167,7 @@ namespace bamf {
         std:: cout << "verts2[3] : (" << verts2[3].x << ", " << verts2[3].y << ") \n";
         std:: cout << "--------- \n";
         std:: cout << "for loop 1 \n";*/
+        
         for(int i = 0; i< axes1.size(); i++) {
             glm::vec2 axis = axes1[i];
             //std:: cout << "axes1["<< i << "] : (" << axis.x << ", " << axis.y << ") \n";
@@ -209,7 +200,6 @@ namespace bamf {
         }
         //std:: cout << "return true \n";
         return true;
-	#endif
     }
     
     uint64_t CollisionRectangle::nextId()
