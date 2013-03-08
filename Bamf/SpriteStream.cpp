@@ -56,10 +56,15 @@ void SpriteStream::begin(const glm::mat4 & transform, int drawOptions)
 
 void SpriteStream::draw(const Sprite * sprite, const glm::vec2 & position)
 {
+	static bool weHitIt = false;
 	const glm::vec2 normPos = position - sprite->getHotspot();
 	if(this->drawOptions & kSpriteStreamClipEdges && this->isClipping(sprite, normPos)) {
-		std::cout << "clipping id = " << sprite->getTexture()->getName() << std::endl;
+		weHitIt = true;
 		return;
+	}
+	
+	if(weHitIt) {
+		
 	}
 	
 	if(this->drawOptions & kSpriteStreamEnforceDrawOrder) {
@@ -154,8 +159,7 @@ void SpriteStream::flush()
 	
 	glUnmapBuffer(GL_ARRAY_BUFFER);
 	
-	if(prevSprite->first != i->first) {
-		glUnmapBuffer(GL_ARRAY_BUFFER);
+	if(prevSprite->first != i->first || this->targets.begin()->first == i->first) {
 		this->render((i - prevSprite) * kVerticesPerSprite);
 	}
 	
