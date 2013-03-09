@@ -16,7 +16,7 @@ namespace bamf {
         
     }
     CollisionShape::~CollisionShape() {
-        
+	
     }
     void CollisionShape::setRigidBody(RigidBody *r) {
         rBody = r;

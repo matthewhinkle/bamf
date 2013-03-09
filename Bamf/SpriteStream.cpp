@@ -58,7 +58,7 @@ void SpriteStream::draw(const Sprite * sprite, const glm::vec2 & position)
 {
 	static bool weHitIt = false;
 	const glm::vec2 normPos = position - sprite->getHotspot();
-	if(this->drawOptions & kSpriteStreamClipEdges && this->isClipping(sprite, normPos)) {
+	if(this->drawOptions & SpriteStream::kClipEdges && this->isClipping(sprite, normPos)) {
 		weHitIt = true;
 		return;
 	}
@@ -67,7 +67,7 @@ void SpriteStream::draw(const Sprite * sprite, const glm::vec2 & position)
 		
 	}
 	
-	if(this->drawOptions & kSpriteStreamEnforceDrawOrder) {
+	if(this->drawOptions & SpriteStream::kEnforceDrawOrder) {
 		this->targets.push_back(std::pair<const Sprite *, glm::vec2>(sprite, normPos));
 	} else {
 		this->sprites.insert(std::pair<const Sprite *, glm::vec2>(sprite, normPos));

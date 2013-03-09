@@ -24,11 +24,6 @@
 
 namespace bamf {
 
-enum {
-	kSpriteStreamClipEdges = 0x1,
-	kSpriteStreamEnforceDrawOrder = 0x02
-};
-
 /**
 	A sprite stream is used to send sprites to the
 	frame buffer
@@ -44,6 +39,9 @@ public:
 	void end();
 	
 	void flush();
+	
+	static const unsigned kClipEdges = 0x1;
+	static const unsigned kEnforceDrawOrder = 0x02;
 	
 private:
 	void render(size_t verticesCount);

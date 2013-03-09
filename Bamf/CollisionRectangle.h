@@ -31,7 +31,7 @@ public:
     glm::vec2 getProjection(glm::vec2 axis,std::vector<glm::vec2> verts);
     float getWidth();
     float getHeight();
-    glm::vec2 getPosition();
+    const glm::vec2 & getPosition();
     void setPosition(glm::vec2 p);
     
     inline uint64_t getId() const { return this->id; }

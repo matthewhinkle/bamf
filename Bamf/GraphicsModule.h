@@ -20,7 +20,7 @@ namespace bamf {
 class GraphicsModule : public Module {
 public:
 
-	GraphicsModule(int width = 1680, int height = 1050, bool fullscreen = false);
+	GraphicsModule(int width = 1024, int height = 768, bool fullscreen = false);
 	GraphicsModule(int x, int y, int width, int height, bool fullscreen = false);
 	virtual ~GraphicsModule();
 	

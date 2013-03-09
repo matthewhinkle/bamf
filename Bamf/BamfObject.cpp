@@ -18,14 +18,7 @@ BamfObject::BamfObject(bool owned)
 	:
 	id(nextId()),
 	owned(owned),
-	state(new ObjectState())
-{ }
-
-BamfObject::BamfObject(ObjectState * state, bool owned)
-	:
-	id(nextId()),
-	state(state),
-	owned(owned)
+	onMovePublisher(this)
 { }
 
 BamfObject::~BamfObject() { }

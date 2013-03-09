@@ -30,10 +30,9 @@ namespace bamf {
 	}
     
     CollisionRectangle::~CollisionRectangle() {
-        id = nextId();
     }
     
-    glm::vec2 CollisionRectangle::getPosition() {
+    const glm::vec2 & CollisionRectangle::getPosition() {
         return position;
     }
     

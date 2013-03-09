@@ -68,7 +68,7 @@ public:
 template<
 	typename T,
 	typename R,
-	typename Hash
+	typename Hash = std::hash<T>
 > class Graph {
 public:
 

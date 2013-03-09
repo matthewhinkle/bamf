@@ -10,9 +10,6 @@
 #include <algorithm>
 #include <iostream>
 
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_opengl.h"
-
 #include "ResourceManager.h"
 #include "SynchronousGameLoop.h"
 
@@ -35,10 +32,18 @@
 #include "CollisionModule.h"
 #include "PhysicsWorld.h"
 
+#include "ArtificialIntelligenceModule.h"
 #include "Graph.h"
 #include "Astar.h"
 
 #include "NetworkingModule.h"
+
+#include "Event.h"
+#include "EventPublisher.h"
+
+#include "QuadTree.h"
+
+bamf::Scene * scene;
 
 class MoveCameraAction : public bamf::Action
 {
@@ -153,18 +158,9 @@ MoveActorAction::MoveActorAction(float x, float y, bamf::BamfObject * object) {
 
 void MoveActorAction::executeAction()
 {
-    this->_object->getRigidBody()->setLinearVeloctiy(glm::vec2(this->_x, this->_y));
+	bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(this->_object->getId());
+	collisionObject->getRigidBody()->setLinearVeloctiy(glm::vec2(this->_x, this->_y));
 }
-
-template<class T> class Hashit;
-
-template<>
-class Hashit<glm::vec2> {
-public:
-	size_t operator()(glm::vec2 v) const {
-		return std::hash<float>()(v.x) ^ std::hash<float>()(v.y);
-	}
-};
 
 float weight(glm::vec2 v1, glm::vec2 v2) {
 	return glm::distance(v1, v2);
@@ -174,13 +170,16 @@ float dist(glm::vec2 v1, glm::vec2 v2) {
 	return glm::distance(v1, v2);
 }
 
+void onPublish(bamf::Event<bamf::BamfObject *, glm::vec2> * e) {
+	std::cout << "received: " << e->getMessage().x << ", " << e->getMessage().y << std::endl;
+}
+
 static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld * pw) {
 	bamf::Scene * scene = new bamf::Scene();
 
 	bamf::Sprite * ground = new bamf::Sprite("Resources/art/ground.png");
 	ground->load(man);
-
-	for(int i = -890; i < -600; i += ground->getBounds().width - 1) {
+	
 	/*for(int i = -544; i < -540; i += ground->getBounds().width - 1) {
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(i, -418));
@@ -210,10 +209,7 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(-ground->getBounds().width/2,-300));
 		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
-        pw->addObject(groundObject->getCollisionShape());
 	//}
-		
-	}
 	
 	/*bamf::Sprite * spikes = new bamf::Sprite("Resources/art/spikes.png");
 	spikes->load(man);
@@ -345,8 +341,6 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 
 int main(int argc, char *argv[])
 {
-	//bamf::CollisionRectangle rectangle(glm::vec2(5.0f,5.0f),10.0f,10.0f);
-	//bamf::CollisionRectangle rectangle2(glm::vec2(15.1f, 15.0f),10.0f,10.0f);
 	bamf::ResourceManager man;
 	bamf::Sprite sprite("Resources/art/character/front.png");
 	sprite.load(man);
@@ -355,10 +349,10 @@ int main(int argc, char *argv[])
     
     bamf::PhysicsWorld pw;
     
-	bamf::Scene * scene = createScene(man, &pw);
+	scene = createScene(man, &pw);
 	scene->addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
-    pw.addObject(spriteSprite.getCollisionShape());
-	spriteSprite.getRigidBody()->setForce(glm::vec2(0, -0.005));
+	bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(spriteSprite.getId());
+	collisionObject->getRigidBody()->setForce(glm::vec2(0, -0.005));
 	
 	bamf::SynchronousGameLoop * gameLoop = new bamf::SynchronousGameLoop();
 	bamf::CoreModule * core = gameLoop->getCoreModule();
@@ -376,13 +370,40 @@ int main(int argc, char *argv[])
 	gameLoop->addModule(&inputManager);
         
 	bamf::CollisionModule collisionModule;
-    
+	
 	//collisionModule.addCollidable(rectangle);
     //collisionModule.addCollidable(rectangle2);
 
 	gameLoop->addModule(&pw);
 	gameLoop->addModule(&collisionModule);
-    
+	
+#if 0
+/*
+	glm::vec2 startNode = spriteSprite.getPosition();
+	glm::vec2 middleNode = glm::vec2(-100, -100);
+	glm::vec2 fuckNode = glm::vec2(200, 200);
+	glm::vec2 endNode = glm::vec2(-300, -500);
+	
+	bamf::Graph<glm::vec2, float, Hashit<glm::vec2>> graph;
+	graph.addEdge(startNode, middleNode, 100);
+	graph.addEdge(startNode, fuckNode, 101);
+	graph.addEdge(middleNode, endNode, 100);
+	
+	std::function<void (bamf::Event<bamf::BamfObject *, glm::vec2> *)> f1(onPublish);
+	
+	bamf::Astar<glm::vec2, float, Hashit<glm::vec2>> astar(&graph);
+	
+	std::function< float(glm::vec2, glm::vec2) > f(dist);
+	bamf::Path<glm::vec2> * path = astar.search(startNode, endNode, f);
+	bamf::ActivePath<glm::vec2> * activePath = new bamf::ActivePath<glm::vec2>(path);
+	//spriteSprite.getState()->activePath = activePath;
+	
+	bamf::ArticialIntelligenceModule aimodule;
+	aimodule.addObject(&spriteSprite);
+	gameLoop->addModule(&aimodule);
+*/
+#endif
+    //std::cout << "bounds = " << scene->getBounds().x << "," << scene->getBounds().y << "," << scene->getBounds().width << "," << scene->getBounds().height << std::endl;
     gameLoop->addModule(new bamf::NetworkingModule());
 	
     gameLoop->start();

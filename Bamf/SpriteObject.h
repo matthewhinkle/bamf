@@ -23,13 +23,10 @@ public:
 	explicit SpriteObject(Sprite * sprite, bool owned = false);
 	virtual ~SpriteObject();
 	
-	inline glm::vec2 getPosition() const { return this->state->collisionShape->getRigidBody()->getPosition(); }
+	inline const glm::vec2 & getHotspot() const { return this->sprite->getHotspot(); }
+	inline const Rectangle & getBounds() const { return this->sprite->getBounds(); }
 	
 	inline Sprite * getSprite() { return this->sprite; }
-	
-	inline void setPosition(const glm::vec2 & position) {
-		this->state->collisionShape->getRigidBody()->setPositon(position);
-	}
 
 	virtual void update(Scene * scene, unsigned dt) { }
 	virtual void draw(SpriteStream * spriteStream, unsigned dt);

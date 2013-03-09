@@ -9,9 +9,9 @@
 #ifndef Bamf_Updateable_h
 #define Bamf_Updateable_h
 
-#include "Scene.h"
-
 namespace bamf {
+
+class Scene;
 
 class Updateable {
 public:

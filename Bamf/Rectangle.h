@@ -16,7 +16,7 @@ namespace bamf {
 struct Rectangle {
 public:
 
-	Rectangle(float x = 0.0f, float y = 0.0f, float width = 0.0f, float height = 0.0f)
+	Rectangle(int x = 0, int y = 0, int width = 0, int height = 0)
 		:
 		x(x),
 		y(y),

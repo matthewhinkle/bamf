@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "SpriteObject.h"
+#include "CollisionRectangle.h"
 
 namespace bamf {
     
