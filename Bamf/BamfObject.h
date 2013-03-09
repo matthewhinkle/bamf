@@ -9,17 +9,11 @@
 #ifndef Bamf_Bamf_h
 #define Bamf_Bamf_h
 
-#include <atomic>
-#include <cstdint>
-
 #include "glm/glm.hpp"
 
+#include "EventPublisher.h"
 #include "Drawable.h"
 #include "Updateable.h"
-
-#include "ObjectState.h"
-
-#include "CollisionRectangle.h"
 
 namespace bamf {
 
@@ -32,38 +26,44 @@ class BamfObject : public Updateable, public Drawable {
 public:
 
 	explicit BamfObject(bool owned = false);
-	BamfObject(ObjectState * state, bool owned = false);
 	virtual ~BamfObject();
     
 	inline uint64_t getId() const { return this->id; }
 	
-	virtual glm::vec2 getPosition() const = 0;
-	inline CollisionRectangle * getCollisionShape() const { return this->state->collisionShape; }
-	inline RigidBody * getRigidBody() const { return this->state->collisionShape->getRigidBody(); }
+	inline virtual const glm::vec2 & getPosition() const { return this->position; }
+	virtual const glm::vec2 & getHotspot() const = 0;
+	virtual const Rectangle & getBounds() const = 0;
 	
-	inline ObjectState * getState() const { return this->state; }
+	inline virtual void setPosition(const glm::vec2 & position, bool publish = true) {
+		this->position = position;
+		
+		if(publish) {
+			this->onMovePublisher.publish(position);
+		}
+	}
 	
-	virtual void setPosition(const glm::vec2 & position) = 0;
-	inline void setCollisionShape(CollisionRectangle * collisionShape) { this->state->collisionShape = collisionShape; }
+	virtual void update(Scene * scene, unsigned dt) { }
+	virtual void draw(SpriteStream * spriteStream, unsigned dt) { }
 	
-	void update(Scene * scene, unsigned dt) { }
-	void draw(SpriteStream * spriteStream, unsigned dt) { }
-	
-	inline bool operator<(const BamfObject & bamf) { return this->id < bamf.id; }
+	inline uint64_t onMove(const std::function<void (Event<BamfObject *, glm::vec2> *)> & doFunc) { return this->onMovePublisher.subscribe(doFunc); }
+	inline void onMoveUnsubscribe(uint64_t subscriberId) { this->onMovePublisher.unsubscribe(subscriberId); }
 	
 protected:
 	bool owned;
-	
-	ObjectState * state;
+	glm::vec2 position;
 
 private:
 	uint64_t id;
+	EventPublisher<BamfObject *, glm::vec2> onMovePublisher;
 
+	static uint64_t idCounter;
+	static uint64_t nextId();
+	
+	static const Rectangle defaultBounds;
+	static const glm::vec2 defaultHotspot;
+	
 	BamfObject(const BamfObject &);
 	BamfObject & operator=(const BamfObject &);
-	
-	static uint64_t idCounter;
-	static inline uint64_t nextId();
 };
 
 }

@@ -18,6 +18,7 @@
 #include "CollisionCircle.h"
 #include "CollisionRectangle.h"
 #include "CollisionEvent.h"
+#include "CollisionObject.h"
 
 #include "Module.h"
 #include "Scene.h"
@@ -30,7 +31,6 @@ public:
     virtual ~PhysicsWorld();
     void setGravity(glm::vec2 g);
     void setGravity(float x, float y);
-    void addObject(CollisionRectangle *r);
     void removeObject(uint64_t id);
     CollisionRectangle* getObject(uint64_t id);
     void applyForce(glm::vec2 f);
@@ -40,7 +40,7 @@ public:
     //void step(CollisionShape s);
 	
 	inline void init() { }
-
+	
     std::vector<CollisionEvent> getCollisions();
 	void update(Scene * scene, unsigned dt);
 
@@ -50,8 +50,6 @@ protected:
 private:
     uint64_t id;
     glm::vec2 gravity;
-    std::vector<CollisionRectangle*> objectList;
-    //std::unordered_map<uint64_t, CollisionRectangle *> collisionSahpes;
     std::vector<CollisionEvent> collisions;
     int timeStep = 16;
     int updateCount = 0;

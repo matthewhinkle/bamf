@@ -6,6 +6,8 @@
 //
 //
 
+#include <iostream>
+
 #include "SpriteStream.h"
 
 namespace bamf {
@@ -54,12 +56,18 @@ void SpriteStream::begin(const glm::mat4 & transform, int drawOptions)
 
 void SpriteStream::draw(const Sprite * sprite, const glm::vec2 & position)
 {
+	static bool weHitIt = false;
 	const glm::vec2 normPos = position - sprite->getHotspot();
-	if(this->drawOptions & kSpriteStreamClipEdges && this->isClipping(sprite, normPos)) {
+	if(this->drawOptions & SpriteStream::kClipEdges && this->isClipping(sprite, normPos)) {
+		weHitIt = true;
 		return;
 	}
 	
-	if(this->drawOptions & kSpriteStreamEnforceDrawOrder) {
+	if(weHitIt) {
+		
+	}
+	
+	if(this->drawOptions & SpriteStream::kEnforceDrawOrder) {
 		this->targets.push_back(std::pair<const Sprite *, glm::vec2>(sprite, normPos));
 	} else {
 		this->sprites.insert(std::pair<const Sprite *, glm::vec2>(sprite, normPos));
@@ -151,8 +159,7 @@ void SpriteStream::flush()
 	
 	glUnmapBuffer(GL_ARRAY_BUFFER);
 	
-	if(prevSprite->first != i->first) {
-		glUnmapBuffer(GL_ARRAY_BUFFER);
+	if(prevSprite->first != i->first || this->targets.begin()->first == i->first) {
 		this->render((i - prevSprite) * kVerticesPerSprite);
 	}
 	

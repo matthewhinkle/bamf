@@ -2,58 +2,42 @@
 //  SceneLayer.h
 //  Bamf
 //
-//  Created by Matthew Hinkle on 2/22/13.
+//  Created by Matthew Hinkle on 3/8/13.
 //
 //
 
-#ifndef __Bamf__SceneLayer__
-#define __Bamf__SceneLayer__
-
-#include <unordered_map>
+#ifndef Bamf_SceneLayer_h
+#define Bamf_SceneLayer_h
 
 #include "BamfObject.h"
-#include "SpriteStream.h"
-
-#include "Scene.h"
-#include "Updateable.h"
 #include "Drawable.h"
+#include "Updateable.h"
 
 namespace bamf {
 
-/**
-	A single layer in a Scene.  Objects drawn on the
-	same layer have no defined order
- */
-class SceneLayer : public Updateable, public Drawable {
+template<
+	typename Id,
+	typename Value
+> class SceneLayer : public Drawable, public Updateable {
 public:
 
-	explicit SceneLayer();
-	virtual ~SceneLayer();
+	SceneLayer() { }
+	virtual ~SceneLayer() { }
 	
-	void addObject(BamfObject * bamf);
+	virtual void addObject(Value value) = 0;
 	
-	BamfObject * removeObject(uint64_t id);
-	BamfObject * removeObject(BamfObject * bamf);
+	virtual Value getObjectById(Id id) const = 0;
 	
-	inline unsigned getObjectCount() const { return static_cast<unsigned>(this->objectById.size()); }
+	virtual unsigned getObjectCount() const = 0;
 	
-	inline BamfObject * getObjectById(uint64_t id) const {
-		std::unordered_map<uint64_t, BamfObject *>::const_iterator i = this->objectById.find(id);
-		
-		return i == this->objectById.end() ? NULL : i->second;
-	}
-	
-	void update(Scene * scene, unsigned dt);
-	
-	void draw(SpriteStream * spriteStream, unsigned delta);
+	virtual Value removeObject(Id id) = 0;
+	virtual Value removeObject(Value value) = 0;
 	
 private:
-	std::unordered_map<uint64_t, BamfObject *> objectById;
-
 	SceneLayer(const SceneLayer &);
 	SceneLayer & operator=(const SceneLayer &);
 };
 
 }
 
-#endif /* defined(__Bamf__SceneLayer__) */
+#endif

@@ -20,7 +20,7 @@ public:
     explicit CollisionShape();
     virtual ~CollisionShape();
     
-    virtual bool checkCollision(CollisionShape s) {}
+    virtual bool checkCollision(CollisionShape s) { return false; }
     
     /*virtual void setPosition(glm::vec2 p);
     virtual glm::vec2 getPosition();*/
