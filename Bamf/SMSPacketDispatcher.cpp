@@ -23,7 +23,7 @@ namespace bamf {
     void SMSPacketDispatcher::dispactPacket(Socket * sender, SMSPacket * packet)
     {
         for(int i = 0; i < this->executors->size(); i++) {
-            SMSPacketExecutor * e = (*this->executors)[0];
+            SMSPacketExecutor * e = (*this->executors)[1];
             if(e->packetHeader() == packet->byteAt(0)) {
                 e->executePacket(sender, packet);
             }

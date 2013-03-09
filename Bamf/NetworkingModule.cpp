@@ -28,6 +28,7 @@ namespace bamf {
         this->serverSocket = new ServerSocket(ServerSocket(IPV4, TCP, false));
         this->serverSocket->doBind(1337);
         this->serverSocket->doListen();
+        std::cout << "Listening for conncetions on port 1337\n";
     }
     
     void NetworkingModule::update(Scene * scene, unsigned delta)
@@ -54,7 +55,7 @@ namespace bamf {
         BamfObject * object = _core->getSceneManager()->getCurrentScene()->getObjectById(0);
         if(object != NULL) {
             packet = UpdateExecutor::toPacket(object);
-            std::cout << "Attempting to send packet updates!!!";
+            std::cout << "Attempting to send packet updates!!!\n";
             for(int i = 0; i < this->sockets->size(); i++) {
                 Socket * socket = (*this->sockets)[i];
                 socket->doWrite(packet->asMemoryBlock(), packet->getLength());

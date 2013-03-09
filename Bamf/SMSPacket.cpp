@@ -14,11 +14,6 @@ namespace bamf {
         
     }
     
-    SMSPacket::SMSPacket(std::string message)
-    {
-        this->message = message;
-    }
-    
     SMSPacket::~SMSPacket()
     {
         
@@ -26,7 +21,7 @@ namespace bamf {
     
     SMSPacket::SMSPacket(void * memory)
     {
-        this->message = std::string((char *)memory);
+        this->memoryBlock = (char*)memory;
     }
 
     int SMSPacket::getLength()
@@ -36,37 +31,26 @@ namespace bamf {
     
     unsigned char SMSPacket::byteAt(int index)
     {
-        void * memory = this->asMemoryBlock();
-        char * charArray = (char *) memory;
-        unsigned char character = charArray[index];
-        free(memory);
+        char * memory = this->memoryBlock;
+        unsigned char character = memory[index];
         return character;
     }
     
     void SMSPacket::writeLongAt(long number, int index)
     {
-        this->message[index] = number & 0xff;
-        this->message[index+1] = (number>>8)  & 0xff;
-        this->message[index+2] = (number>>16) & 0xff;
-        this->message[index+3] = (number>>24) & 0xff;
+        this->memoryBlock[index] = number & 0xff;
+        this->memoryBlock[index+1] = (number>>8)  & 0xff;
+        this->memoryBlock[index+2] = (number>>16) & 0xff;
+        this->memoryBlock[index+3] = (number>>24) & 0xff;
         //TODO
     }
 
     void * SMSPacket::asMemoryBlock() {
-        //trust me compiler ;) this is totally reasonable. what a fantastic language.
-        void * ret = (void*) calloc(this->getLength(),sizeof(char));
-        std::strcpy ((char*)ret, this->message.c_str());
-        return ret;
+        return this->memoryBlock;
     }
 
     IFixedLengthPacket * SMSPacket::fromMemoryBlock(void * memoryBlock) {
-        std::string message = std::string((char *)memoryBlock);
-        return new SMSPacket(message);
-    }
-    
-    std::string SMSPacket::getMessage()
-    {
-        return this->message;
+        return new SMSPacket(memoryBlock);
     }
     
 }
