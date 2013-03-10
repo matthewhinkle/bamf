@@ -55,6 +55,14 @@ namespace bamf {
         return count;
     }
     
+    std::string Socket::getHostName() {
+        return this->hostname;
+    }
+    
+    int Socket::getPort() {
+        return this->port;
+    }
+    
     ServerSocket::ServerSocket(SocketFamily socketFamily, SocketType socketType, bool blocking) {
         this->blocking = blocking;
         this->sockfd = socket(socketFamily, socketType, 0);
@@ -96,6 +104,16 @@ namespace bamf {
             exit(1);
         }
         return true;
+    }
+    
+    int ServerSocket::boundPort() {
+        struct sockaddr_in sin;
+        socklen_t len = sizeof(sin);
+        if (getsockname(this->sockfd, (struct sockaddr *)&sin, &len) == -1) {
+            perror("getsockname");
+            return -1;
+        }
+        return ntohs(sin.sin_port);
     }
     
     /**

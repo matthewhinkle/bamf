@@ -20,6 +20,7 @@
 #include "SocketConstants.h"
 #include <netdb.h> 
 #include <sys/ioctl.h>
+#include <arpa/inet.h>
 
 namespace bamf {
 
@@ -27,6 +28,8 @@ namespace bamf {
     private:
         int sockfd;
         bool blocking;
+        std::string hostname;
+        int port;
     public:
         Socket(int fd);
         Socket(SocketFamily socketFamily, SocketType socketType, bool blocking);
@@ -34,6 +37,9 @@ namespace bamf {
         
         ssize_t doWrite(void *buf, size_t count);
         ssize_t doRead(void *buf, size_t count);
+        
+        std::string getHostName();
+        int getPort();
         
         size_t bytesAvailable();
     };
@@ -60,6 +66,8 @@ namespace bamf {
           * Returns a new connected socket. Will block is blocking = true was supplied to the constructor
           */
         Socket * doAccept();
+        
+        int boundPort();
 
         static void test() {
             ServerSocket * socket = new ServerSocket(ServerSocket(IPV4, TCP, false));

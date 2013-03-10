@@ -25,6 +25,7 @@
 		2792A2F516DED56700EDAC68 /* SMSPacketDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2F216DED56700EDAC68 /* SMSPacketDispatcher.cpp */; };
 		2792A2FD16DF177400EDAC68 /* UpdateExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2FB16DF177400EDAC68 /* UpdateExecutor.cpp */; };
 		2792A2FE16DF177400EDAC68 /* UpdateExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2FB16DF177400EDAC68 /* UpdateExecutor.cpp */; };
+		27CAE49516EC13F50082FE15 /* PeerExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE49316EC13F50082FE15 /* PeerExecutor.cpp */; };
 		480168FB16D9675D00FA3B3D /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 480168FA16D9675D00FA3B3D /* bg.png */; };
 		4803B52616E000740058AA76 /* background_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4803B52416E000740058AA76 /* background_dark.png */; };
 		4803B52716E000740058AA76 /* background_leveled.png in Resources */ = {isa = PBXBuildFile; fileRef = 4803B52516E000740058AA76 /* background_leveled.png */; };
@@ -255,6 +256,8 @@
 		2792A2F316DED56700EDAC68 /* SMSPacketDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSPacketDispatcher.h; sourceTree = "<group>"; };
 		2792A2FB16DF177400EDAC68 /* UpdateExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UpdateExecutor.cpp; sourceTree = "<group>"; };
 		2792A2FC16DF177400EDAC68 /* UpdateExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateExecutor.h; sourceTree = "<group>"; };
+		27CAE49316EC13F50082FE15 /* PeerExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PeerExecutor.cpp; sourceTree = "<group>"; };
+		27CAE49416EC13F50082FE15 /* PeerExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerExecutor.h; sourceTree = "<group>"; };
 		480168FA16D9675D00FA3B3D /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = Resources/bg.png; sourceTree = "<group>"; };
 		4803B52416E000740058AA76 /* background_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_dark.png; sourceTree = "<group>"; };
 		4803B52516E000740058AA76 /* background_leveled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_leveled.png; sourceTree = "<group>"; };
@@ -777,6 +780,8 @@
 				2792A2E016DED50400EDAC68 /* PingExecutor.h */,
 				2792A2FB16DF177400EDAC68 /* UpdateExecutor.cpp */,
 				2792A2FC16DF177400EDAC68 /* UpdateExecutor.h */,
+				27CAE49316EC13F50082FE15 /* PeerExecutor.cpp */,
+				27CAE49416EC13F50082FE15 /* PeerExecutor.h */,
 			);
 			name = executor;
 			sourceTree = "<group>";
@@ -1783,6 +1788,7 @@
 				481BE72616E9A415004502B9 /* CollisionObject.cpp in Sources */,
 				481BE72916E9C246004502B9 /* CollisionLayer.cpp in Sources */,
 				483EE51016EB358E0023E8B7 /* NavigationMesh.cpp in Sources */,
+				27CAE49516EC13F50082FE15 /* PeerExecutor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

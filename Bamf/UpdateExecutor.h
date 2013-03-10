@@ -15,11 +15,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "SpriteObject.h"
-<<<<<<< HEAD
 #include "CoreModule.h"
-=======
 #include "CollisionRectangle.h"
->>>>>>> 22c464dbe5e5a5ec453629edd98f9a82a3d9f6a5
 
 namespace bamf {
     
@@ -34,7 +31,7 @@ namespace bamf {
         unsigned char packetHeader();
         void executePacket(Socket * sender, SMSPacket * packet);
         
-        static SMSPacket * toPacket(BamfObject * object);
+        static SMSPacket * toPacket(Scene * scene, BamfObject * object);
         BamfObject * fromPacket(SMSPacket * packet);
         
         static void test(BamfObject * object)

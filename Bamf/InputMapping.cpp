@@ -34,7 +34,7 @@ void InputMapping::dispatchKeyEvent(KeyPressType pressType, int keyCode, ...)
             Action * action = keyMapping->actionForInput();
             action->executeAction();
             delete action;
-            NetworkingModule::getInstance()->sendPacket(NULL);
+            //NetworkingModule::getInstance()->sendPacket(NULL);
         }
     }
 }

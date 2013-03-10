@@ -342,54 +342,12 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 
 int main(int argc, char *argv[])
 {
-<<<<<<< HEAD
-    
-/**
-	glm::vec2 o(0, 0);
-	glm::vec2 a(10, 10);
-	glm::vec2 b(-10, -10);
-	glm::vec2 g(-11, -11);
-	
-	bamf::Graph<glm::vec2, float, Hashit<glm::vec2>> graph;
-
-	graph.addEdge(o, a, (float) glm::distance(o, a));
-	graph.addEdge(o, b, (float) glm::distance(o, b));
-	graph.addEdge(a, g, (float) glm::distance(a, g));
-	graph.addEdge(b, g, (float) glm::distance(b, g));
-	
-	bamf::Astar<glm::vec2, float, Hashit<glm::vec2>> astar(&graph);
-	
-	std::function< float(glm::vec2, glm::vec2) > f(dist);
-	
-	bamf::Path<glm::vec2> * p = astar.search(o, g, f);
-	
-	assert(p->value == o);
-	assert(p->next->value == b);
-	assert(p->next->next->value == g);
-	
-	return 0;
-*/	
-	bamf::CollisionRectangle rectangle(glm::vec2(0.0f,300.0f),100.0f,350.0f);
-	bamf::CollisionRectangle rectangle2(glm::vec2(0.0f,-300.0f),1000.0f,100.0f);
-
-=======
->>>>>>> 22c464dbe5e5a5ec453629edd98f9a82a3d9f6a5
 	bamf::ResourceManager man;
 	bamf::Sprite sprite("Resources/art/character/front.png");
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
 	bamf::SpriteObject spriteSprite(&sprite);
-<<<<<<< HEAD
 	
-	bamf::Rectangle bounds(0, 0, 1000, 100);
-	bamf::Sprite red("Resources/art/ground.png");
-	red.load(man);
-	red.setHotspot(red.getBounds().getCenter());
-	bamf::SpriteObject redSprite(&red);
-	
-=======
-    
->>>>>>> 22c464dbe5e5a5ec453629edd98f9a82a3d9f6a5
     bamf::PhysicsWorld pw;
     
 	scene = createScene(man, &pw);
@@ -419,10 +377,6 @@ int main(int argc, char *argv[])
 
 	gameLoop->addModule(&pw);
 	gameLoop->addModule(&collisionModule);
-<<<<<<< HEAD
-    
-    gameLoop->addModule(new bamf::NetworkingModule(core));
-=======
 	
 #if 0
 /*
@@ -451,9 +405,13 @@ int main(int argc, char *argv[])
 */
 #endif
     //std::cout << "bounds = " << scene->getBounds().x << "," << scene->getBounds().y << "," << scene->getBounds().width << "," << scene->getBounds().height << std::endl;
-    gameLoop->addModule(new bamf::NetworkingModule());
->>>>>>> 22c464dbe5e5a5ec453629edd98f9a82a3d9f6a5
-	
+    
+    bamf::NetworkingModule * networking = new bamf::NetworkingModule(core);
+#if 0
+    networking->initializeNetworkGame("localhost", 57109);
+#endif
+    gameLoop->addModule(networking);
+    
     gameLoop->start();
 	
 	return 0;

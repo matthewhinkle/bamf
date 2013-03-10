@@ -26,7 +26,7 @@ namespace bamf {
         this->fromPacket(packet);
     }
     
-    SMSPacket * UpdateExecutor::toPacket(BamfObject * object)
+    SMSPacket * UpdateExecutor::toPacket(Scene * scene, BamfObject * object)
     {
         char * memoryBlock = (char *)calloc(160, sizeof(char));
         int offset = 0;
@@ -47,11 +47,12 @@ namespace bamf {
         std::memcpy(memoryBlock+offset, &positionY, sizeof(positionY));
         offset += sizeof(positionY);
         
-        float velocityX =  object->getRigidBody()->getLinearVeloctiy().x;
+        CollisionObject * co = scene->getCollisionLayer()->getObjectById(object->getId());
+        float velocityX =  co->getRigidBody()->getLinearVeloctiy().x;
         std::memcpy(memoryBlock+offset, &velocityX, sizeof(velocityX));
         offset += sizeof(velocityX);
         
-        float velocityY =  object->getRigidBody()->getLinearVeloctiy().y;
+        float velocityY =  co->getRigidBody()->getLinearVeloctiy().y;
         std::memcpy(memoryBlock+offset, &velocityY, sizeof(velocityY));
         offset += sizeof(velocityY);
         
@@ -90,13 +91,12 @@ namespace bamf {
         
         std::cout << "Received an update! ID: " << id << "@[" << positionX << "," << positionY << "]   v->[" << velocityX << "," << velocityY << "]" << "\n";
         
-        BamfObject * object = _core->getSceneManager()->getCurrentScene()->getObjectById(id);
-        
-        if(object == NULL) {
+        CollisionObject * co = _core->getSceneManager()->getCurrentScene()->getCollisionLayer()->getObjectById(id);
+        if(co == NULL) {
             std::cout << "not applying update for object id " << id << " because no object in scene has that id.";
         } else {
-            object->getRigidBody()->setPositon(glm::vec2(positionX, positionY));
-            object->getRigidBody()->setLinearVeloctiy(glm::vec2(velocityX, velocityY));
+            co->getRigidBody()->setPositon(glm::vec2(positionX, positionY));
+            co->getRigidBody()->setLinearVeloctiy(glm::vec2(velocityX, velocityY));
         }
         
         return NULL;

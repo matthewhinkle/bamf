@@ -10,25 +10,23 @@
 
 namespace bamf {
     
-    NetworkingModule * NetworkingModule::_instance = NULL;
-    
     NetworkingModule::NetworkingModule(CoreModule * core)
     : sockets(new std::vector<Socket *>())
     , templatePacket(new SMSPacket())
     ,dispatch(new SMSPacketDispatcher())
     ,_core(core)
     {
-        _instance = this;
     }
     
     void NetworkingModule::init()
     {
         this->dispatch->registerPacket(new UpdateExecutor(this->_core));
+        this->dispatch->registerPacket(new PeerExecutor(this->sockets));
         //first setup our server socket
         this->serverSocket = new ServerSocket(ServerSocket(IPV4, TCP, false));
-        this->serverSocket->doBind(1337);
+        this->serverSocket->doBind(0);
         this->serverSocket->doListen();
-        std::cout << "Listening for conncetions on port 1337\n";
+        std::cout << "Listening for conncetions on port: " << this->serverSocket->boundPort() << "\n";
     }
     
     void NetworkingModule::update(Scene * scene, unsigned delta)
@@ -54,7 +52,7 @@ namespace bamf {
     {
         BamfObject * object = _core->getSceneManager()->getCurrentScene()->getObjectById(0);
         if(object != NULL) {
-            packet = UpdateExecutor::toPacket(object);
+            packet = UpdateExecutor::toPacket(_core->getSceneManager()->getCurrentScene(), object);
             std::cout << "Attempting to send packet updates!!!\n";
             for(int i = 0; i < this->sockets->size(); i++) {
                 Socket * socket = (*this->sockets)[i];
@@ -62,5 +60,23 @@ namespace bamf {
             }
         }
     }
+    
+    std::vector<Socket *> * NetworkingModule::getSockets()
+    {
+        return this->sockets;
+    }
+    
+    void NetworkingModule::initializeNetworkGame(std::string hostname, int port)
+    {
+        bamf::Socket * client = new bamf::Socket(IPV4, TCP, false);
+        if(!client->doConnect(hostname, port)) {
+            std::cout << "Error connecting to seeding peer! aborting.";
+            exit(1);
+        }
+        this->sockets->push_back(client);
+        
+        
+    }
+    
     
 }

@@ -17,6 +17,7 @@
 #include "SMSPacketDispatcher.h"
 #include "CoreModule.h"
 #include "UpdateExecutor.h"
+#import "PeerExecutor.h"
 
 #include <stdio.h>
 
@@ -30,17 +31,17 @@ private:
     SMSPacket * templatePacket;
     SMSPacketDispatcher * dispatch;
     CoreModule * _core;
-    static NetworkingModule * _instance;
     
 public:
     NetworkingModule(CoreModule * core);
     
     void init();
-		void update(Scene * scene, unsigned delta);
-        void sendPacket(SMSPacket * packet);
+	void update(Scene * scene, unsigned delta);
+    void sendPacket(SMSPacket * packet);
     
-        static NetworkingModule * getInstance() { return _instance;};
-        void setInstance(NetworkingModule * instance) { _instance = instance;}
+    void initializeNetworkGame(std::string hostname, int port);
+    std::vector<Socket *> * getSockets();
+
 };
     
 }
