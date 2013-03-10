@@ -37,6 +37,7 @@
 #include "Astar.h"
 
 #include "NetworkingModule.h"
+#include "UpdateExecutor.h"
 
 #include "Event.h"
 #include "EventPublisher.h"
@@ -346,7 +347,7 @@ int main(int argc, char *argv[])
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
 	bamf::SpriteObject spriteSprite(&sprite);
-    
+	
     bamf::PhysicsWorld pw;
     
 	scene = createScene(man, &pw);
@@ -358,16 +359,13 @@ int main(int argc, char *argv[])
 	bamf::CoreModule * core = gameLoop->getCoreModule();
 	bamf::SceneManager * sm = core->getSceneManager();
 	sm->pushScene(scene);
-	bamf::InputManager inputManager;
+	
 	bamf::InputMapping inputMapping;
 
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_w, &spriteSprite, 0, 2));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_d, &spriteSprite, 2, 0));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_s, &spriteSprite, 0, -2));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_a, &spriteSprite, -2, 0));
-
-    inputManager.setInputMapping(&inputMapping);
-	gameLoop->addModule(&inputManager);
         
 	bamf::CollisionModule collisionModule;
 	
@@ -406,8 +404,16 @@ int main(int argc, char *argv[])
 */
 #endif
     //std::cout << "bounds = " << scene->getBounds().x << "," << scene->getBounds().y << "," << scene->getBounds().width << "," << scene->getBounds().height << std::endl;
-    gameLoop->addModule(new bamf::NetworkingModule());
-	
+    
+    bamf::NetworkingModule * networking = new bamf::NetworkingModule(core);
+    bamf::InputManager inputManager(networking);
+    inputManager.setInputMapping(&inputMapping);
+	gameLoop->addModule(&inputManager);
+#if 0
+    networking->initializeNetworkGame("localhost", 57109);
+#endif
+    gameLoop->addModule(networking);
+    
     gameLoop->start();
 	
 	return 0;

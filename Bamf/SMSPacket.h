@@ -18,11 +18,10 @@ namespace bamf {
     
     class SMSPacket : public IFixedLengthPacket {
     private:
-        std::string message;
+        char * memoryBlock;
         
     public:
         SMSPacket();
-        SMSPacket(std::string message);
         SMSPacket(void * memory);
         ~SMSPacket();
         
@@ -30,16 +29,9 @@ namespace bamf {
         IFixedLengthPacket * fromMemoryBlock(void * memoryBlock);
         
         void * asMemoryBlock();
-        std::string getMessage();
         
         unsigned char byteAt(int index);
         void writeLongAt(long number, int index);
-
-        static void testSmsPacket() {
-            SMSPacket packet = bamf::SMSPacket("Hello world. This can be buffer overflowed.\n");
-            SMSPacket * newPacket = (SMSPacket *) packet.fromMemoryBlock(packet.asMemoryBlock());
-            assert(packet.getMessage() == newPacket->getMessage());
-        }
 
     };
 

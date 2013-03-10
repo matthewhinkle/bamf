@@ -15,8 +15,6 @@
 		277B0C8D16CDAFD00061BF84 /* BamfObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8C16CDAFD00061BF84 /* BamfObject.cpp */; };
 		2792A2E716DED50400EDAC68 /* NetworkingModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */; };
 		2792A2E816DED50400EDAC68 /* NetworkingModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */; };
-		2792A2E916DED50400EDAC68 /* PacketIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DD16DED50400EDAC68 /* PacketIO.cpp */; };
-		2792A2EA16DED50400EDAC68 /* PacketIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DD16DED50400EDAC68 /* PacketIO.cpp */; };
 		2792A2EB16DED50400EDAC68 /* PingExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */; };
 		2792A2EC16DED50400EDAC68 /* PingExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */; };
 		2792A2ED16DED50400EDAC68 /* SMSPacket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2E116DED50400EDAC68 /* SMSPacket.cpp */; };
@@ -27,6 +25,9 @@
 		2792A2F516DED56700EDAC68 /* SMSPacketDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2F216DED56700EDAC68 /* SMSPacketDispatcher.cpp */; };
 		2792A2FD16DF177400EDAC68 /* UpdateExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2FB16DF177400EDAC68 /* UpdateExecutor.cpp */; };
 		2792A2FE16DF177400EDAC68 /* UpdateExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2FB16DF177400EDAC68 /* UpdateExecutor.cpp */; };
+		27CAE49516EC13F50082FE15 /* PeerExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE49316EC13F50082FE15 /* PeerExecutor.cpp */; };
+		27CAE49816EC37220082FE15 /* PeerConnector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE49616EC37210082FE15 /* PeerConnector.cpp */; };
+		27CAE49B16EC57FF0082FE15 /* HostPortSetter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE49916EC57FE0082FE15 /* HostPortSetter.cpp */; };
 		480168FB16D9675D00FA3B3D /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 480168FA16D9675D00FA3B3D /* bg.png */; };
 		4803B52616E000740058AA76 /* background_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4803B52416E000740058AA76 /* background_dark.png */; };
 		4803B52716E000740058AA76 /* background_leveled.png in Resources */ = {isa = PBXBuildFile; fileRef = 4803B52516E000740058AA76 /* background_leveled.png */; };
@@ -244,8 +245,6 @@
 		277B0C8C16CDAFD00061BF84 /* BamfObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BamfObject.cpp; sourceTree = "<group>"; };
 		2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkingModule.cpp; sourceTree = "<group>"; };
 		2792A2DC16DED50400EDAC68 /* NetworkingModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingModule.h; sourceTree = "<group>"; };
-		2792A2DD16DED50400EDAC68 /* PacketIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketIO.cpp; sourceTree = "<group>"; };
-		2792A2DE16DED50400EDAC68 /* PacketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketIO.h; sourceTree = "<group>"; };
 		2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PingExecutor.cpp; sourceTree = "<group>"; };
 		2792A2E016DED50400EDAC68 /* PingExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingExecutor.h; sourceTree = "<group>"; };
 		2792A2E116DED50400EDAC68 /* SMSPacket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMSPacket.cpp; sourceTree = "<group>"; };
@@ -259,6 +258,12 @@
 		2792A2F316DED56700EDAC68 /* SMSPacketDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSPacketDispatcher.h; sourceTree = "<group>"; };
 		2792A2FB16DF177400EDAC68 /* UpdateExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UpdateExecutor.cpp; sourceTree = "<group>"; };
 		2792A2FC16DF177400EDAC68 /* UpdateExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateExecutor.h; sourceTree = "<group>"; };
+		27CAE49316EC13F50082FE15 /* PeerExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PeerExecutor.cpp; sourceTree = "<group>"; };
+		27CAE49416EC13F50082FE15 /* PeerExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerExecutor.h; sourceTree = "<group>"; };
+		27CAE49616EC37210082FE15 /* PeerConnector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PeerConnector.cpp; sourceTree = "<group>"; };
+		27CAE49716EC37210082FE15 /* PeerConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerConnector.h; sourceTree = "<group>"; };
+		27CAE49916EC57FE0082FE15 /* HostPortSetter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HostPortSetter.cpp; sourceTree = "<group>"; };
+		27CAE49A16EC57FF0082FE15 /* HostPortSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostPortSetter.h; sourceTree = "<group>"; };
 		480168FA16D9675D00FA3B3D /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = Resources/bg.png; sourceTree = "<group>"; };
 		4803B52416E000740058AA76 /* background_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_dark.png; sourceTree = "<group>"; };
 		4803B52516E000740058AA76 /* background_leveled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_leveled.png; sourceTree = "<group>"; };
@@ -764,8 +769,6 @@
 				2792A2F116DED52900EDAC68 /* IFixedLengthPacket.h */,
 				2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */,
 				2792A2DC16DED50400EDAC68 /* NetworkingModule.h */,
-				2792A2DD16DED50400EDAC68 /* PacketIO.cpp */,
-				2792A2DE16DED50400EDAC68 /* PacketIO.h */,
 				2792A2E116DED50400EDAC68 /* SMSPacket.cpp */,
 				2792A2E216DED50400EDAC68 /* SMSPacket.h */,
 				2792A2E316DED50400EDAC68 /* SMSPacketExecutor.h */,
@@ -783,6 +786,12 @@
 				2792A2E016DED50400EDAC68 /* PingExecutor.h */,
 				2792A2FB16DF177400EDAC68 /* UpdateExecutor.cpp */,
 				2792A2FC16DF177400EDAC68 /* UpdateExecutor.h */,
+				27CAE49316EC13F50082FE15 /* PeerExecutor.cpp */,
+				27CAE49416EC13F50082FE15 /* PeerExecutor.h */,
+				27CAE49616EC37210082FE15 /* PeerConnector.cpp */,
+				27CAE49716EC37210082FE15 /* PeerConnector.h */,
+				27CAE49916EC57FE0082FE15 /* HostPortSetter.cpp */,
+				27CAE49A16EC57FF0082FE15 /* HostPortSetter.h */,
 			);
 			name = executor;
 			sourceTree = "<group>";
@@ -1780,7 +1789,6 @@
 				48548BE016D8692C008DBC84 /* ViewLayer.cpp in Sources */,
 				482A834516D9C09900812AFA /* CollisionModule.cpp in Sources */,
 				2792A2E716DED50400EDAC68 /* NetworkingModule.cpp in Sources */,
-				2792A2E916DED50400EDAC68 /* PacketIO.cpp in Sources */,
 				2792A2EB16DED50400EDAC68 /* PingExecutor.cpp in Sources */,
 				2792A2ED16DED50400EDAC68 /* SMSPacket.cpp in Sources */,
 				2792A2EF16DED50400EDAC68 /* Socket.cpp in Sources */,
@@ -1790,6 +1798,9 @@
 				481BE72616E9A415004502B9 /* CollisionObject.cpp in Sources */,
 				481BE72916E9C246004502B9 /* CollisionLayer.cpp in Sources */,
 				483EE51016EB358E0023E8B7 /* NavigationMesh.cpp in Sources */,
+				27CAE49516EC13F50082FE15 /* PeerExecutor.cpp in Sources */,
+				27CAE49816EC37220082FE15 /* PeerConnector.cpp in Sources */,
+				27CAE49B16EC57FF0082FE15 /* HostPortSetter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1799,7 +1810,6 @@
 			files = (
 				277B0C8B16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */,
 				2792A2E816DED50400EDAC68 /* NetworkingModule.cpp in Sources */,
-				2792A2EA16DED50400EDAC68 /* PacketIO.cpp in Sources */,
 				2792A2EC16DED50400EDAC68 /* PingExecutor.cpp in Sources */,
 				2792A2EE16DED50400EDAC68 /* SMSPacket.cpp in Sources */,
 				2792A2F016DED50400EDAC68 /* Socket.cpp in Sources */,

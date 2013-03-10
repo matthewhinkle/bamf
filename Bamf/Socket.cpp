@@ -7,6 +7,10 @@
 //
 
 #include "Socket.h"
+#define _BSD_SOURCE
+#include <arpa/inet.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 namespace bamf {
     
@@ -55,6 +59,14 @@ namespace bamf {
         return count;
     }
     
+    std::string Socket::getHostName() {
+        return this->hostname;
+    }
+    
+    int Socket::getPort() {
+        return this->port;
+    }
+    
     ServerSocket::ServerSocket(SocketFamily socketFamily, SocketType socketType, bool blocking) {
         this->blocking = blocking;
         this->sockfd = socket(socketFamily, socketType, 0);
@@ -98,6 +110,16 @@ namespace bamf {
         return true;
     }
     
+    int ServerSocket::boundPort() {
+        struct sockaddr_in sin;
+        socklen_t len = sizeof(sin);
+        if (getsockname(this->sockfd, (struct sockaddr *)&sin, &len) == -1) {
+            perror("getsockname");
+            return -1;
+        }
+        return ntohs(sin.sin_port);
+    }
+    
     /**
      * Returns a new connected socket. Will block is blocking = true was supplied to the constructor
      */
@@ -108,7 +130,10 @@ namespace bamf {
         if (newsockfd < 0) {
             return NULL;
         }
-        return new Socket(newsockfd);
+        Socket * socket = new Socket(newsockfd);
+        socket->hostname = inet_ntoa(cli_addr.sin_addr);
+        socket->port = ntohs(cli_addr.sin_port);
+        return socket;
     }
     
 }
