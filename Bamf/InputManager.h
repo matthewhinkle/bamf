@@ -27,9 +27,11 @@ class InputManager : public Module
     
 private:
     InputMapping * currentInputMapping;
+    NetworkingModule * _networkingModule;
     
 public:
     InputManager();
+    InputManager(NetworkingModule * networkingModule);
     
     void init();
 	

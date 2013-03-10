@@ -26,6 +26,8 @@
 		2792A2FD16DF177400EDAC68 /* UpdateExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2FB16DF177400EDAC68 /* UpdateExecutor.cpp */; };
 		2792A2FE16DF177400EDAC68 /* UpdateExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2FB16DF177400EDAC68 /* UpdateExecutor.cpp */; };
 		27CAE49516EC13F50082FE15 /* PeerExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE49316EC13F50082FE15 /* PeerExecutor.cpp */; };
+		27CAE49816EC37220082FE15 /* PeerConnector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE49616EC37210082FE15 /* PeerConnector.cpp */; };
+		27CAE49B16EC57FF0082FE15 /* HostPortSetter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE49916EC57FE0082FE15 /* HostPortSetter.cpp */; };
 		480168FB16D9675D00FA3B3D /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 480168FA16D9675D00FA3B3D /* bg.png */; };
 		4803B52616E000740058AA76 /* background_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4803B52416E000740058AA76 /* background_dark.png */; };
 		4803B52716E000740058AA76 /* background_leveled.png in Resources */ = {isa = PBXBuildFile; fileRef = 4803B52516E000740058AA76 /* background_leveled.png */; };
@@ -258,6 +260,10 @@
 		2792A2FC16DF177400EDAC68 /* UpdateExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateExecutor.h; sourceTree = "<group>"; };
 		27CAE49316EC13F50082FE15 /* PeerExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PeerExecutor.cpp; sourceTree = "<group>"; };
 		27CAE49416EC13F50082FE15 /* PeerExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerExecutor.h; sourceTree = "<group>"; };
+		27CAE49616EC37210082FE15 /* PeerConnector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PeerConnector.cpp; sourceTree = "<group>"; };
+		27CAE49716EC37210082FE15 /* PeerConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerConnector.h; sourceTree = "<group>"; };
+		27CAE49916EC57FE0082FE15 /* HostPortSetter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HostPortSetter.cpp; sourceTree = "<group>"; };
+		27CAE49A16EC57FF0082FE15 /* HostPortSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostPortSetter.h; sourceTree = "<group>"; };
 		480168FA16D9675D00FA3B3D /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = Resources/bg.png; sourceTree = "<group>"; };
 		4803B52416E000740058AA76 /* background_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_dark.png; sourceTree = "<group>"; };
 		4803B52516E000740058AA76 /* background_leveled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_leveled.png; sourceTree = "<group>"; };
@@ -782,6 +788,10 @@
 				2792A2FC16DF177400EDAC68 /* UpdateExecutor.h */,
 				27CAE49316EC13F50082FE15 /* PeerExecutor.cpp */,
 				27CAE49416EC13F50082FE15 /* PeerExecutor.h */,
+				27CAE49616EC37210082FE15 /* PeerConnector.cpp */,
+				27CAE49716EC37210082FE15 /* PeerConnector.h */,
+				27CAE49916EC57FE0082FE15 /* HostPortSetter.cpp */,
+				27CAE49A16EC57FF0082FE15 /* HostPortSetter.h */,
 			);
 			name = executor;
 			sourceTree = "<group>";
@@ -1789,6 +1799,8 @@
 				481BE72916E9C246004502B9 /* CollisionLayer.cpp in Sources */,
 				483EE51016EB358E0023E8B7 /* NavigationMesh.cpp in Sources */,
 				27CAE49516EC13F50082FE15 /* PeerExecutor.cpp in Sources */,
+				27CAE49816EC37220082FE15 /* PeerConnector.cpp in Sources */,
+				27CAE49B16EC57FF0082FE15 /* HostPortSetter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

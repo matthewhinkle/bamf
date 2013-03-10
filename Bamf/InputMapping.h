@@ -32,7 +32,7 @@ public:
     void addKeyMapping(IKeyMapping * keyMapping);
     std::vector<IKeyMapping *> * getKeyMappings();
 
-    void dispatchKeyEvent(KeyPressType pressType, int keyCode, ...);
+    void dispatchKeyEvent(NetworkingModule * networkingModule, KeyPressType pressType, int keyCode, ...);
 
     void setQuitHandler(IQuitHandler * quitHandler);
     IQuitHandler * getQuitHandler();

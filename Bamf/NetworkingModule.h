@@ -18,6 +18,8 @@
 #include "CoreModule.h"
 #include "UpdateExecutor.h"
 #import "PeerExecutor.h"
+#import "PeerConnector.h"
+#import "HostPortSetter.h"
 
 #include <stdio.h>
 
@@ -31,6 +33,7 @@ private:
     SMSPacket * templatePacket;
     SMSPacketDispatcher * dispatch;
     CoreModule * _core;
+    bool _hasInited;
     
 public:
     NetworkingModule(CoreModule * core);

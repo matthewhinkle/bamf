@@ -7,6 +7,10 @@
 //
 
 #include "Socket.h"
+#define _BSD_SOURCE
+#include <arpa/inet.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 namespace bamf {
     
@@ -126,7 +130,10 @@ namespace bamf {
         if (newsockfd < 0) {
             return NULL;
         }
-        return new Socket(newsockfd);
+        Socket * socket = new Socket(newsockfd);
+        socket->hostname = inet_ntoa(cli_addr.sin_addr);
+        socket->port = ntohs(cli_addr.sin_port);
+        return socket;
     }
     
 }

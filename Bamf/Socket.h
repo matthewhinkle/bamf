@@ -21,6 +21,9 @@
 #include <netdb.h> 
 #include <sys/ioctl.h>
 #include <arpa/inet.h>
+#include <sys/types.h>
+#include <unistd.h>
+
 
 namespace bamf {
 
@@ -28,9 +31,10 @@ namespace bamf {
     private:
         int sockfd;
         bool blocking;
+    public:
         std::string hostname;
         int port;
-    public:
+        int hostPort;
         Socket(int fd);
         Socket(SocketFamily socketFamily, SocketType socketType, bool blocking);
         bool doConnect(std::string hostname, int port);

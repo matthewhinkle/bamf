@@ -22,8 +22,12 @@ namespace bamf {
     
     void SMSPacketDispatcher::dispactPacket(Socket * sender, SMSPacket * packet)
     {
+#if 1
+        char * message = (char *)packet->asMemoryBlock();
+        std::cout << "Incoming packet:" << message << "\n";
+#endif
         for(int i = 0; i < this->executors->size(); i++) {
-            SMSPacketExecutor * e = (*this->executors)[1];
+            SMSPacketExecutor * e = (*this->executors)[i];
             if(e->packetHeader() == packet->byteAt(0)) {
                 e->executePacket(sender, packet);
             }
