@@ -377,6 +377,8 @@ int main(int argc, char *argv[])
 	gameLoop->addModule(&pw);
 	gameLoop->addModule(&collisionModule);
 	
+	SDL_assert(scene->getObjectById(spriteSprite.getId()));
+	
 #if 0
 /*
 	glm::vec2 startNode = spriteSprite.getPosition();
