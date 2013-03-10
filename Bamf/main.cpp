@@ -347,6 +347,8 @@ int main(int argc, char *argv[])
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
 	bamf::SpriteObject spriteSprite(&sprite);
+    
+    std::cout << "Created man with oid: " << spriteSprite.getId() << "\n";
 	
     bamf::PhysicsWorld pw;
     

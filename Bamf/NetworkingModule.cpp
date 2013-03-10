@@ -57,9 +57,9 @@ namespace bamf {
     
     void NetworkingModule::sendPacket(SMSPacket * packet)
     {
-        BamfObject * object = _core->getSceneManager()->getCurrentScene()->getObjectById(0);
-        if(object != NULL) {
-            packet = UpdateExecutor::toPacket(_core->getSceneManager()->getCurrentScene(), object);
+        //BamfObject * object = _core->getSceneManager()->getCurrentScene()->getObjectById(0);
+        //packet = UpdateExecutor::toPacket(_core->getSceneManager()->getCurrentScene(), object);
+        if(packet != NULL) {
             std::cout << "Attempting to send packet updates!!!\n";
             for(int i = 0; i < this->sockets->size(); i++) {
                 Socket * socket = (*this->sockets)[i];
