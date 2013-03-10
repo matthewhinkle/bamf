@@ -41,7 +41,9 @@ Scene::~Scene()
 void Scene::addObjectWithZValue(BamfObject * bamf, unsigned layerZValue, bool collidable)
 {
 	if(bamf && !(this->getObjectById(bamf->getId()))) {
-		this->getLayerWithZValue(layerZValue)->addObject(bamf);
+		ViewLayer * viewLayer = this->getLayerWithZValue(layerZValue);
+		viewLayer->addObject(bamf);
+		this->layerByObjectId.insert(std::pair<uint64_t, ViewLayer *>(bamf->getId(), viewLayer));
 
 		if(collidable) {
 			CollisionObject * collisionObject = new CollisionObject(bamf);
