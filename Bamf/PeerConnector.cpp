@@ -33,11 +33,11 @@ namespace bamf {
         char * hostname = (char*)calloc(160-offset-1, sizeof(char));
         std::memcpy(&hostname, memory+offset, 160-offset-1);
         
-        std::cout << "Got a request to connect to: " << hostname << port << "\n";
+        //std::cout << "Got a request to connect to: " << hostname << port << "\n";
         
         bamf::Socket * client = new bamf::Socket(IPV4, TCP, false);
         if(!client->doConnect(hostname, port)) {
-            std::cout << "Error connecting to seeding peer! aborting.";
+            //std::cout << "Error connecting to seeding peer! aborting.";
             exit(1);
         }
         this->_sockets->push_back(client);

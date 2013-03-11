@@ -188,7 +188,7 @@ namespace bamf {
                 return glm::vec2();
             }
             else {
-                if(fabs(tmpOverlap) < overlap) {
+                if(fabs(tmpOverlap) < fabs(overlap)) {
                     overlap = fabs(tmpOverlap);
                     smallest = axis;
                 }
@@ -216,16 +216,16 @@ namespace bamf {
                 return glm::vec2();
             }
             else {
-                if(fabs(tmpOverlap) < overlap) {
+                if(fabs(tmpOverlap) < fabs(overlap)) {
                     overlap = fabs(tmpOverlap);
-                    smallest = axes1[i];
+                    smallest = axis;
                 }
             }
         }
-        if(verts1[0].y > verts2[0].y)
-            overlap = overlap * -1;
-        if(verts1[0].x < verts2[0].x)
-            overlap = overlap * -1;
+       if(this->position.y > r->getPosition().y)
+            smallest.y = smallest.y * -1;
+        if(this->position.x < r->getPosition().x)
+            smallest.x = smallest.x * -1;
         mtv = smallest*overlap;
         /*std:: cout << "Small: (" << smallest.x << ", " << smallest.y << ") \n";
         std:: cout << "overlap: " << overlap << "\n";

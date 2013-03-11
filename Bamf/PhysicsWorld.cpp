@@ -53,7 +53,9 @@ namespace bamf {
 		std::cout << "width: " << objectList[i]->getWidth() << "| height: " << objectList[i]->getHeight() << "\n";*/
 			
 		scene->getCollisionLayer()->foreachPair(dt, [=](CollisionObject * a, CollisionObject * b, unsigned dt) {
-			if((a->getCollisionShape()->checkCollision(b->getCollisionShape())) == glm::vec2()) return;
+			
+            glm::vec2 mtv = a->getCollisionShape()->checkCollision(b->getCollisionShape());
+            if(mtv == glm::vec2()) return;
 		
 			RigidBody * iBody = a->getRigidBody();
 			RigidBody * jBody = b->getRigidBody();
@@ -79,11 +81,15 @@ namespace bamf {
 				
 				iBody->setPositon(iBody->getPosition() + vnorm);
 			}
+            iBody->setPositon(iBody->getPosition() + mtv);
 		});
 			
         collisions = events;
 		scene->getCollisionLayer()->foreachObject(dt, [=](CollisionObject * collisionObject, unsigned dt) {
-			collisionObject->step(dt);
+            if(!(collisionObject->getCollisionShape()->getIsStatic())) {
+                collisionObject->step(dt);
+            }
+			
 		});
     }
 	static inline bool hasZeroVelocity(RigidBody * rbody) {

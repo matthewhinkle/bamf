@@ -185,7 +185,7 @@ float dist(glm::vec2 v1, glm::vec2 v2) {
 }
 
 void onPublish(bamf::Event<bamf::BamfObject *, glm::vec2> * e) {
-	std::cout << "received: " << e->getMessage().x << ", " << e->getMessage().y << std::endl;
+	//std::cout << "received: " << e->getMessage().x << ", " << e->getMessage().y << std::endl;
 }
 
 static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld * pw) {
@@ -354,22 +354,27 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 
 int main(int argc, char *argv[])
 {
-
+    /*bamf::CollisionRectangle rectangle(glm::vec2(0.0f,0.0f),10.0f,10.0f);
+    bamf::CollisionRectangle rectangle2(glm::vec2(5.0f, 0.0f),10.0f,10.0f);
+    glm::vec2 tmp = rectangle.checkCollision(&rectangle2);
+    std:: cout << "collision: (" << tmp.x << ", " << tmp.y <<") \n";
+    tmp = rectangle2.checkCollision(&rectangle);
+    std:: cout << "collision2: (" << tmp.x << ", " << tmp.y <<") \n";*/
 	bamf::ResourceManager man;
 	bamf::Sprite sprite("Resources/art/character/front.png");
 	sprite.load(man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
 	bamf::SpriteObject spriteSprite(&sprite);
     
-    std::cout << "Created man with oid: " << spriteSprite.getId() << "\n";
+    //std::cout << "Created man with oid: " << spriteSprite.getId() << "\n";
 	
     bamf::PhysicsWorld pw;
-    pw.setGravity(glm::vec2(0,-.0000));
+    pw.setGravity(glm::vec2(0,-.0001));
     
 	scene = createScene(man, &pw);
 	scene->addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
 	bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(spriteSprite.getId());
-	collisionObject->getRigidBody()->setForce(glm::vec2(0, -0.005));
+	collisionObject->getRigidBody()->setForce(glm::vec2(0, -0.0001));
 	
 	bamf::SynchronousGameLoop * gameLoop = new bamf::SynchronousGameLoop();
 	bamf::CoreModule * core = gameLoop->getCoreModule();
@@ -378,10 +383,10 @@ int main(int argc, char *argv[])
 	
 	bamf::InputMapping inputMapping;
 
-    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_w, &spriteSprite, 0, 2));
-    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_d, &spriteSprite, 2, 0));
-    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_s, &spriteSprite, 0, -2));
-    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_a, &spriteSprite, -2, 0));
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_w, &spriteSprite, 0, .1));
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_d, &spriteSprite, .1, 0));
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_s, &spriteSprite, 0, -.1));
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_a, &spriteSprite, -.1, 0));
 
         
 	bamf::CollisionModule collisionModule;

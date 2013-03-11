@@ -57,9 +57,9 @@ namespace bamf {
         offset += sizeof(velocityY);
         
         for(int i = 0; i < 160; i++) {
-            std::cout << memoryBlock[i];
+            //dstd::cout << memoryBlock[i];
         }
-        std::cout << "\n";
+        //std::cout << "\n";
         
         return new SMSPacket(memoryBlock);
     }
@@ -89,11 +89,11 @@ namespace bamf {
         std::memcpy(&velocityY, memory+offset, sizeof(velocityY));
         offset += sizeof(velocityY);
         
-        std::cout << "Received an update! ID: " << id << "@[" << positionX << "," << positionY << "]   v->[" << velocityX << "," << velocityY << "]" << "\n";
+        //std::cout << "Received an update! ID: " << id << "@[" << positionX << "," << positionY << "]   v->[" << velocityX << "," << velocityY << "]" << "\n";
         
         CollisionObject * co = _core->getSceneManager()->getCurrentScene()->getCollisionLayer()->getObjectById(id);
         if(co == NULL) {
-            std::cout << "not applying update for object id " << id << " because no object in scene has that id.";
+            //std::cout << "not applying update for object id " << id << " because no object in scene has that id.";
         } else {
             co->getRigidBody()->setPositon(glm::vec2(positionX, positionY));
             co->getRigidBody()->setLinearVeloctiy(glm::vec2(velocityX, velocityY));
