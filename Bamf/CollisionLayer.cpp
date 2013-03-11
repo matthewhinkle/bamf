@@ -8,27 +8,64 @@
 
 #include "CollisionLayer.h"
 
+#include "Scene.h"
+
 namespace bamf {
 
-CollisionLayer::CollisionLayer()
+static inline Aabb<int> aabbFromRect(const Rectangle & rect);
+
+CollisionLayer::CollisionLayer(Scene * scene)
 	:
 	SceneLayer(),
-	objectById()
-{ }
+	scene(scene),
+	objectById(),
+	aabb(aabbFromRect(scene->getBounds())),
+	qTree(aabb)
+{
+	this->onObjectMoveId = scene->onObjectMove([=](Event<Scene *, BamfObject *> * e) {
+		CollisionObject * collisionObject = this->getObjectById(e->getMessage()->getId());
+		if(collisionObject) {
+			this->qTree.update(collisionObject, collisionObject->getAabb());
+		}
+		
+		std::vector<CollisionObject *> objects;
+		this->qTree.getObjectsIntersectingAabb(this->aabb, objects);
+		
+		printf("size = %zu\n", objects.size());
+	});
+
+	this->onBoundsResizeId = scene->onBoundsResize([=](Event<Scene *, Rectangle> * e) {
+		printf("resized\n");
+		this->aabb = aabbFromRect(e->getMessage());
+		this->qTree.resize(this->aabb);
+	});
+}
 
 CollisionLayer::~CollisionLayer()
 {
+	for(std::pair<uint64_t, CollisionObject *> p : this->objectById) {
+		if(p.second) {
+			delete p.second;
+			p.second = NULL;
+		}
+	}
+	
+	if(this->scene) {
+		this->scene->onObjectMoveUnsubscribe(this->onObjectMoveId);
+		this->scene->onBoundsResizeUnsubscribe(this->onBoundsResizeId);
+	}
+
 	this->objectById.clear();
 }
 
-void CollisionLayer::addObject(CollisionObject * collisionObject)
+void CollisionLayer::addObject(BamfObject * bamf)
 {
-	SDL_assert(collisionObject);
-
-	const BamfObject * const object = collisionObject->getBamfObject();
-	SDL_assert(object);
+	SDL_assert(bamf);
 	
-	this->objectById.insert(std::pair<uint64_t, CollisionObject *>(object->getId(), collisionObject));
+	CollisionObject * collisionObject = new CollisionObject(bamf);
+	this->objectById.insert(std::pair<uint64_t, CollisionObject *>(bamf->getId(), collisionObject));
+	
+	this->qTree.insert(collisionObject, collisionObject->getAabb());
 }
 
 CollisionObject * CollisionLayer::getObjectById(uint64_t id) const
@@ -48,12 +85,16 @@ CollisionObject * CollisionLayer::removeObject(uint64_t id)
 	CollisionObject * collisionObject = i->second;
 	this->objectById.erase(i);
 	
+	if(collisionObject) {
+		this->qTree.remove(collisionObject);
+	}
+	
 	return collisionObject;
 }
 
-CollisionObject * CollisionLayer::removeObject(CollisionObject * collisionObject)
+CollisionObject * CollisionLayer::removeObject(BamfObject * bamf)
 {
-	return collisionObject && collisionObject->getBamfObject() ? this->removeObject(collisionObject->getBamfObject()->getId()) : NULL;
+	return bamf ? this->removeObject(bamf->getId()) : NULL;
 }
 
 void CollisionLayer::foreachObject(unsigned dt, const std::function<void (CollisionObject *, unsigned)> & doFunc)
@@ -74,6 +115,10 @@ void CollisionLayer::foreachPair(unsigned dt, const std::function<void (Collisio
 			doFunc(i->second, j->second, dt);
 		}
 	}
+}
+
+static inline Aabb<int> aabbFromRect(const Rectangle & rect) {
+	return Aabb<int>(rect.x, rect.y, rect.x + rect.width, rect.y + rect.height);
 }
 
 }

@@ -9,6 +9,7 @@
 #ifndef __Bamf__CollisionObject__
 #define __Bamf__CollisionObject__
 
+#include "Aabb.h"
 #include "BamfObject.h"
 #include "CollisionShape.h"
 #include "CollisionRectangle.h"
@@ -30,6 +31,12 @@ public:
 	
 	inline CollisionRectangle * getCollisionShape() const { return this->collisionShape; }
 	inline RigidBody * getRigidBody() const { return this->getCollisionShape()->getRigidBody(); }
+	inline Aabb<int> getAabb() const {
+		const Rectangle & bounds = this->getBounds();
+		const glm::vec2 normPos = this->getPosition() - this->getHotspot();
+		
+		return Aabb<int>(normPos.x, normPos.y, normPos.x + bounds.width, normPos.y + bounds.height);
+	}
 
 	inline void setPosition(const glm::vec2 & position) {
 		this->bamf->setPosition(position);

@@ -26,7 +26,7 @@ public:
 		@return the interpolated value between the initial and
 				current position
 	 */
-	template<typename T = float, typename R = unsigned>
+	template<typename T = float, typename R = float>
 	static inline T lerp(
 		T x_0,		/* initial position */
 		T x,		/* current position */

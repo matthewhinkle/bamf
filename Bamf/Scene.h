@@ -12,7 +12,6 @@
 #include <unordered_map>
 
 #include "BamfObject.h"
-#include "CollisionObject.h"
 #include "CollisionLayer.h"
 #include "Event.h"
 #include "EventPublisher.h"
@@ -46,6 +45,9 @@ public:
 	
 	inline CollisionLayer * getCollisionLayer() { return &this->collisionLayer; }
 	
+	inline uint64_t onObjectMove(const std::function<void (Event<Scene *, BamfObject *> *)> & doFunc) { return this->onObjectMovePublisher.subscribe(doFunc); }
+	inline void onObjectMoveUnsubscribe(uint64_t subscriberId) { this->onObjectMovePublisher.unsubscribe(subscriberId); }
+	
 	inline uint64_t onBoundsResize(const std::function<void (Event<Scene *, Rectangle> *)> & doFunc) { return this->onBoundsResizePublisher.subscribe(doFunc); }
 	inline void onBoundsResizeUnsubscribe(uint64_t subscriberId) { this->onBoundsResizePublisher.unsubscribe(subscriberId); }
 	
@@ -63,6 +65,7 @@ private:
 	std::unordered_map<uint64_t, ViewLayer *> layerByObjectId;
 	std::map<unsigned, ViewLayer *> layerByZValue;
 	
+	EventPublisher<Scene *, BamfObject *> onObjectMovePublisher;
 	EventPublisher<Scene *, Rectangle> onBoundsResizePublisher;
 	
 	CollisionLayer collisionLayer;

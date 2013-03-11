@@ -10,17 +10,8 @@
 #define __Bamf__NavigationMesh__
 
 #include "Graph.h"
+#include "Hashes.h"
 #include "Scene.h"
-
-namespace std {
-
-template<> struct hash<glm::vec2> {
-	size_t operator()(const glm::vec2 & v) {
-		return hash<float>()(v.x) ^ hash<float>()(v.y);
-	}
-};
-
-}
 
 namespace bamf {
 

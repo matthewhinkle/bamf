@@ -19,7 +19,7 @@
 #include "RigidBody.h"
 
 enum {
-	kMinFrameRenderTicks = 16
+	kMinFrameRenderTicks = 5
 };
 
 static inline float dtFrameToEpoch(float dtFrame);
@@ -110,9 +110,9 @@ int SynchronousGameLoop::run()
 	}
 	
 	unsigned timeLastTicked = SDL_GetTicks();
-	unsigned timeLastDrawn = timeLastTicked;
+	unsigned timeLastDrawn = 0;
 	
-	float epoch = 0;
+	unsigned epoch = 0;
 	while(this->running) {
 		while(this->running && this->suspended) {
 			SDL_CondWait(this->suspendCond, this->suspendMutex);
@@ -132,7 +132,8 @@ int SynchronousGameLoop::run()
 		epoch = this->update(epoch);
 		
 		if((time - timeLastDrawn) >= kMinFrameRenderTicks) {
-			timeLastDrawn = this->time;
+			timeLastDrawn = time;
+			
 			this->draw(this->dt);
 		}
 	}

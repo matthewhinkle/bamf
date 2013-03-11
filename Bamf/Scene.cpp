@@ -18,6 +18,8 @@ const unsigned Scene::kHudLayer = 999;
 
 Scene::Scene()
 	:
+	collisionLayer(this),
+	onObjectMovePublisher(this),
 	onBoundsResizePublisher(this)
 { }
 
@@ -46,9 +48,13 @@ void Scene::addObjectWithZValue(BamfObject * bamf, unsigned layerZValue, bool co
 		this->layerByObjectId.insert(std::pair<uint64_t, ViewLayer *>(bamf->getId(), viewLayer));
 
 		if(collidable) {
-			CollisionObject * collisionObject = new CollisionObject(bamf);
-			this->collisionLayer.addObject(collisionObject);
+			this->collisionLayer.addObject(bamf);
 		}
+		
+		bamf->onMove([=](Event<BamfObject *, glm::vec2> * e) {
+			this->resizeBoundsIfNeeded(e->getSender());
+			this->onObjectMovePublisher.publish(e->getSender());
+		});
 		
 		this->resizeBoundsIfNeeded(bamf);
 	}

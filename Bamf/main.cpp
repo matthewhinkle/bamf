@@ -220,7 +220,7 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 	//for(int i = -338; i < 140; i += ground->getBounds().width - 1) {
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(-ground->getBounds().width/2,-300));
-		//scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
 	//}
 	
 	/*bamf::Sprite * spikes = new bamf::Sprite("Resources/art/spikes.png");

@@ -24,14 +24,14 @@ public:
 	SceneLayer() { }
 	virtual ~SceneLayer() { }
 	
-	virtual void addObject(Value value) = 0;
+	virtual void addObject(BamfObject * bamf) = 0;
 	
 	virtual Value getObjectById(Id id) const = 0;
 	
 	virtual unsigned getObjectCount() const = 0;
 	
 	virtual Value removeObject(Id id) = 0;
-	virtual Value removeObject(Value value) = 0;
+	virtual Value removeObject(BamfObject * bamf) = 0;
 	
 private:
 	SceneLayer(const SceneLayer &);
