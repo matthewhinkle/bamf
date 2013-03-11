@@ -89,7 +89,7 @@ namespace bamf {
             } else {
                 void * memory = malloc(strlen("I am a banana"));
                 serverSide->doRead(memory, 100);
-                std::cout << (char *) memory;
+                //std::cout << (char *) memory;
             }
         }
 

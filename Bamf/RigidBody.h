@@ -34,13 +34,14 @@ public:
     void setForce(glm::vec2 f);
     glm::vec2 getForce();
     
-    void step();
+    void step(unsigned dt);
     
     void update();
     
 private:
     uint64_t id;
     glm::vec2 cm;
+    glm::vec2 prevCm;
     glm::vec2 linearVelocity;
     glm::vec2 force;
     float angularVelocity;

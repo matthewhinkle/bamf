@@ -32,7 +32,7 @@ namespace bamf {
         this->serverSocket = new ServerSocket(ServerSocket(IPV4, TCP, false));
         this->serverSocket->doBind(0);
         this->serverSocket->doListen();
-        std::cout << "Listening for conncetions on port: " << this->serverSocket->boundPort() << "\n";
+        //std::cout << "Listening for conncetions on port: " << this->serverSocket->boundPort() << "\n";
         this->_hasInited = true;
     }
     
@@ -42,7 +42,7 @@ namespace bamf {
         Socket * socket = this->serverSocket->doAccept();
         if(socket != NULL) {
             this->sockets->push_back(socket);
-            std::cout << "Got a new socket connection!\n";
+            //std::cout << "Got a new socket connection!\n";
         }
         for(int i = 0; i < this->sockets->size(); i++) {
             Socket * socket = (*this->sockets)[i];
@@ -57,10 +57,10 @@ namespace bamf {
     
     void NetworkingModule::sendPacket(SMSPacket * packet)
     {
-        BamfObject * object = _core->getSceneManager()->getCurrentScene()->getObjectById(0);
-        if(object != NULL) {
-            packet = UpdateExecutor::toPacket(_core->getSceneManager()->getCurrentScene(), object);
-            std::cout << "Attempting to send packet updates!!!\n";
+        //BamfObject * object = _core->getSceneManager()->getCurrentScene()->getObjectById(0);
+        //packet = UpdateExecutor::toPacket(_core->getSceneManager()->getCurrentScene(), object);
+        if(packet != NULL) {
+            //std::cout << "Attempting to send packet updates!!!\n";
             for(int i = 0; i < this->sockets->size(); i++) {
                 Socket * socket = (*this->sockets)[i];
                 socket->doWrite(packet->asMemoryBlock(), packet->getLength());
@@ -81,7 +81,7 @@ namespace bamf {
         //connect
         bamf::Socket * client = new bamf::Socket(IPV4, TCP, false);
         if(!client->doConnect(hostname, port)) {
-            std::cout << "Error connecting to seeding peer! aborting.";
+            //std::cout << "Error connecting to seeding peer! aborting.";
             exit(1);
         }
         this->sockets->push_back(client);

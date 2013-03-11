@@ -29,7 +29,7 @@ namespace bamf {
         std::memcpy(&port, memory+offset, sizeof(int));
         offset += sizeof(int);
         
-        std::cout << "Client has registered that it is listening at " << port << "/n";
+        //std::cout << "Client has registered that it is listening at " << port << "/n";
         
         sender->hostPort = port;
         

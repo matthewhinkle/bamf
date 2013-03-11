@@ -33,7 +33,7 @@ public:
     void setGravity(float x, float y);
     void removeObject(uint64_t id);
     CollisionRectangle* getObject(uint64_t id);
-    void applyForce(glm::vec2 f);
+    void applyForce(RigidBody * rb, glm::vec2 f);
     void applyImpulse(glm::vec2 i);
     void applyTorque(glm::vec2 t);
     
