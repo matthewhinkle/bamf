@@ -10,6 +10,8 @@
 
 #include "Scene.h"
 
+#include <iostream>
+
 namespace bamf {
 
 static inline Aabb<int> aabbFromRect(const Rectangle & rect);
@@ -27,13 +29,9 @@ CollisionLayer::CollisionLayer(Scene * scene)
 		if(collisionObject) {
 			this->qTree.update(collisionObject, collisionObject->getAabb());
 		}
-		
-		std::vector<CollisionObject *> objects;
-		this->qTree.getObjectsIntersectingAabb(this->aabb, objects);
 	});
 
 	this->onBoundsResizeId = scene->onBoundsResize([=](Event<Scene *, Rectangle> * e) {
-		printf("resized\n");
 		this->aabb = aabbFromRect(e->getMessage());
 		this->qTree.resize(this->aabb);
 	});
@@ -113,6 +111,20 @@ void CollisionLayer::foreachPair(unsigned dt, const std::function<void (Collisio
 			doFunc(i->second, j->second, dt);
 		}
 	}
+}
+
+bool CollisionLayer::findObjectsIntersectingObject(BamfObject * bamf, std::vector<CollisionObject *> & objects)
+{
+	if(!(bamf)) return false;
+
+	return this->findObjectsIntersectingObject(this->getObjectById(bamf->getId()), objects);
+}
+
+bool CollisionLayer::findObjectsIntersectingObject(CollisionObject * collisionObject, std::vector<CollisionObject *> & objects)
+{
+	if(!(collisionObject)) return false;
+	
+	return this->qTree.getObjectsIntersectingAabb(collisionObject->getAabb(), objects) > 0;
 }
 
 static inline Aabb<int> aabbFromRect(const Rectangle & rect) {

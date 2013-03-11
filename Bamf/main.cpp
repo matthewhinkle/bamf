@@ -192,8 +192,11 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 	bamf::Scene * scene = new bamf::Scene();
 
 	bamf::Sprite * ground = new bamf::Sprite("Resources/art/ground.png");
+	
 	ground->load(man);
-	/*for(int i = -544; i < -540; i += ground->getBounds().width - 1) {
+	
+	/**
+	for(int i = -700; i < 700; i += ground->getBounds().width - 1) {
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(i, -418));
 		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);

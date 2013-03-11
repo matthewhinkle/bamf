@@ -44,6 +44,9 @@ public:
 	virtual void foreachObject(unsigned dt, const std::function<void (CollisionObject *, unsigned)> & doFunc);
 	virtual void foreachPair(unsigned dt, const std::function<void (CollisionObject *, CollisionObject *, unsigned)> & doFunc);
 	
+	bool findObjectsIntersectingObject(BamfObject * bamf, std::vector<CollisionObject *> & objects);
+	bool findObjectsIntersectingObject(CollisionObject * collisionObject, std::vector<CollisionObject *> & objects);
+	
 private:
 	Scene * scene;
 	std::map<uint64_t, CollisionObject *> objectById;

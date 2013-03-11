@@ -20,6 +20,7 @@ const unsigned Scene::kHudLayer = 999;
 
 Scene::Scene()
 	:
+	bounds(),
 	collisionLayer(this),
 	onObjectMovePublisher(this),
 	onBoundsResizePublisher(this)
@@ -48,10 +49,6 @@ void Scene::addObjectWithZValue(BamfObject * bamf, unsigned layerZValue, bool co
 		ViewLayer * viewLayer = this->getLayerWithZValue(layerZValue);
 		viewLayer->addObject(bamf);
 		this->layerByObjectId.insert(std::pair<uint64_t, ViewLayer *>(bamf->getId(), viewLayer));
-
-		if(collidable) {
-			this->collisionLayer.addObject(bamf);
-		}
 		
 		bamf->onMove([=](Event<BamfObject *, glm::vec2> * e) {
 			this->resizeBoundsIfNeeded(e->getSender());
@@ -59,6 +56,10 @@ void Scene::addObjectWithZValue(BamfObject * bamf, unsigned layerZValue, bool co
 		});
 		
 		this->resizeBoundsIfNeeded(bamf);
+		
+		if(collidable) {
+			this->collisionLayer.addObject(bamf);
+		}
 	}
 }
 
@@ -122,30 +123,28 @@ void Scene::resizeBoundsIfNeeded(bamf::BamfObject * bamf)
 	
 	bool resized = false;
 	if(normPos.x < this->bounds.x) {
-		this->bounds.x = normPos.x;
+		this->bounds.x = normPos.x - 1;
 		resized = true;
 	}
 	
 	if(normPos.y < this->bounds.y) {
-		this->bounds.y = normPos.y;
+		this->bounds.y = normPos.y + 1;
 		resized = true;
 	}
 	
 	const int right = static_cast<int>(normPos.x) + bounds.width;
 	if(right > this->bounds.getRight()) {
-		this->bounds.width = right - this->bounds.x;
+		this->bounds.width = (right - this->bounds.x) + 1;
 		resized = true;
 	}
 	
 	const int top = static_cast<int>(normPos.y) + bounds.height;
 	if(top > this->bounds.getTop()) {
-		this->bounds.height = top - this->bounds.y;
+		this->bounds.height = (top - this->bounds.y) + 1;
 		resized = true;
 	}
 	
 	if(resized) {
-		std::cout << this->bounds.x << "," << this->bounds.y << ": " << this->bounds.width << "," << this->bounds.height << std::endl;
-	
 		this->onBoundsResizePublisher.publish(this->bounds);
 	}
 }

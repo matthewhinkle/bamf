@@ -27,6 +27,7 @@ enum {
 };
 
 enum {
+	kQuadTreeDefaultCapacity = 5,
 	kQuadTreeChildrenCount = 4
 };
 
@@ -37,14 +38,14 @@ template<
 > class QuadTree {
 public:
 
-	explicit QuadTree(const Aabb<R> & aabb, unsigned capacity = 5);
+	explicit QuadTree(const Aabb<R> & aabb, unsigned capacity = kQuadTreeDefaultCapacity);
 	virtual ~QuadTree();
 	
 	inline unsigned getCapacity() const { return this->capacity; }
 	
 	unsigned getObjectsIntersectingAabb(const Aabb<R> & aabb, std::vector<T> & out);
 	
-	void resize(const Aabb<R> & aabb, unsigned capacity = 5);
+	void resize(const Aabb<R> & aabb, unsigned capacity = kQuadTreeDefaultCapacity);
 	
 	void insert(T object, const Aabb<R> & aabb);
 	void remove(T object);
@@ -113,7 +114,9 @@ template<
 		assert(!(this->children[kQuadTreeNE] || this->children[kQuadTreeSW] || this->children[kQuadTreeSE]));
 		
 		for(std::pair<T, Aabb<R>> p : this->objects) {
-			out.push_back(p.first);
+			if(p.second.intersects(aabb)) {
+				out.push_back(p.first);
+			}
 		}
 		
 		return static_cast<unsigned>(this->objects.size());
@@ -216,7 +219,10 @@ template<
 		assert(!(this->children[kQuadTreeNE] || this->children[kQuadTreeSW] || this->children[kQuadTreeSE]));
 		
 		this->objects.erase(object);
-		this->insert(object, aabb);
+		
+		if(this->aabb.intersects(aabb)) {
+			this->insert(object, aabb);
+		}
 	} else {
 		for(QuadTree<T, R, Hash> * t : this->children) {
 			assert(t);
