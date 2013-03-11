@@ -48,13 +48,24 @@ namespace bamf {
     glm::vec2 RigidBody::getForce() {
         return force;
     }
-    void RigidBody::step() {
+    void RigidBody::step(unsigned dt) {
         glm::vec2 p = cm;
+        glm::vec2 pp = prevCm;
+        glm::vec2 tmp = cm;
         glm::vec2 v = linearVelocity;
         glm::vec2 f = force;
+        
         mass = 1.0f;
         count++;
-        cm = p + (linearVelocity);
-        linearVelocity = v + ((f/= mass)*= 16);
+        //r = r1 + v1 * delta t
+        
+        /*cm = ((p*=2) - pp) + ((f/= mass)*=(dt*dt));
+        prevCm = tmp;
+        linearVelocity = (cm - prevCm);
+        linearVelocity /= dt;*/
+        
+        cm = p + (v*=dt);
+        v = linearVelocity;
+        linearVelocity = v + ((f/= mass)*= dt);
     }
 }

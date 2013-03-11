@@ -193,7 +193,11 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 
 	bamf::Sprite * ground = new bamf::Sprite("Resources/art/ground.png");
 	ground->load(man);
+<<<<<<< HEAD
 	
+=======
+    
+>>>>>>> Fixed MTV
 	/*for(int i = -544; i < -540; i += ground->getBounds().width - 1) {
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(i, -418));
@@ -223,6 +227,11 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(-ground->getBounds().width/2,-300));
 		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+<<<<<<< HEAD
+=======
+        groundObject->getCollisionShape()->setIsStatic(true);
+        pw->addObject(groundObject->getCollisionShape());
+>>>>>>> Fixed MTV
 	//}
 	
 	/*bamf::Sprite * spikes = new bamf::Sprite("Resources/art/spikes.png");
@@ -355,6 +364,13 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 
 int main(int argc, char *argv[])
 {
+<<<<<<< HEAD
+=======
+	//bamf::CollisionRectangle rectangle(glm::vec2(0.0f,0.0f),10.0f,10.0f);
+	//bamf::CollisionRectangle rectangle2(glm::vec2(5.0f, 0.0f),10.0f,10.0f);
+    //bool tmp = rectangle.checkCollision(&rectangle2);
+   // std:: cout << "collision: " << tmp << "\n";
+>>>>>>> Fixed MTV
 	bamf::ResourceManager man;
 	bamf::Sprite sprite("Resources/art/character/front.png");
 	sprite.load(man);
@@ -364,11 +380,17 @@ int main(int argc, char *argv[])
     std::cout << "Created man with oid: " << spriteSprite.getId() << "\n";
 	
     bamf::PhysicsWorld pw;
+    pw.setGravity(glm::vec2(0,-.0000));
     
 	scene = createScene(man, &pw);
 	scene->addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
+<<<<<<< HEAD
 	bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(spriteSprite.getId());
 	collisionObject->getRigidBody()->setForce(glm::vec2(0, -0.005));
+=======
+    pw.addObject(spriteSprite.getCollisionShape());
+	//spriteSprite.getRigidBody()->setForce(glm::vec2(0, -.001));
+>>>>>>> Fixed MTV
 	
 	bamf::SynchronousGameLoop * gameLoop = new bamf::SynchronousGameLoop();
 	bamf::CoreModule * core = gameLoop->getCoreModule();
@@ -377,10 +399,19 @@ int main(int argc, char *argv[])
 	
 	bamf::InputMapping inputMapping;
 
+<<<<<<< HEAD
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_w, &spriteSprite, 0, 2));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_d, &spriteSprite, 2, 0));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_s, &spriteSprite, 0, -2));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_a, &spriteSprite, -2, 0));
+=======
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_w, &spriteSprite, 0, .1));
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_d, &spriteSprite, .1, 0));
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_s, &spriteSprite, 0, -.1));
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_a, &spriteSprite, -.1, 0));
+    inputManager.setInputMapping(&inputMapping);
+	gameLoop->addModule(&inputManager);
+>>>>>>> Fixed MTV
         
 	bamf::CollisionModule collisionModule;
 	
