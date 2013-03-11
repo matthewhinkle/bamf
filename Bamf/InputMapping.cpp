@@ -33,10 +33,10 @@ void InputMapping::dispatchKeyEvent(NetworkingModule * networkingModule, KeyPres
         if(keyMapping->appliesForInput(pressType, keyCode /*TODO key masks*/)) {
             Action * action = keyMapping->actionForInput();
             action->executeAction();
-            delete action;
             if(networkingModule != NULL) {
-               networkingModule->sendPacket(NULL);
+               networkingModule->sendPacket(action->packetForAction());
             }
+            delete action;
         }
     }
 }

@@ -43,6 +43,7 @@
 #include "EventPublisher.h"
 
 #include "QuadTree.h"
+#include "SMSPacket.h"
 
 bamf::Scene * scene;
 
@@ -55,6 +56,7 @@ protected:
 public:
     MoveCameraAction(float x, float y, bamf::Camera * camera);
     void executeAction();
+    bamf::SMSPacket * packetForAction();
 };
 
 MoveCameraAction::MoveCameraAction(float x, float y, bamf::Camera * camera)
@@ -70,6 +72,11 @@ void MoveCameraAction::executeAction()
     position.x += _x;
     position.y += _y;
     _camera->setPosition(position);
+}
+
+bamf::SMSPacket * MoveCameraAction::packetForAction()
+{
+    return NULL;
 }
 
 class MoveCameraButtons : public bamf::IKeyMapping
@@ -130,6 +137,7 @@ protected:
 public:
     MoveActorAction(float x, float y, bamf::BamfObject * object);
     void executeAction();
+    bamf::SMSPacket * packetForAction();
 };
 
 
@@ -161,6 +169,11 @@ void MoveActorAction::executeAction()
 {
 	bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(this->_object->getId());
 	collisionObject->getRigidBody()->setLinearVeloctiy(glm::vec2(this->_x, this->_y));
+}
+
+bamf::SMSPacket * MoveActorAction::packetForAction()
+{
+    return bamf::UpdateExecutor::toPacket(scene, this->_object);
 }
 
 float weight(glm::vec2 v1, glm::vec2 v2) {
