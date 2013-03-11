@@ -181,12 +181,14 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 	bamf::Sprite * ground = new bamf::Sprite("Resources/art/ground.png");
 	ground->load(man);
 	
-	/*for(int i = -544; i < -540; i += ground->getBounds().width - 1) {
+	
+	for(int i = -300; i < -100; i += ground->getBounds().width - 1) {
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(i, -418));
 		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
-        pw->addObject(groundObject->getCollisionShape());
 	}
+	
+	/**
 	
 	bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 	groundObject->setPosition(glm::vec2(-544, -418));
@@ -209,7 +211,7 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 	//for(int i = -338; i < 140; i += ground->getBounds().width - 1) {
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(-ground->getBounds().width/2,-300));
-		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+		//scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
 	//}
 	
 	/*bamf::Sprite * spikes = new bamf::Sprite("Resources/art/spikes.png");
@@ -374,9 +376,7 @@ int main(int argc, char *argv[])
 
 	gameLoop->addModule(&pw);
 	gameLoop->addModule(&collisionModule);
-	
-	SDL_assert(scene->getObjectById(spriteSprite.getId()));
-	
+		
 #if 0
 /*
 	glm::vec2 startNode = spriteSprite.getPosition();
@@ -404,7 +404,7 @@ int main(int argc, char *argv[])
 */
 #endif
     //std::cout << "bounds = " << scene->getBounds().x << "," << scene->getBounds().y << "," << scene->getBounds().width << "," << scene->getBounds().height << std::endl;
-    
+	
     bamf::NetworkingModule * networking = new bamf::NetworkingModule(core);
     bamf::InputManager inputManager(networking);
     inputManager.setInputMapping(&inputMapping);
