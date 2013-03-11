@@ -31,12 +31,7 @@ namespace bamf {
 	}
     CollisionRectangle::~CollisionRectangle() {
     }
-<<<<<<< HEAD
-    
     const glm::vec2 & CollisionRectangle::getPosition() {
-=======
-    glm::vec2 CollisionRectangle::getPosition() {
->>>>>>> Fixed MTV
         return position;
     }
     

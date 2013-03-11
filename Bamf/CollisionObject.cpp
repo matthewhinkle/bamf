@@ -40,7 +40,7 @@ CollisionObject::~CollisionObject()
 void CollisionObject::step(unsigned dt)
 {
 	RigidBody * rigidBody = this->getRigidBody();
-	rigidBody->step();
+	rigidBody->step(dt);
 	
 	this->collisionShape->setPosition(rigidBody->getPosition());
 	this->bamf->setPosition(rigidBody->getPosition(), false);
