@@ -372,6 +372,7 @@
 		48224C9716CE41D80075AB70 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
 		48224C9816CE43EB0075AB70 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		48224C9A16CE45670075AB70 /* Drawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drawable.h; sourceTree = "<group>"; };
+		4823EADC16EDAD8700203BBD /* Hashes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hashes.h; sourceTree = "<group>"; };
 		4824D3ED16C4C87F001EDB07 /* Rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rectangle.h; sourceTree = "<group>"; };
 		4824D3EF16C4CC14001EDB07 /* BamfObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BamfObject.h; sourceTree = "<group>"; };
 		48257C3516BCF4E20042A7D0 /* AudioLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioLoader.h; sourceTree = "<group>"; };
@@ -906,6 +907,7 @@
 				48548BDC16D860F0008DBC84 /* MatrixStack.cpp */,
 				48224C9616CE3DB00075AB70 /* Lerp.h */,
 				4819FFB416E94AF6008F698D /* MathCommons.h */,
+				4823EADC16EDAD8700203BBD /* Hashes.h */,
 			);
 			name = Math;
 			sourceTree = "<group>";
