@@ -8,6 +8,8 @@
 
 #include "Scene.h"
 
+#include <iostream>
+
 namespace bamf {
 
 const unsigned Scene::kBackgroundLayer = 100;
@@ -142,6 +144,8 @@ void Scene::resizeBoundsIfNeeded(bamf::BamfObject * bamf)
 	}
 	
 	if(resized) {
+		std::cout << this->bounds.x << "," << this->bounds.y << ": " << this->bounds.width << "," << this->bounds.height << std::endl;
+	
 		this->onBoundsResizePublisher.publish(this->bounds);
 	}
 }

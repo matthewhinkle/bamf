@@ -30,8 +30,6 @@ CollisionLayer::CollisionLayer(Scene * scene)
 		
 		std::vector<CollisionObject *> objects;
 		this->qTree.getObjectsIntersectingAabb(this->aabb, objects);
-		
-		printf("size = %zu\n", objects.size());
 	});
 
 	this->onBoundsResizeId = scene->onBoundsResize([=](Event<Scene *, Rectangle> * e) {
