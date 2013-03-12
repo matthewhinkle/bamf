@@ -34,6 +34,9 @@ public:
     void setForce(glm::vec2 f);
     glm::vec2 getForce();
     
+    bool isEffectedByGravity();
+    void setAffectedByGravity(bool isAffected);
+    
     void step(unsigned dt);
     
     void update();

@@ -48,6 +48,17 @@ namespace bamf {
     glm::vec2 RigidBody::getForce() {
         return force;
     }
+    
+    bool RigidBody::isEffectedByGravity()
+    {
+        return this->affectedByGravity;
+    }
+    
+    void RigidBody::setAffectedByGravity(bool isAffected)
+    {
+        this->affectedByGravity = isAffected;
+    }
+    
     void RigidBody::step(unsigned dt) {
         glm::vec2 p = cm;
         glm::vec2 pp = prevCm;

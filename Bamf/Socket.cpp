@@ -16,6 +16,8 @@ namespace bamf {
     
     Socket::Socket(int fd) {
         this->sockfd = fd;
+        int n = 1;
+        setsockopt(fd, SOL_SOCKET, SO_NOSIGPIPE, &n, sizeof(n));
     }
     
     Socket::Socket(SocketFamily socketFamily, SocketType socketType, bool blocking) {
@@ -24,6 +26,8 @@ namespace bamf {
             perror("Error opening socket");
             exit(1);
         }
+        int n = 1;
+        setsockopt(sockfd, SOL_SOCKET, SO_NOSIGPIPE, &n, sizeof(n));
     }
     
     bool Socket::doConnect(std::string hostname, int port)

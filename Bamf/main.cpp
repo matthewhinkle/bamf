@@ -171,6 +171,14 @@ MoveActorAction::MoveActorAction(float x, float y, bamf::BamfObject * object) {
 void MoveActorAction::executeAction()
 {
 	bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(this->_object->getId());
+    int x = this->_x;
+    int y = this->_y;
+    if(x == 0) {
+        x = collisionObject->getRigidBody()->getLinearVeloctiy().x;
+    }
+    if(y == 0) {
+        y = collisionObject->getRigidBody()->getLinearVeloctiy().y;
+    }
 	collisionObject->getRigidBody()->setLinearVeloctiy(glm::vec2(this->_x, this->_y));
 }
 
@@ -389,7 +397,7 @@ int main(int argc, char *argv[])
 	
 	bamf::InputMapping inputMapping;
 
-    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_w, &spriteSprite, 0, .1));
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_w, &spriteSprite, 0, 1));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_d, &spriteSprite, .1, 0));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_s, &spriteSprite, 0, -.1));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_a, &spriteSprite, -.1, 0));
