@@ -226,6 +226,8 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(-ground->getBounds().width/2,-300));
 		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+        bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(groundObject->getId());
+        collisionObject->getCollisionShape()->setIsStatic(true);
 	//}
 	
 	/*bamf::Sprite * spikes = new bamf::Sprite("Resources/art/spikes.png");
@@ -386,7 +388,7 @@ int main(int argc, char *argv[])
 	scene = createScene(man, &pw);
 	scene->addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
 	bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(spriteSprite.getId());
-	collisionObject->getRigidBody()->setForce(glm::vec2(0, -0.0001));
+	//collisionObject->getRigidBody()->setForce(glm::vec2(0, -0.0001));
 	
 	bamf::SynchronousGameLoop * gameLoop = new bamf::SynchronousGameLoop();
 	bamf::CoreModule * core = gameLoop->getCoreModule();
@@ -399,6 +401,7 @@ int main(int argc, char *argv[])
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_d, &spriteSprite, .1, 0));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_s, &spriteSprite, 0, -.1));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_a, &spriteSprite, -.1, 0));
+    
 
         
 	bamf::CollisionModule collisionModule;

@@ -11,7 +11,7 @@
 
 namespace bamf{
     
-    CollisionEvent::CollisionEvent(CollisionRectangle * s1, CollisionRectangle * s2, glm::vec2 v){
+    CollisionEvent::CollisionEvent(CollisionObject * s1, CollisionObject * s2, glm::vec2 v){
         shape1 = s1;
         shape2 = s2;
         mtv = v;
@@ -19,10 +19,10 @@ namespace bamf{
     CollisionEvent::~CollisionEvent() {
         
     }
-    CollisionRectangle * CollisionEvent::getShapeOne() {
+    CollisionObject * CollisionEvent::getShapeOne() {
         return shape1;
     }
-    CollisionRectangle * CollisionEvent::getShapeTwo() {
+    CollisionObject * CollisionEvent::getShapeTwo() {
         return shape2;
     }
     glm::vec2 CollisionEvent::getMtv() {

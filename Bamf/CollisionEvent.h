@@ -10,6 +10,7 @@
 #define __Bamf__CollisionEvent__
 
 #include <iostream>
+#include "CollisionObject.h"
 #include "CollisionShape.h"
 #include "CollisionRectangle.h"
 
@@ -17,16 +18,16 @@ namespace bamf {
  
     class CollisionEvent {
     public:
-        CollisionEvent(CollisionRectangle * s1, CollisionRectangle * s2, glm::vec2 v);
+        CollisionEvent(CollisionObject * s1, CollisionObject * s2, glm::vec2 v);
         ~CollisionEvent();
-        CollisionRectangle * getShapeOne();
-        CollisionRectangle* getShapeTwo();
+        CollisionObject * getShapeOne();
+        CollisionObject* getShapeTwo();
         glm::vec2 getMtv();
     protected:
         
     private:
-        CollisionRectangle * shape1;
-        CollisionRectangle * shape2;
+        CollisionObject * shape1;
+        CollisionObject * shape2;
         glm::vec2 mtv;
 
     };
