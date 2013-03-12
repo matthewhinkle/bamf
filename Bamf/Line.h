@@ -15,8 +15,10 @@
 
 namespace bamf {
 
-template<typename T, typename R>
-class Line {
+template<
+	typename T = int,
+	typename R = float
+> class Line {
 public:
 
 	Line(T x1, T y1, T x2, T y2)
@@ -51,7 +53,7 @@ public:
 		return *this;
 	}
 	
-	inline bool intersects(const Aabb<T> & aabb) {
+	inline bool intersects(const Aabb<T> & aabb) const {
 		const bool x1Min = this->x1 < this->x2;
 		T xMin = x1Min ? this->x1 : this->x2;
 		T xMax = x1Min ? this->x2 : this->x1;
@@ -61,18 +63,30 @@ public:
 		T yMax = y1Min ? this->y2 : this->y1;
 	
 		if(xMin > aabb.xMax || xMax < aabb.xMin || yMin > aabb.yMax || yMax < aabb.yMin) {
+			//std::cout << "badd" << std::endl;
 			return false;
+		} else {
+			//std::cout << "finally" << std::endl;
 		}
 	
 		const R m = static_cast<R>((this->y2 - this->y1)) / static_cast<R>((this->x2 - this->x1));
 		const R b = -(this->x1 * m) + this->y1;
 		
-		T x0 = aabb.xMin;
-		R y0 = (m * x0);
+		const T x0 = aabb.xMin;
+		const R y0 = (m * x0) + b;
+		if(y0 <= aabb.yMax && y0 >= aabb.yMin) {
+			//assert(0);
+			return true;
+		}
 		
-		std::cout << "made it" << std::endl;
+		const T x1 = aabb.xMax;
+		const R y1 = (m * x1) + b;
+		if(y1 <= aabb.yMax && y1 >= aabb.yMin) {
+			//assert(0);
+			return true;
+		}
 		
-		return true;
+		return false;
 	}
 	
 	const T x1;
