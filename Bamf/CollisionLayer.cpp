@@ -41,7 +41,7 @@ CollisionLayer::CollisionLayer(Scene * scene)
 		}
 		
 		for(CollisionObject * obj : objects) {
-			std::cout << "collide = " << obj->getPosition().x << ", " << obj->getPosition().y << std::endl;
+			//std::cout << "collide = " << obj->getPosition().x << ", " << obj->getPosition().y << std::endl;
 		}
 	});
 

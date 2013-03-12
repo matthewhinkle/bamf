@@ -198,8 +198,6 @@ template<
 	for(std::pair<T, Aabb<R>> p : pairs) {
 		this->insert(p.first, p.second);
 	}
-	
-	std::cout << "return" << std::endl;
 }
 
 template<

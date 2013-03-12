@@ -63,10 +63,10 @@ public:
 		T yMax = y1Min ? this->y2 : this->y1;
 	
 		if(xMin > aabb.xMax || xMax < aabb.xMin || yMin > aabb.yMax || yMax < aabb.yMin) {
-			std::cout << "badd" << std::endl;
+			//std::cout << "badd" << std::endl;
 			return false;
 		} else {
-			std::cout << "finally" << std::endl;
+			//std::cout << "finally" << std::endl;
 		}
 	
 		const R m = static_cast<R>((this->y2 - this->y1)) / static_cast<R>((this->x2 - this->x1));
