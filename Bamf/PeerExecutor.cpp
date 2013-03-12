@@ -36,7 +36,7 @@ namespace bamf {
         //todo buffer size bounds check.
         std::string hostname = informationOf->getHostName();
         const char * hostnameString = hostname.c_str();
-        //std::cout << "hostname is " << strlen(hostnameString) << " long.\n";
+        std::cout << "Sending peer: " << hostnameString << ":" << port << "\n";
         std::memcpy(memoryBlock+offset, hostnameString, strlen(hostnameString));
         
         sendTo->doWrite(memoryBlock, 160);
@@ -45,7 +45,7 @@ namespace bamf {
     
     void PeerExecutor::executePacket(Socket * sender, SMSPacket * packet)
     {
-        //std::cout << "Got a gossip request";
+        std::cout << "Got a gossip request";
         for(int i = 0; i < this->_sockets->size(); i++) {
             Socket * socket = (*this->_sockets)[i];
             if(socket == sender) {
