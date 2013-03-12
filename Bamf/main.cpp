@@ -360,14 +360,6 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 
 int main(int argc, char *argv[])
 {
-	bamf::Line<int, float> l(1, 1, 5, 5);
-	
-	bamf::Aabb<int> a(2, 2, 3, 3);
-	
-	l.intersects(a);
-	
-	//return 0;
-
     /*bamf::CollisionRectangle rectangle(glm::vec2(0.0f,0.0f),10.0f,10.0f);
     bamf::CollisionRectangle rectangle2(glm::vec2(5.0f, 0.0f),10.0f,10.0f);
     glm::vec2 tmp = rectangle.checkCollision(&rectangle2);
