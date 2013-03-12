@@ -131,8 +131,9 @@ void Scene::resizeBoundsIfNeeded(bamf::BamfObject * bamf)
 	}
 	
 	if(normPos.y < this->bounds.y) {
+		float diff = this->bounds.y - normPos.y;
 		this->bounds.y = normPos.y;
-		this->bounds.height = (this->bounds.getTop() - this->bounds.y);
+		this->bounds.height += diff;
 		resized = true;
 	}
 	
