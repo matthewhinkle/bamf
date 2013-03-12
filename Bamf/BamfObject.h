@@ -49,11 +49,11 @@ public:
 	inline void onMoveUnsubscribe(uint64_t subscriberId) { this->onMovePublisher.unsubscribe(subscriberId); }
 	
 protected:
+	uint64_t id;
 	bool owned;
 	glm::vec2 position;
 
 private:
-	uint64_t id;
 	EventPublisher<BamfObject *, glm::vec2> onMovePublisher;
 
 	static uint64_t idCounter;

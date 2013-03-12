@@ -29,6 +29,11 @@ CollisionLayer::CollisionLayer(Scene * scene)
 		if(collisionObject) {
 			this->qTree.update(collisionObject, collisionObject->getAabb());
 		}
+		
+		std::unordered_set<CollisionObject *> objects;
+		unsigned count = this->findObjectsIntersectingAabb(aabbFromRect(Rectangle(-400, -418 + 71, 70, 70)), objects);
+		
+		//std::cout << "count = " << objects.size() << std::endl;
 	});
 
 	this->onBoundsResizeId = scene->onBoundsResize([=](Event<Scene *, Rectangle> * e) {
@@ -113,18 +118,9 @@ void CollisionLayer::foreachPair(unsigned dt, const std::function<void (Collisio
 	}
 }
 
-bool CollisionLayer::findObjectsIntersectingObject(BamfObject * bamf, std::vector<CollisionObject *> & objects)
+unsigned CollisionLayer::findObjectsIntersectingAabb(const Aabb<int> & aabb, std::unordered_set<CollisionObject *> & objects)
 {
-	if(!(bamf)) return false;
-
-	return this->findObjectsIntersectingObject(this->getObjectById(bamf->getId()), objects);
-}
-
-bool CollisionLayer::findObjectsIntersectingObject(CollisionObject * collisionObject, std::vector<CollisionObject *> & objects)
-{
-	if(!(collisionObject)) return false;
-	
-	return this->qTree.getObjectsIntersectingAabb(collisionObject->getAabb(), objects) > 0;
+	return this->qTree.getObjectsIntersectingAabb(aabb, objects);
 }
 
 static inline Aabb<int> aabbFromRect(const Rectangle & rect) {

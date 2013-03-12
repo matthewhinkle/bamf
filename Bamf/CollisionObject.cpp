@@ -16,6 +16,7 @@ CollisionObject::CollisionObject(BamfObject * bamf)
 	bamf(bamf),
 	collisionShape(new CollisionRectangle(bamf->getBounds(), bamf->getHotspot()))
 {
+	this->id = bamf->getId();
 	this->getCollisionShape()->setPosition(bamf->getPosition());
 	this->getRigidBody()->setPositon(bamf->getPosition());
 	

@@ -12,6 +12,7 @@
 #include <cassert>
 #include <iterator>
 #include <unordered_map>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -43,7 +44,7 @@ public:
 	
 	inline unsigned getCapacity() const { return this->capacity; }
 	
-	unsigned getObjectsIntersectingAabb(const Aabb<R> & aabb, std::vector<T> & out);
+	unsigned getObjectsIntersectingAabb(const Aabb<R> & aabb, std::unordered_set<T, Hash> & out);
 	
 	void resize(const Aabb<R> & aabb, unsigned capacity = kQuadTreeDefaultCapacity);
 	
@@ -55,7 +56,6 @@ private:
 	void divide();
 	void collapse();
 	void populateWithIntersections(QuadTree<T, R, Hash> * t);
-	void addObjectsIfNotProcessed(QuadTree<T, R, Hash> * t, std::vector<uint64_t> & processed);
 	
 	unsigned getObjectPairsIntersectingAabb(const Aabb<R> & aabb, std::vector<std::pair<T, Aabb<R>>> & out);
 	
@@ -104,7 +104,7 @@ template<
 	typename T,
 	typename R,
 	typename Hash
-> unsigned QuadTree<T, R, Hash>::getObjectsIntersectingAabb(const Aabb<R> & aabb, std::vector<T> & out)
+> unsigned QuadTree<T, R, Hash>::getObjectsIntersectingAabb(const Aabb<R> & aabb, std::unordered_set<T, Hash> & out)
 {
 	if(!(this->aabb.intersects(aabb))) {
 		return 0;
@@ -113,27 +113,28 @@ template<
 	if(!(this->children[kQuadTreeNW])) {
 		assert(!(this->children[kQuadTreeNE] || this->children[kQuadTreeSW] || this->children[kQuadTreeSE]));
 		
+		unsigned int insertions = 0;
 		for(std::pair<T, Aabb<R>> p : this->objects) {
 			if(p.second.intersects(aabb)) {
-				out.push_back(p.first);
+				out.insert(p.first);
+				insertions++;
 			}
 		}
 		
-		return static_cast<unsigned>(this->objects.size());
+		return insertions;
 	}
 	
-	unsigned sum = 0;
-	std::vector<T> objects;
+	std::unordered_set<T, Hash> objects;
 	for(QuadTree<T, R, Hash> * t : this->children) {
 		assert(t);
-		sum += t->getObjectsIntersectingAabb(aabb, objects);
+		t->getObjectsIntersectingAabb(aabb, objects);
 	}
 	
 	for(T object : objects) {
-		out.push_back(object);
+		out.insert(object);
 	}
 	
-	return sum;
+	return static_cast<unsigned>(objects.size());
 }
 
 template<

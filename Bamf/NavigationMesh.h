@@ -21,6 +21,8 @@ public:
 	explicit NavigationMesh(Scene * scene);
 	virtual ~NavigationMesh();
 	
+	void doit();
+	
 	inline const Graph<glm::vec2, float> * getGraph() const { return &this->graph; }
 
 private:

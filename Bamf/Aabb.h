@@ -42,6 +42,8 @@ public:
 		yMax(aabb.yMax)
 	{ }
 	
+	virtual ~Aabb() { }
+	
 	Aabb & operator=(const Aabb & aabb) {
 		T * xMin = const_cast<T *>(&this->xMin);
 		T * yMin = const_cast<T *>(&this->yMin);
@@ -55,14 +57,19 @@ public:
 		
 		return *this;
 	}
-	
-	virtual ~Aabb() { }
 
 	inline bool intersects(const Aabb & aabb) {
 		return !(this->xMax < aabb.xMin
 			  || this->xMin > aabb.xMax
 			  || this->yMax < aabb.yMin
 			  || this->yMin > aabb.yMax);
+	}
+	
+	inline bool isPointOutside(T x, T y) {
+		return x < this->xMin
+		    || x > this->x + this->width
+			|| y < this->y
+			|| y > this->y + this->height;
 	}
 	
 	inline std::pair<T, T> getCenter() const {
