@@ -20,6 +20,7 @@
 #import "PeerExecutor.h"
 #import "PeerConnector.h"
 #import "HostPortSetter.h"
+#import "SyncRequest.h"
 
 #include <stdio.h>
 

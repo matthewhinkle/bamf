@@ -13,6 +13,7 @@
 		277B0C8A16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */; };
 		277B0C8B16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */; };
 		277B0C8D16CDAFD00061BF84 /* BamfObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8C16CDAFD00061BF84 /* BamfObject.cpp */; };
+		27822FC116EEB3A800B4ED0B /* SyncRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27822FBF16EEB3A800B4ED0B /* SyncRequest.cpp */; };
 		2792A2E716DED50400EDAC68 /* NetworkingModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */; };
 		2792A2E816DED50400EDAC68 /* NetworkingModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */; };
 		2792A2EB16DED50400EDAC68 /* PingExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */; };
@@ -243,6 +244,8 @@
 		277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultQuitHandler.cpp; sourceTree = "<group>"; };
 		277B0C8916CD8A320061BF84 /* DefaultQuitHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultQuitHandler.h; sourceTree = "<group>"; };
 		277B0C8C16CDAFD00061BF84 /* BamfObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BamfObject.cpp; sourceTree = "<group>"; };
+		27822FBF16EEB3A800B4ED0B /* SyncRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SyncRequest.cpp; sourceTree = "<group>"; };
+		27822FC016EEB3A800B4ED0B /* SyncRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncRequest.h; sourceTree = "<group>"; };
 		2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkingModule.cpp; sourceTree = "<group>"; };
 		2792A2DC16DED50400EDAC68 /* NetworkingModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingModule.h; sourceTree = "<group>"; };
 		2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PingExecutor.cpp; sourceTree = "<group>"; };
@@ -766,8 +769,8 @@
 			isa = PBXGroup;
 			children = (
 				2792A2FA16DF175000EDAC68 /* executor */,
-				2792A2F216DED56700EDAC68 /* SMSPacketDispatcher.cpp */,
 				2792A2F316DED56700EDAC68 /* SMSPacketDispatcher.h */,
+				2792A2F216DED56700EDAC68 /* SMSPacketDispatcher.cpp */,
 				2792A2F116DED52900EDAC68 /* IFixedLengthPacket.h */,
 				2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */,
 				2792A2DC16DED50400EDAC68 /* NetworkingModule.h */,
@@ -794,6 +797,8 @@
 				27CAE49716EC37210082FE15 /* PeerConnector.h */,
 				27CAE49916EC57FE0082FE15 /* HostPortSetter.cpp */,
 				27CAE49A16EC57FF0082FE15 /* HostPortSetter.h */,
+				27822FBF16EEB3A800B4ED0B /* SyncRequest.cpp */,
+				27822FC016EEB3A800B4ED0B /* SyncRequest.h */,
 			);
 			name = executor;
 			sourceTree = "<group>";
@@ -1805,6 +1810,7 @@
 				27CAE49516EC13F50082FE15 /* PeerExecutor.cpp in Sources */,
 				27CAE49816EC37220082FE15 /* PeerConnector.cpp in Sources */,
 				27CAE49B16EC57FF0082FE15 /* HostPortSetter.cpp in Sources */,
+				27822FC116EEB3A800B4ED0B /* SyncRequest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

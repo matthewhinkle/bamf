@@ -28,11 +28,12 @@ namespace bamf {
         this->dispatch->registerPacket(new PeerExecutor(this->sockets));
         this->dispatch->registerPacket(new PeerConnector(this->sockets));
         this->dispatch->registerPacket(new HostPortSetter());
+        this->dispatch->registerPacket(new SyncRequest(this->_core));
         //first setup our server socket
         this->serverSocket = new ServerSocket(ServerSocket(IPV4, TCP, false));
         this->serverSocket->doBind(0);
         this->serverSocket->doListen();
-        //std::cout << "Listening for conncetions on port: " << this->serverSocket->boundPort() << "\n";
+        std::cout << "Listening for conncetions on port: " << this->serverSocket->boundPort() << "\n";
         this->_hasInited = true;
     }
     
@@ -60,7 +61,7 @@ namespace bamf {
         //BamfObject * object = _core->getSceneManager()->getCurrentScene()->getObjectById(0);
         //packet = UpdateExecutor::toPacket(_core->getSceneManager()->getCurrentScene(), object);
         if(packet != NULL) {
-            //std::cout << "Attempting to send packet updates!!!\n";
+            std::cout << "Attempting to send packet updates!!!\n";
             for(int i = 0; i < this->sockets->size(); i++) {
                 Socket * socket = (*this->sockets)[i];
                 socket->doWrite(packet->asMemoryBlock(), packet->getLength());
@@ -81,7 +82,7 @@ namespace bamf {
         //connect
         bamf::Socket * client = new bamf::Socket(IPV4, TCP, false);
         if(!client->doConnect(hostname, port)) {
-            //std::cout << "Error connecting to seeding peer! aborting.";
+            std::cout << "Error connecting to seeding peer! aborting.";
             exit(1);
         }
         this->sockets->push_back(client);
@@ -114,6 +115,32 @@ namespace bamf {
         
         //wait for responses
         bool done = false;
+        while(!done) {
+            if(client->bytesAvailable() < 160) {
+                continue;
+            }
+            void * memoryBlock = calloc(160,sizeof(char));
+            client->doRead(memoryBlock, 160);
+            SMSPacket * packet = (SMSPacket *) this->templatePacket->fromMemoryBlock(memoryBlock);
+            done = packet->byteAt(0) == 'D';
+            this->dispatch->dispactPacket(client, packet);
+        }
+        
+        //now we have a full connected state (a connection to each client) and we should request a sync of the game state
+        
+        //send the request sync packet
+        memoryBlock = (char *)calloc(160, sizeof(char));
+        offset = 0;
+        
+        header = 's';
+        std::memcpy(memoryBlock+offset, &header, sizeof(char));
+        offset += sizeof(char);
+        
+        client->doWrite(memoryBlock, 160);
+        delete memoryBlock;
+        
+        //wait for the response
+        done = false;
         while(!done) {
             if(client->bytesAvailable() < 160) {
                 continue;
