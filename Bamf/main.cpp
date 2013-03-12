@@ -45,6 +45,9 @@
 #include "QuadTree.h"
 #include "SMSPacket.h"
 
+#include "Line.h"
+#include "NavigationMesh.h"
+
 bamf::Scene * scene;
 
 class MoveCameraAction : public bamf::Action
@@ -194,14 +197,13 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 	bamf::Sprite * ground = new bamf::Sprite("Resources/art/ground.png");
 	
 	ground->load(man);
-	
-	/**
 	for(int i = -700; i < 700; i += ground->getBounds().width - 1) {
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(i, -418));
 		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
 	}
 	
+	/**
 	bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 	groundObject->setPosition(glm::vec2(-544, -418));
 	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
@@ -356,6 +358,14 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 
 int main(int argc, char *argv[])
 {
+	bamf::Line<int, float> l(1, 1, 5, 5);
+	
+	bamf::Aabb<int> a(2, 2, 3, 3);
+	
+	l.intersects(a);
+	
+	//return 0;
+
     /*bamf::CollisionRectangle rectangle(glm::vec2(0.0f,0.0f),10.0f,10.0f);
     bamf::CollisionRectangle rectangle2(glm::vec2(5.0f, 0.0f),10.0f,10.0f);
     glm::vec2 tmp = rectangle.checkCollision(&rectangle2);
