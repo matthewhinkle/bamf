@@ -30,10 +30,19 @@ CollisionLayer::CollisionLayer(Scene * scene)
 			this->qTree.update(collisionObject, collisionObject->getAabb());
 		}
 		
-		std::unordered_set<CollisionObject *> objects;
-		unsigned count = this->findObjectsIntersectingAabb(aabbFromRect(Rectangle(-400, -418 + 71, 70, 70)), objects);
+		glm::vec2 pos = collisionObject->getPosition();
 		
-		//std::cout << "count = " << objects.size() << std::endl;
+		std::unordered_set<CollisionObject *> objects;
+		objects.clear();
+		unsigned count = this->qTree.getObjectsIntersectingLine(Line<int>(pos.x, pos.y, pos.x + 500.0f, pos.y), objects);
+		
+		if(objects.empty()) {
+			//std::cout << "empty" << std::endl;
+		}
+		
+		for(CollisionObject * obj : objects) {
+			std::cout << "collide = " << obj->getPosition().x << ", " << obj->getPosition().y << std::endl;
+		}
 	});
 
 	this->onBoundsResizeId = scene->onBoundsResize([=](Event<Scene *, Rectangle> * e) {

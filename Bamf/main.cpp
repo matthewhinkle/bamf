@@ -209,6 +209,8 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
 		groundObject->setPosition(glm::vec2(i, -418));
 		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+		bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(groundObject->getId());
+        collisionObject->getCollisionShape()->setIsStatic(true);
 	}
 	
 	/**
@@ -445,7 +447,7 @@ int main(int argc, char *argv[])
     inputManager.setInputMapping(&inputMapping);
 	gameLoop->addModule(&inputManager);
 #if 0
-    networking->initializeNetworkGame("localhost", 57109);
+    networking->initializeNetworkGame("10.0.0.51", 58968);
 #endif
     gameLoop->addModule(networking);
     

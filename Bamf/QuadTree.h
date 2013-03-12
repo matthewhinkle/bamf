@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "Aabb.h"
+#include "Line.h"
 
 namespace bamf {
 
@@ -45,6 +46,7 @@ public:
 	inline unsigned getCapacity() const { return this->capacity; }
 	
 	unsigned getObjectsIntersectingAabb(const Aabb<R> & aabb, std::unordered_set<T, Hash> & out);
+	unsigned getObjectsIntersectingLine(const Line<R> & line, std::unordered_set<T, Hash> & out);
 	
 	void resize(const Aabb<R> & aabb, unsigned capacity = kQuadTreeDefaultCapacity);
 	
@@ -113,7 +115,7 @@ template<
 	if(!(this->children[kQuadTreeNW])) {
 		assert(!(this->children[kQuadTreeNE] || this->children[kQuadTreeSW] || this->children[kQuadTreeSE]));
 		
-		unsigned int insertions = 0;
+		unsigned insertions = 0;
 		for(std::pair<T, Aabb<R>> p : this->objects) {
 			if(p.second.intersects(aabb)) {
 				out.insert(p.first);
@@ -133,6 +135,41 @@ template<
 	for(T object : objects) {
 		out.insert(object);
 	}
+	
+	return static_cast<unsigned>(objects.size());
+}
+
+template<
+	typename T,
+	typename R,
+	typename Hash
+> unsigned QuadTree<T, R, Hash>::getObjectsIntersectingLine(const Line<R> & line, std::unordered_set<T, Hash> & out)
+{
+	if(!(line.intersects(this->aabb))) {
+		return 0;
+	}
+	
+	if(!(this->children[kQuadTreeNW])) {
+		assert(!(this->children[kQuadTreeNE] || this->children[kQuadTreeSW] || this->children[kQuadTreeSE]));
+		
+		unsigned insertions = 0;
+		for(std::pair<T, Aabb<R>> p : this->objects) {
+			if(line.intersects(p.second)) {
+				out.insert(p.first);
+				insertions++;
+			}
+		}
+		
+		return insertions;
+	}
+	
+	std::unordered_set<T, Hash> objects;
+	for(QuadTree<T, R, Hash> * t : this->children) {
+		assert(t);
+		t->getObjectsIntersectingLine(line, objects);
+	}
+	
+	out.insert(objects.begin(), objects.end());
 	
 	return static_cast<unsigned>(objects.size());
 }
@@ -161,6 +198,8 @@ template<
 	for(std::pair<T, Aabb<R>> p : pairs) {
 		this->insert(p.first, p.second);
 	}
+	
+	std::cout << "return" << std::endl;
 }
 
 template<
