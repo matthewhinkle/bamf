@@ -24,7 +24,7 @@ namespace bamf {
     {
 #if 1
         char * message = (char *)packet->asMemoryBlock();
-        //std::cout << "Incoming packet:" << message << "\n";
+        std::cout << "Incoming packet:" << message << "\n";
 #endif
         for(int i = 0; i < this->executors->size(); i++) {
             SMSPacketExecutor * e = (*this->executors)[i];

@@ -1,4 +1,4 @@
-    //
+//
 //  InputMapping.cpp
 //  Bamf
 //

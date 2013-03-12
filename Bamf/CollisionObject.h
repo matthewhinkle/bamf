@@ -17,7 +17,7 @@
 
 namespace bamf {
 
-class CollisionObject : BamfObject {
+class CollisionObject : public BamfObject {
 public:
 
 	CollisionObject(BamfObject * bamf);
