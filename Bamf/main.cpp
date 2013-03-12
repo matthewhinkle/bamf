@@ -223,6 +223,7 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
 	//pw->addObject(groundObject->getCollisionShape());
 	
+    /*
 	bamf::Sprite * water = new bamf::Sprite("Resources/art/water.png");
 	water->load(man);
 	for(int i = -476; i < -340; i += water->getBounds().width - 1) {
@@ -238,19 +239,23 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
         bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(groundObject->getId());
         collisionObject->getCollisionShape()->setIsStatic(true);
 	}
+     */
 	
+    /*
 	bamf::Sprite * spikes = new bamf::Sprite("Resources/art/spikes.png");
 	spikes->load(man);
 	bamf::SpriteObject * spikesObject = new bamf::SpriteObject(spikes);
 	spikesObject->setPosition(glm::vec2(146, -386));
 	scene->addObjectWithZValue(spikesObject, bamf::Scene::kForegroundMidLayer);
     //pw->addObject(spikesObject->getCollisionShape());
-	
-	groundObject = new bamf::SpriteObject(ground);
+	*/
+	/*groundObject = new bamf::SpriteObject(ground);
 	groundObject->setPosition(glm::vec2(216, -418));
 	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
     //pw->addObject(groundObject->getCollisionShape());
+     */
 	
+    /*
 	spikesObject = new bamf::SpriteObject(spikes);
 	spikesObject->setPosition(glm::vec2(286, -386));
 	scene->addObjectWithZValue(spikesObject, bamf::Scene::kForegroundMidLayer);
@@ -363,6 +368,7 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 	background->setHotspot(background->getBounds().getCenter());
 	bamf::SpriteObject * backgroundObject = new bamf::SpriteObject(background);
 	scene->addObjectWithZValue(backgroundObject, bamf::Scene::kBackgroundLayer);
+     */
 	
 	return scene;
 }
