@@ -145,7 +145,7 @@ template<
 	typename Hash
 > unsigned QuadTree<T, R, Hash>::getObjectsIntersectingLine(const Line<R> & line, std::unordered_set<T, Hash> & out)
 {
-	if(!(line.intersects(this->aabb))) {
+	if(!(line.intersects(this->aabb, false))) {
 		return 0;
 	}
 	

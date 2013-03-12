@@ -18,7 +18,6 @@ static inline Aabb<int> aabbFromRect(const Rectangle & rect);
 
 CollisionLayer::CollisionLayer(Scene * scene)
 	:
-	SceneLayer(),
 	scene(scene),
 	objectById(),
 	aabb(aabbFromRect(scene->getBounds())),
@@ -34,7 +33,7 @@ CollisionLayer::CollisionLayer(Scene * scene)
 		
 		std::unordered_set<CollisionObject *> objects;
 		objects.clear();
-		unsigned count = this->qTree.getObjectsIntersectingLine(Line<int>(pos.x, pos.y, pos.x + 500.0f, pos.y), objects);
+		unsigned count = this->qTree.getObjectsIntersectingLine(Line<int>(pos.x + 40, pos.y + 70, pos.x + 140, pos.y + 1), objects);
 		
 		if(objects.empty()) {
 			//std::cout << "empty" << std::endl;
@@ -46,6 +45,8 @@ CollisionLayer::CollisionLayer(Scene * scene)
 	});
 
 	this->onBoundsResizeId = scene->onBoundsResize([=](Event<Scene *, Rectangle> * e) {
+		std::cout << "rect = " << e->getMessage().x << ", " << e->getMessage().y << ", " << e->getMessage().width << ", " << e->getMessage().height << std::endl;
+	
 		this->aabb = aabbFromRect(e->getMessage());
 		this->qTree.resize(this->aabb);
 	});

@@ -43,7 +43,7 @@ public:
 	void update(unsigned dt);
 	void draw(SpriteStream * spriteStream, unsigned dt);
 	
-	inline CollisionLayer * getCollisionLayer() { return &this->collisionLayer; }
+	inline CollisionLayer * getCollisionLayer() { return this->collisionLayer; }
 	
 	inline uint64_t onObjectMove(const std::function<void (Event<Scene *, BamfObject *> *)> & doFunc) { return this->onObjectMovePublisher.subscribe(doFunc); }
 	inline void onObjectMoveUnsubscribe(uint64_t subscriberId) { this->onObjectMovePublisher.unsubscribe(subscriberId); }
@@ -68,7 +68,7 @@ private:
 	EventPublisher<Scene *, BamfObject *> onObjectMovePublisher;
 	EventPublisher<Scene *, Rectangle> onBoundsResizePublisher;
 	
-	CollisionLayer collisionLayer;
+	CollisionLayer * collisionLayer;
 	Rectangle bounds;
 	
 	Scene(const Scene &);

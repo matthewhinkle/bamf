@@ -45,15 +45,10 @@ public:
 	virtual ~Aabb() { }
 	
 	Aabb & operator=(const Aabb & aabb) {
-		T * xMin = const_cast<T *>(&this->xMin);
-		T * yMin = const_cast<T *>(&this->yMin);
-		T * xMax = const_cast<T *>(&this->xMax);
-		T * yMax = const_cast<T *>(&this->yMax);
-	
-		*xMin = aabb.xMin;
-		*yMin = aabb.yMin;
-		*xMax = aabb.xMax;
-		*yMax = aabb.yMax;
+		this->xMin = aabb.xMin;
+		this->yMin = aabb.yMin;
+		this->xMax = aabb.xMax;
+		this->yMax = aabb.yMax;
 		
 		return *this;
 	}
@@ -74,10 +69,10 @@ public:
 	inline T getWidth() const { return this->xMax - this->xMin; }
 	inline T getHeight() const { return this->yMax - this->yMin; }
 
-	const T xMin;
-	const T yMin;
-	const T xMax;
-	const T yMax;
+	T xMin;
+	T yMin;
+	T xMax;
+	T yMax;
 };
 
 }

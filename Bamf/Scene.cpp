@@ -20,11 +20,12 @@ const unsigned Scene::kHudLayer = 999;
 
 Scene::Scene()
 	:
-	bounds(),
-	collisionLayer(this),
+	bounds(Rectangle(0, 0, 0, 0)),
 	onObjectMovePublisher(this),
 	onBoundsResizePublisher(this)
-{ }
+{
+	this->collisionLayer = new CollisionLayer(this);
+}
 
 Scene::~Scene()
 {
@@ -58,7 +59,7 @@ void Scene::addObjectWithZValue(BamfObject * bamf, unsigned layerZValue, bool co
 		this->resizeBoundsIfNeeded(bamf);
 		
 		if(collidable) {
-			this->collisionLayer.addObject(bamf);
+			this->collisionLayer->addObject(bamf);
 		}
 	}
 }
@@ -123,24 +124,27 @@ void Scene::resizeBoundsIfNeeded(bamf::BamfObject * bamf)
 	
 	bool resized = false;
 	if(normPos.x < this->bounds.x) {
-		this->bounds.x = normPos.x - 1;
+		float diff = this->bounds.x - normPos.x;
+		this->bounds.x = normPos.x;
+		this->bounds.width += diff;
 		resized = true;
 	}
 	
 	if(normPos.y < this->bounds.y) {
-		this->bounds.y = normPos.y + 1;
+		this->bounds.y = normPos.y;
+		this->bounds.height = (this->bounds.getTop() - this->bounds.y);
 		resized = true;
 	}
 	
 	const int right = static_cast<int>(normPos.x) + bounds.width;
 	if(right > this->bounds.getRight()) {
-		this->bounds.width = (right - this->bounds.x) + 1;
+		this->bounds.width = (right - this->bounds.x);
 		resized = true;
 	}
 	
 	const int top = static_cast<int>(normPos.y) + bounds.height;
 	if(top > this->bounds.getTop()) {
-		this->bounds.height = (top - this->bounds.y) + 1;
+		this->bounds.height = (top - this->bounds.y);
 		resized = true;
 	}
 	
