@@ -45,7 +45,7 @@ CollisionLayer::CollisionLayer(Scene * scene)
 	});
 
 	this->onBoundsResizeId = scene->onBoundsResize([=](Event<Scene *, Rectangle> * e) {
-		std::cout << "rect = " << e->getMessage().x << ", " << e->getMessage().y << ", " << e->getMessage().width << ", " << e->getMessage().height << std::endl;
+		//std::cout << "rect = " << e->getMessage().x << ", " << e->getMessage().y << ", " << e->getMessage().width << ", " << e->getMessage().height << std::endl;
 	
 		this->aabb = aabbFromRect(e->getMessage());
 		this->qTree.resize(this->aabb);
