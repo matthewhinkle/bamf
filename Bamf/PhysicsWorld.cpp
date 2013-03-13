@@ -81,7 +81,7 @@ namespace bamf {
 				}
                 if(!b->getCollisionShape()->getIsStatic()) {
                     jBody->setLinearVeloctiy(jBody->getLinearVeloctiy()+deltaV2);
-					jBody->setPositon(jBody->getPosition() + mtv);
+					jBody->setPositon(jBody->getPosition() - mtv);
 				}
                 a->getCollisionShape()->setPosition(iBody->getPosition());
                 b->getCollisionShape()->setPosition(jBody->getPosition());
