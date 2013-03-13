@@ -15,6 +15,12 @@ SpriteObject::SpriteObject(Sprite * sprite, bool owned)
 	sprite(sprite),
 	bamf::BamfObject(owned)
 { }
+    
+SpriteObject::SpriteObject(Sprite * sprite, u_int64_t id, bool owned)
+:
+sprite(sprite),
+bamf::BamfObject(id, owned)
+{ }
 
 SpriteObject::~SpriteObject() { }
 

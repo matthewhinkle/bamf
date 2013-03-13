@@ -21,6 +21,7 @@ class SpriteObject : public BamfObject {
 public:
 
 	explicit SpriteObject(Sprite * sprite, bool owned = false);
+    explicit SpriteObject(Sprite * sprite, u_int64_t id, bool owned = false);
 	virtual ~SpriteObject();
 	
 	inline const glm::vec2 & getHotspot() const { return this->sprite->getHotspot(); }

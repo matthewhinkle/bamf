@@ -17,6 +17,7 @@
 #include "SpriteObject.h"
 #include "CoreModule.h"
 #include "CollisionRectangle.h"
+#include "WhoIs.h"
 
 namespace bamf {
     
@@ -32,7 +33,6 @@ namespace bamf {
         void executePacket(Socket * sender, SMSPacket * packet);
         
         static SMSPacket * toPacket(Scene * scene, BamfObject * object);
-        BamfObject * fromPacket(SMSPacket * packet);
         
         static void test(BamfObject * object)
         {

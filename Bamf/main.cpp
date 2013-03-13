@@ -410,24 +410,23 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 
 int main(int argc, char *argv[])
 {
+    srand (time(NULL));
     /*bamf::CollisionRectangle rectangle(glm::vec2(0.0f,0.0f),10.0f,10.0f);
     bamf::CollisionRectangle rectangle2(glm::vec2(5.0f, 0.0f),10.0f,10.0f);
     glm::vec2 tmp = rectangle.checkCollision(&rectangle2);
     std:: cout << "collision: (" << tmp.x << ", " << tmp.y <<") \n";
     tmp = rectangle2.checkCollision(&rectangle);
     std:: cout << "collision2: (" << tmp.x << ", " << tmp.y <<") \n";*/
-	bamf::ResourceManager man;
+	bamf::ResourceManager * man = bamf::ResourceManager::getInstance();
 	bamf::Sprite sprite("Resources/art/character/front.png");
-	sprite.load(man);
+	sprite.load(*man);
 	sprite.setHotspot(sprite.getBounds().getCenter());
-	bamf::SpriteObject spriteSprite(&sprite);
-    
-    //std::cout << "Created man with oid: " << spriteSprite.getId() << "\n";
+	bamf::SpriteObject spriteSprite(&sprite, true); 
 	
     bamf::PhysicsWorld pw;
     pw.setGravity(glm::vec2(0,-.0001));
     
-	scene = createScene(man, &pw);
+	scene = createScene(*man, &pw);
 	scene->addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
     
 	bamf::SynchronousGameLoop * gameLoop = new bamf::SynchronousGameLoop();

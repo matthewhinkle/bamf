@@ -26,6 +26,7 @@ class BamfObject : public Updateable, public Drawable {
 public:
 
 	explicit BamfObject(bool owned = false);
+    explicit BamfObject(u_int64_t id, bool owned = false);
 	virtual ~BamfObject();
     
 	inline uint64_t getId() const { return this->id; }

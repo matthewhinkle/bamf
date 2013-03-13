@@ -29,11 +29,13 @@ namespace bamf {
         this->dispatch->registerPacket(new PeerConnector(this->sockets));
         this->dispatch->registerPacket(new HostPortSetter());
         this->dispatch->registerPacket(new SyncRequest(this->_core));
+        this->dispatch->registerPacket(new WhoIs(this->_core));
+        this->dispatch->registerPacket(new WhoIsExecutor(this->_core));
         //first setup our server socket
         this->serverSocket = new ServerSocket(ServerSocket(IPV4, TCP, false));
         this->serverSocket->doBind(0);
         this->serverSocket->doListen();
-        //std::cout << "Listening for conncetions on port: " << this->serverSocket->boundPort() << "\n";
+        std::cout << "Listening for conncetions on port: " << this->serverSocket->boundPort() << "\n";
         this->_hasInited = true;
     }
     

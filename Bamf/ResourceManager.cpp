@@ -10,7 +10,24 @@
 #include <stdio.h>
 
 namespace bamf {
+    
+bool ResourceManager::instanceFlag = false;
+ResourceManager * ResourceManager::instance = NULL;
 
+ResourceManager *  ResourceManager::getInstance()
+{
+    if(! instanceFlag)
+    {
+        instance = new ResourceManager();
+        instanceFlag = true;
+        return instance;
+    }
+    else
+    {
+        return instance;
+    }
+}
+    
 ResourceManager::ResourceManager()
 	:
 	mutex(SDL_CreateMutex())
