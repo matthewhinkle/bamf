@@ -75,11 +75,14 @@ namespace bamf {
                 //std::cout << "impVec: (" << impVec.x << ", " << impVec.y << ") \n";
                 glm::vec2 deltaV1 = impVec/iBody->getMass();
                 glm::vec2 deltaV2 = -impVec/jBody->getMass();
-                if(!a->getCollisionShape()->getIsStatic())
+                if(!a->getCollisionShape()->getIsStatic()) {
                     iBody->setLinearVeloctiy(iBody->getLinearVeloctiy()+deltaV1);
-                if(!b->getCollisionShape()->getIsStatic())
+					iBody->setPositon(iBody->getPosition() + mtv);
+				}
+                if(!b->getCollisionShape()->getIsStatic()) {
                     jBody->setLinearVeloctiy(jBody->getLinearVeloctiy()+deltaV2);
-                iBody->setPositon(iBody->getPosition() + mtv);
+					jBody->setPositon(jBody->getPosition() + mtv);
+				}
                 a->getCollisionShape()->setPosition(iBody->getPosition());
                 b->getCollisionShape()->setPosition(jBody->getPosition());
             }
