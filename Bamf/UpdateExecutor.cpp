@@ -57,9 +57,9 @@ namespace bamf {
         offset += sizeof(velocityY);
         
         for(int i = 0; i < 160; i++) {
-            std::cout << memoryBlock[i];
+            //std::cout << memoryBlock[i];
         }
-        std::cout << "\n";
+        //std::cout << "\n";
         
         return new SMSPacket(memoryBlock);
     }

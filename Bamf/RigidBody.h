@@ -50,7 +50,6 @@ private:
     float angularVelocity;
     float mass;
     bool affectedByGravity;
-    int count = 0;
 };
 }
 #endif /* defined(__Bamf__RigidBody__) */

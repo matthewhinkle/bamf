@@ -33,7 +33,7 @@ namespace bamf {
         this->serverSocket = new ServerSocket(ServerSocket(IPV4, TCP, false));
         this->serverSocket->doBind(0);
         this->serverSocket->doListen();
-        std::cout << "Listening for conncetions on port: " << this->serverSocket->boundPort() << "\n";
+        //std::cout << "Listening for conncetions on port: " << this->serverSocket->boundPort() << "\n";
         this->_hasInited = true;
     }
     
@@ -61,7 +61,7 @@ namespace bamf {
         //BamfObject * object = _core->getSceneManager()->getCurrentScene()->getObjectById(0);
         //packet = UpdateExecutor::toPacket(_core->getSceneManager()->getCurrentScene(), object);
         if(packet != NULL) {
-            std::cout << "Attempting to send packet updates!!!\n";
+            //std::cout << "Attempting to send packet updates!!!\n";
             for(int i = 0; i < this->sockets->size(); i++) {
                 Socket * socket = (*this->sockets)[i];
                 socket->doWrite(packet->asMemoryBlock(), packet->getLength());

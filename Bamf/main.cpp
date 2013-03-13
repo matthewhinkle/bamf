@@ -212,17 +212,54 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 		bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(groundObject->getId());
 		collisionObject->getCollisionShape()->setIsStatic(true);
 	}
+    
+    /*for(int i = -350; i < 700; i += ground->getBounds().width - 1) {
+		bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
+		groundObject->setPosition(glm::vec2(-500, i));
+		scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+		bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(groundObject->getId());
+		collisionObject->getCollisionShape()->setIsStatic(true);
+	}*/
 	
 	bamf::SpriteObject * groundObject = new bamf::SpriteObject(ground);
-	groundObject->setPosition(glm::vec2(-544, -418));
+	groundObject->setPosition(glm::vec2(-70, -200));
 	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+    bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(groundObject->getId());
+    //collisionObject->getCollisionShape()->setIsStatic(true);
+    
+    groundObject = new bamf::SpriteObject(ground);
+	groundObject->setPosition(glm::vec2(-70, -100));
+	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+    collisionObject = scene->getCollisionLayer()->getObjectById(groundObject->getId());
+    
+    groundObject = new bamf::SpriteObject(ground);
+	groundObject->setPosition(glm::vec2(0, 100));
+	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+    collisionObject = scene->getCollisionLayer()->getObjectById(groundObject->getId());
+    
+    groundObject = new bamf::SpriteObject(ground);
+	groundObject->setPosition(glm::vec2(0, 150));
+	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+    collisionObject = scene->getCollisionLayer()->getObjectById(groundObject->getId());
 	//pw->addObject(groundObject->getCollisionShape());
 	
 	groundObject = new bamf::SpriteObject(ground);
-	groundObject->setPosition(glm::vec2(564, -418));
+	groundObject->setPosition(glm::vec2(0, -200));
 	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+    collisionObject = scene->getCollisionLayer()->getObjectById(groundObject->getId());
+    collisionObject->getCollisionShape()->setIsStatic(true);
 	//pw->addObject(groundObject->getCollisionShape());
 	
+    groundObject = new bamf::SpriteObject(ground);
+	groundObject->setPosition(glm::vec2(-535, -350));
+	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+    collisionObject = scene->getCollisionLayer()->getObjectById(groundObject->getId());
+    groundObject = new bamf::SpriteObject(ground);
+    collisionObject->getCollisionShape()->setIsStatic(true);
+	groundObject->setPosition(glm::vec2(535, -350));
+	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+    collisionObject = scene->getCollisionLayer()->getObjectById(groundObject->getId());
+    collisionObject->getCollisionShape()->setIsStatic(true);
     /*
 	bamf::Sprite * water = new bamf::Sprite("Resources/art/water.png");
 	water->load(man);
@@ -249,9 +286,9 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 	scene->addObjectWithZValue(spikesObject, bamf::Scene::kForegroundMidLayer);
     //pw->addObject(spikesObject->getCollisionShape());
 	*/
-	groundObject = new bamf::SpriteObject(ground);
+	/*groundObject = new bamf::SpriteObject(ground);
 	groundObject->setPosition(glm::vec2(216, -418));
-	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);
+	scene->addObjectWithZValue(groundObject, bamf::Scene::kForegroundMidLayer);*/
 	
     /*
 	spikesObject = new bamf::SpriteObject(spikes);
@@ -392,9 +429,7 @@ int main(int argc, char *argv[])
     
 	scene = createScene(man, &pw);
 	scene->addObjectWithZValue(&spriteSprite, bamf::Scene::kForegroundMidLayer);
-	bamf::CollisionObject * collisionObject = scene->getCollisionLayer()->getObjectById(spriteSprite.getId());
-	//collisionObject->getRigidBody()->setForce(glm::vec2(0, -0.0001));
-	
+    
 	bamf::SynchronousGameLoop * gameLoop = new bamf::SynchronousGameLoop();
 	bamf::CoreModule * core = gameLoop->getCoreModule();
 	bamf::SceneManager * sm = core->getSceneManager();
@@ -402,7 +437,7 @@ int main(int argc, char *argv[])
 	
 	bamf::InputMapping inputMapping;
 
-    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_w, &spriteSprite, 0, 1));
+    inputMapping.addKeyMapping(new MoveActorButtons(SDLK_w, &spriteSprite, 0, .1));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_d, &spriteSprite, .1, 0));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_s, &spriteSprite, 0, -.1));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_a, &spriteSprite, -.1, 0));
