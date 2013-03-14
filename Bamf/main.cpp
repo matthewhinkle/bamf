@@ -411,12 +411,23 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 int main(int argc, char *argv[])
 {
     srand (time(NULL));
+    
     /*bamf::CollisionRectangle rectangle(glm::vec2(0.0f,0.0f),10.0f,10.0f);
-    bamf::CollisionRectangle rectangle2(glm::vec2(5.0f, 0.0f),10.0f,10.0f);
-    glm::vec2 tmp = rectangle.checkCollision(&rectangle2);
+     bamf::CollisionRectangle rectangle2(glm::vec2(5.0f, 0.0f),10.0f,10.0f);
+     glm::vec2 tmp = rectangle.checkCollision(&rectangle2);
+
+     bamf::CollisionShape * rectangle = new bamf::CollisionRectangle(glm::vec2(0.0f,0.0f),10.0f,10.0f);
+     bamf::CollisionShape * rectangle2 = new bamf::CollisionRectangle(glm::vec2(5.0f, 0.0f),10.0f,10.0f);
+     bamf::CollisionShape * circle = new bamf::CollisionCircle(glm::vec2(0.0f, 0.0f),10.0f);
+     
+     rectangle->checkCollision(rectangle2);
+     rectangle->checkCollision(circle);
+     circle->checkCollision(rectangle2);
+     circle->checkCollision(circle);
     std:: cout << "collision: (" << tmp.x << ", " << tmp.y <<") \n";
-    tmp = rectangle2.checkCollision(&rectangle);
+    tmp = rectangle2->checkCollision(rectangle);
     std:: cout << "collision2: (" << tmp.x << ", " << tmp.y <<") \n";*/
+    
 	bamf::ResourceManager * man = bamf::ResourceManager::getInstance();
 	bamf::Sprite sprite("Resources/art/character/front.png");
 	sprite.load(*man);

@@ -12,18 +12,20 @@
 #include <iostream>
 #include "glm.hpp"
 #include "CollisionShape.h"
+#include "CollisionRectangle.h"
 
 namespace bamf {
     class CollisionCircle : public CollisionShape {
     public:
         CollisionCircle(glm::vec2 p, int r);
-        ~CollisionCircle();
-        bool checkCollision(CollisionCircle & c);
-        //glm::vec2 getPosition();
-        //void setPosition(glm::vec2);
+        //virtual ~CollisionCircle();
+        bool checkCollision(CollisionShape * s);
+        glm::vec2 getPosition();
+        void setPosition(glm::vec2);
     protected:
         
     private:
+        glm::vec2 position;
         int radius;
     };
 }
