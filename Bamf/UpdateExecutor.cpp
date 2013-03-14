@@ -7,11 +7,13 @@
 //
 
 #include "UpdateExecutor.h"
+#include "NetworkingModule.h"
 
 namespace bamf {
 
-    UpdateExecutor::UpdateExecutor(CoreModule * core)
-    : _core(core)
+    UpdateExecutor::UpdateExecutor(CoreModule * core, NetworkingModule * networking)
+    : _core(core),
+    _module(networking)
     {
         
     }

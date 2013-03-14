@@ -37,10 +37,10 @@ namespace bamf {
         std::cout << "Got information about a new object: " << id << " (" << resourceName << ")" << "\n";
         
         bamf::ResourceManager * man = bamf::ResourceManager::getInstance();
-        bamf::Sprite sprite(resourceName);
-        sprite.load(*man);
-        sprite.setHotspot(sprite.getBounds().getCenter());
-        bamf::SpriteObject * spriteSprite = new bamf::SpriteObject(&sprite, id, false);
+        bamf::Sprite * sprite = new bamf::Sprite(resourceName);
+        sprite->load(*man);
+        sprite->setHotspot(sprite->getBounds().getCenter());
+        bamf::SpriteObject * spriteSprite = new bamf::SpriteObject(sprite, id, false);
         _core->getSceneManager()->getCurrentScene()->addObjectWithZValue(spriteSprite, bamf::Scene::kForegroundMidLayer);
     }
     

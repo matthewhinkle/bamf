@@ -26,14 +26,14 @@ CollisionLayer::CollisionLayer(Scene * scene)
 	this->onObjectMoveId = scene->onObjectMove([=](Event<Scene *, BamfObject *> * e) {
 		CollisionObject * collisionObject = this->getObjectById(e->getMessage()->getId());
 		if(collisionObject) {
-			this->qTree.update(collisionObject, collisionObject->getAabb());
+			//this->qTree.update(collisionObject, collisionObject->getAabb());
 		}
 		
 		glm::vec2 pos = collisionObject->getPosition();
 		
 		std::unordered_set<CollisionObject *> objects;
 		objects.clear();
-		unsigned count = this->qTree.getObjectsIntersectingLine(Line<int>(pos.x + 40, pos.y + 70, pos.x + 140, pos.y + 1), objects);
+		//unsigned count = this->qTree.getObjectsIntersectingLine(Line<int>(pos.x + 40, pos.y + 70, pos.x + 140, pos.y + 1), objects);
 		
 		if(objects.empty()) {
 			//std::cout << "empty" << std::endl;
@@ -48,7 +48,7 @@ CollisionLayer::CollisionLayer(Scene * scene)
 		//std::cout << "rect = " << e->getMessage().x << ", " << e->getMessage().y << ", " << e->getMessage().width << ", " << e->getMessage().height << std::endl;
 	
 		this->aabb = aabbFromRect(e->getMessage());
-		this->qTree.resize(this->aabb);
+		//this->qTree.resize(this->aabb);
 	});
 }
 
@@ -76,7 +76,7 @@ void CollisionLayer::addObject(BamfObject * bamf)
 	CollisionObject * collisionObject = new CollisionObject(bamf);
 	this->objectById.insert(std::pair<uint64_t, CollisionObject *>(bamf->getId(), collisionObject));
 	
-	this->qTree.insert(collisionObject, collisionObject->getAabb());
+	//this->qTree.insert(collisionObject, collisionObject->getAabb());
 }
 
 CollisionObject * CollisionLayer::getObjectById(uint64_t id) const
@@ -97,7 +97,7 @@ CollisionObject * CollisionLayer::removeObject(uint64_t id)
 	this->objectById.erase(i);
 	
 	if(collisionObject) {
-		this->qTree.remove(collisionObject);
+		//this->qTree.remove(collisionObject);
 	}
 	
 	return collisionObject;
@@ -130,7 +130,7 @@ void CollisionLayer::foreachPair(unsigned dt, const std::function<void (Collisio
 
 unsigned CollisionLayer::findObjectsIntersectingAabb(const Aabb<int> & aabb, std::unordered_set<CollisionObject *> & objects)
 {
-	return this->qTree.getObjectsIntersectingAabb(aabb, objects);
+	return 0;//this->qTree.getObjectsIntersectingAabb(aabb, objects);
 }
 
 static inline Aabb<int> aabbFromRect(const Rectangle & rect) {

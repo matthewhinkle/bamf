@@ -21,13 +21,16 @@
 
 namespace bamf {
     
+    class NetworkingModule;
+    
     class UpdateExecutor : public SMSPacketExecutor {
         
     private:
         CoreModule * _core;
+        NetworkingModule * _module;
         
     public:
-        UpdateExecutor(CoreModule * core);
+        UpdateExecutor(CoreModule * core, NetworkingModule * networking);
         
         unsigned char packetHeader();
         void executePacket(Socket * sender, SMSPacket * packet);

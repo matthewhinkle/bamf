@@ -24,7 +24,7 @@ namespace bamf {
         if(this->_hasInited) {
             return;
         }
-        this->dispatch->registerPacket(new UpdateExecutor(this->_core));
+        this->dispatch->registerPacket(new UpdateExecutor(this->_core, this));
         this->dispatch->registerPacket(new PeerExecutor(this->sockets));
         this->dispatch->registerPacket(new PeerConnector(this->sockets));
         this->dispatch->registerPacket(new HostPortSetter());
@@ -56,6 +56,15 @@ namespace bamf {
                 this->dispatch->dispactPacket(socket, packet);
             }
         }
+    }
+    
+    void NetworkingModule::globalSync() {
+        SyncRequest * sr = new SyncRequest(this->_core);
+        for(int i = 0; i < this->sockets->size(); i++) {
+            Socket * socket = (*this->sockets)[i];
+            sr->executePacket(socket, NULL);
+        }
+        delete sr;
     }
     
     void NetworkingModule::sendPacket(SMSPacket * packet)
@@ -153,6 +162,8 @@ namespace bamf {
             done = packet->byteAt(0) == 'D';
             this->dispatch->dispactPacket(client, packet);
         }
+        
+        this->globalSync();
     }
     
     

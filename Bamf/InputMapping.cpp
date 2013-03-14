@@ -34,7 +34,8 @@ void InputMapping::dispatchKeyEvent(NetworkingModule * networkingModule, KeyPres
             Action * action = keyMapping->actionForInput();
             action->executeAction();
             if(networkingModule != NULL) {
-               networkingModule->sendPacket(action->packetForAction());
+               //networkingModule->sendPacket(action->packetForAction());
+                networkingModule->globalSync();
             }
             delete action;
         }

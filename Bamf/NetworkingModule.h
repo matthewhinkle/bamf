@@ -47,6 +47,8 @@ public:
     
     void initializeNetworkGame(std::string hostname, int port);
     std::vector<Socket *> * getSockets();
+    
+    void globalSync();
 
 };
     
