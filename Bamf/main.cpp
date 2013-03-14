@@ -397,13 +397,12 @@ static bamf::Scene * createScene(bamf::ResourceManager & man, bamf::PhysicsWorld
 	shortHillObject = new bamf::SpriteObject(shortHill);
 	shortHillObject->setPosition(glm::vec2(380, -76));
 	scene->addObjectWithZValue(shortHillObject, bamf::Scene::kForegroundFarLayer);
-	
+	*/
 	bamf::Sprite * background = new bamf::Sprite("Resources/art/background_leveled.png");
 	background->load(man);
 	background->setHotspot(background->getBounds().getCenter());
 	bamf::SpriteObject * backgroundObject = new bamf::SpriteObject(background);
-	scene->addObjectWithZValue(backgroundObject, bamf::Scene::kBackgroundLayer);
-     */
+	scene->addObjectWithZValue(backgroundObject, bamf::Scene::kBackgroundLayer, false);
 	
 	return scene;
 }
@@ -451,8 +450,6 @@ int main(int argc, char *argv[])
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_d, &spriteSprite, .1, 0));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_s, &spriteSprite, 0, -.1));
     inputMapping.addKeyMapping(new MoveActorButtons(SDLK_a, &spriteSprite, -.1, 0));
-    
-
         
 	bamf::CollisionModule collisionModule;
 	
@@ -495,7 +492,7 @@ int main(int argc, char *argv[])
     inputManager.setInputMapping(&inputMapping);
 	gameLoop->addModule(&inputManager);
 #if 0
-    networking->initializeNetworkGame("10.0.0.51", 58968);
+    networking->initializeNetworkGame("144.118.112.78", 52101);
 #endif
     gameLoop->addModule(networking);
     
