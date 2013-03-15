@@ -20,7 +20,7 @@ SpriteObject::~SpriteObject() { }
 
 void SpriteObject::draw(SpriteStream * spriteStream, unsigned dt)
 {
-	spriteStream->begin(MatrixStack::kIdentMatrix, SpriteStream::kClipEdges);
+	spriteStream->begin(MatrixStack::kIdentMatrix);
 	spriteStream->draw(this->sprite, this->getPosition());
 	spriteStream->end();
 }
