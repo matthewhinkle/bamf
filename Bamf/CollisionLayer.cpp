@@ -32,32 +32,9 @@ CollisionLayer::CollisionLayer(Scene * scene)
 		if(collisionObject) {
 			this->qTree.update(collisionObject, collisionObject->getAabb());
 		}
-		
-		glm::vec2 pos = collisionObject->getPosition();
-/*
-		NavigationMesh navMesh(this->scene, this->scene->getObjectById(0));
-		AerialNavigationStrategy ans(this->scene);
-		
-		navMesh.computeGraph(&ans, glm::vec2());
-		
-		return;
-		
-		std::unordered_set<CollisionObject *> objects;
-		objects.clear();
-		unsigned count = this->qTree.getObjectsIntersectingLine(Line<int>(pos.x -50, pos.y -50, pos.x - 150, pos.y - 150), objects);
-		
-		if(objects.empty()) {
-			//std::cout << "empty" << std::endl;
-		}
-		
-		for(CollisionObject * obj : objects) {
-			std::cout << "collide = " << obj->getPosition().x << ", " << obj->getPosition().y << std::endl;
-		}
-*/
 	});
 
 	this->onBoundsResizeId = scene->onBoundsResize([=](Event<Scene *, Rectangle> * e) {
-		//std::cout << "rect = " << e->getMessage().x << ", " << e->getMessage().y << ", " << e->getMessage().width << ", " << e->getMessage().height << std::endl;
 		this->aabb = aabbFromRect(e->getMessage());
 		this->qTree.resize(this->aabb);
 	});
@@ -92,12 +69,6 @@ void CollisionLayer::addObject(BamfObject * bamf)
 
 CollisionObject * CollisionLayer::getObjectById(uint64_t id)
 {
-	if(id == 69) {
-		this->realTimeAstar = new RealTimeAstar(this->scene, this->getObjectById(11));
-		this->realTimeAstar->pathTo(new AerialNavigationStrategy(this->scene), this->getObjectById(0));
-		return NULL;
-	}
-
 	std::unordered_map<uint64_t, CollisionObject *>::const_iterator i = this->objectById.find(id);
 	
 	return i == this->objectById.end() ? NULL : i->second;
