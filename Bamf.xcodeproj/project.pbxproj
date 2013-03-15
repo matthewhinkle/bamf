@@ -92,6 +92,8 @@
 		482FFCF016DEDAB600DAFDD3 /* shroom.png in Resources */ = {isa = PBXBuildFile; fileRef = 482FFCC616DEDAB600DAFDD3 /* shroom.png */; };
 		482FFCF116DEDAB600DAFDD3 /* spikes.png in Resources */ = {isa = PBXBuildFile; fileRef = 482FFCC716DEDAB600DAFDD3 /* spikes.png */; };
 		482FFCF216DEDAB600DAFDD3 /* water.png in Resources */ = {isa = PBXBuildFile; fileRef = 482FFCC816DEDAB600DAFDD3 /* water.png */; };
+		4836151316F037FB00816510 /* AerialNavigationStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4836151116F037FB00816510 /* AerialNavigationStrategy.cpp */; };
+		4836151616F0531A00816510 /* RealTimeAstar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4836151416F0531A00816510 /* RealTimeAstar.cpp */; };
 		483DC72316C238DC0034CC4B /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483DC72116C238DC0034CC4B /* Camera.cpp */; };
 		483EE51016EB358E0023E8B7 /* NavigationMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483EE50E16EB358D0023E8B7 /* NavigationMesh.cpp */; };
 		484351F416C909C9002CEDA9 /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 484351F216C909C9002CEDA9 /* Viewport.cpp */; };
@@ -434,6 +436,11 @@
 		482FFCC716DEDAB600DAFDD3 /* spikes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spikes.png; sourceTree = "<group>"; };
 		482FFCC816DEDAB600DAFDD3 /* water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water.png; sourceTree = "<group>"; };
 		483026EE16EEA0BF001648CC /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
+		4836151016F0359400816510 /* NavigationStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationStrategy.h; sourceTree = "<group>"; };
+		4836151116F037FB00816510 /* AerialNavigationStrategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AerialNavigationStrategy.cpp; sourceTree = "<group>"; };
+		4836151216F037FB00816510 /* AerialNavigationStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AerialNavigationStrategy.h; sourceTree = "<group>"; };
+		4836151416F0531A00816510 /* RealTimeAstar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RealTimeAstar.cpp; sourceTree = "<group>"; };
+		4836151516F0531A00816510 /* RealTimeAstar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeAstar.h; sourceTree = "<group>"; };
 		483DC72116C238DC0034CC4B /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		483DC72216C238DC0034CC4B /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		483EE50B16EABDB60023E8B7 /* SceneLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneLayer.h; sourceTree = "<group>"; };
@@ -1044,6 +1051,18 @@
 			path = enemies;
 			sourceTree = "<group>";
 		};
+		4836150F16F033F000816510 /* NavigationMesh */ = {
+			isa = PBXGroup;
+			children = (
+				483EE50E16EB358D0023E8B7 /* NavigationMesh.cpp */,
+				483EE50F16EB358D0023E8B7 /* NavigationMesh.h */,
+				4836151016F0359400816510 /* NavigationStrategy.h */,
+				4836151116F037FB00816510 /* AerialNavigationStrategy.cpp */,
+				4836151216F037FB00816510 /* AerialNavigationStrategy.h */,
+			);
+			name = NavigationMesh;
+			sourceTree = "<group>";
+		};
 		483DC72016C2387F0034CC4B /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
@@ -1062,12 +1081,13 @@
 		48548BD716D84805008DBC84 /* AI */ = {
 			isa = PBXGroup;
 			children = (
+				4836150F16F033F000816510 /* NavigationMesh */,
 				480D30EF16DC380E0067CBBD /* Astar.h */,
 				4819FFAF16E92CA9008F698D /* ActivePath.h */,
 				4819FFB116E9372F008F698D /* ArtificialIntelligenceModule.cpp */,
 				4819FFB216E9372F008F698D /* ArtificialIntelligenceModule.h */,
-				483EE50E16EB358D0023E8B7 /* NavigationMesh.cpp */,
-				483EE50F16EB358D0023E8B7 /* NavigationMesh.h */,
+				4836151416F0531A00816510 /* RealTimeAstar.cpp */,
+				4836151516F0531A00816510 /* RealTimeAstar.h */,
 			);
 			name = AI;
 			sourceTree = "<group>";
@@ -1811,6 +1831,8 @@
 				27CAE49816EC37220082FE15 /* PeerConnector.cpp in Sources */,
 				27CAE49B16EC57FF0082FE15 /* HostPortSetter.cpp in Sources */,
 				27822FC116EEB3A800B4ED0B /* SyncRequest.cpp in Sources */,
+				4836151316F037FB00816510 /* AerialNavigationStrategy.cpp in Sources */,
+				4836151616F0531A00816510 /* RealTimeAstar.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
