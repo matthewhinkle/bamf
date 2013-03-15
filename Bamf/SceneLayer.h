@@ -26,7 +26,7 @@ public:
 	
 	virtual void addObject(BamfObject * bamf) = 0;
 	
-	virtual Value getObjectById(Id id) const = 0;
+	virtual Value getObjectById(Id id) = 0;
 	
 	virtual unsigned getObjectCount() const = 0;
 	

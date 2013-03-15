@@ -59,10 +59,10 @@ private:
 	void collapse();
 	void populateWithIntersections(QuadTree<T, R, Hash> * t);
 	
-	unsigned getObjectPairsIntersectingAabb(const Aabb<R> & aabb, std::vector<std::pair<T, Aabb<R>>> & out);
+	unsigned getObjectPairsIntersectingAabb(const Aabb<R> & aabb, std::unordered_map<T, Aabb<R>, Hash> & out);
 	
-	inline Aabb<R> * aabbByObject(T object) {
-		typename std::unordered_map<T, R, Hash>::const_iterator i = this->objects.find(object);
+	inline const Aabb<R> * aabbByObject(T object) const {
+		typename std::unordered_map<T, Aabb<R>, Hash>::const_iterator i = this->objects.find(object);
 		
 		return i == this->objects.end() ? NULL : &i->second;
 	}
@@ -180,7 +180,7 @@ template<
 	typename Hash
 > void QuadTree<T, R, Hash>::resize(const Aabb<R> & aabb, unsigned capacity)
 {
-	std::vector<std::pair<T, Aabb<R>>> pairs;
+	std::unordered_map<T, Aabb<R>, Hash> pairs;
 	this->getObjectPairsIntersectingAabb(aabb, pairs);
 	
 	for(QuadTree<T, R, Hash> *& t : this->children) {
@@ -194,7 +194,7 @@ template<
 	
 	this->aabb = aabb;
 	this->capacity = capacity;
-	
+
 	for(std::pair<T, Aabb<R>> p : pairs) {
 		this->insert(p.first, p.second);
 	}
@@ -231,10 +231,6 @@ template<
 	typename Hash
 > void QuadTree<T, R, Hash>::remove(T object)
 {
-	if(!(this->aabb.intersects(aabb))) {
-		return;
-	}
-
 	if(!(this->children[kQuadTreeNW])) {
 		assert(!(this->children[kQuadTreeNE] || this->children[kQuadTreeSW] || this->children[kQuadTreeSE]));
 		
@@ -252,14 +248,13 @@ template<
 	typename R,
 	typename Hash
 > void QuadTree<T, R, Hash>::update(T object, const Aabb<R> & aabb)
-{	
+{
 	if(!(this->children[kQuadTreeNW])) {
 		assert(!(this->children[kQuadTreeNE] || this->children[kQuadTreeSW] || this->children[kQuadTreeSE]));
 		
 		this->objects.erase(object);
-		
 		if(this->aabb.intersects(aabb)) {
-			this->insert(object, aabb);
+			this->objects.insert(std::pair<T, Aabb<R>>(object, aabb));
 		}
 	} else {
 		for(QuadTree<T, R, Hash> * t : this->children) {
@@ -314,8 +309,12 @@ template<
 	typename Hash
 > void QuadTree<T, R, Hash>::collapse()
 {
-	for(QuadTree * t : this->children) {
+	for(QuadTree *& t : this->children) {
+		assert(t);
 		this->objects.insert(t->objects.begin(), t->objects.end());
+		
+		delete t;
+		t = NULL;
 	}
 }
 
@@ -337,7 +336,7 @@ template<
 	typename T,
 	typename R,
 	typename Hash
-> unsigned QuadTree<T, R, Hash>::getObjectPairsIntersectingAabb(const Aabb<R> & aabb, std::vector<std::pair<T, Aabb<R>>> & out)
+> unsigned QuadTree<T, R, Hash>::getObjectPairsIntersectingAabb(const Aabb<R> & aabb, std::unordered_map<T, Aabb<R>, Hash> & out)
 {
 	if(!(this->aabb.intersects(aabb))) {
 		return 0;
@@ -346,25 +345,27 @@ template<
 	if(!(this->children[kQuadTreeNW])) {
 		assert(!(this->children[kQuadTreeNE] || this->children[kQuadTreeSW] || this->children[kQuadTreeSE]));
 		
+		unsigned insertions = 0;
 		for(std::pair<T, Aabb<R>> p : this->objects) {
-			out.push_back(p);
+			if(aabb.intersects(p.second)) {
+				out.insert(p);
+				insertions++;
+			}
 		}
 		
-		return static_cast<unsigned>(this->objects.size());
+		return insertions;
 	}
 	
 	unsigned sum = 0;
-	std::vector<std::pair<T, Aabb<R>>> objects;
+	std::unordered_map<T, Aabb<R>, Hash> objects;
 	for(QuadTree<T, R, Hash> * t : this->children) {
 		assert(t);
 		sum += t->getObjectPairsIntersectingAabb(aabb, objects);
 	}
 	
-	for(std::pair<T, Aabb<R>> p : objects) {
-		out.push_back(p);
-	}
+	out.insert(objects.begin(), objects.end());
 	
-	return sum;
+	return static_cast<unsigned>(objects.size());
 }
 
 }

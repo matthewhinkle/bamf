@@ -17,12 +17,14 @@ CollisionObject::CollisionObject(BamfObject * bamf)
 	collisionShape(new CollisionRectangle(bamf->getBounds(), bamf->getHotspot()))
 {
 	this->id = bamf->getId();
+	this->position = bamf->getPosition();
 	this->getCollisionShape()->setPosition(bamf->getPosition());
 	this->getRigidBody()->setPositon(bamf->getPosition());
 	
 	this->onMoveSubscriberId = this->bamf->onMove([=](Event<BamfObject *, glm::vec2> * e) {
 		const glm::vec2 position = e->getMessage();
 
+		this->position = position;
 		this->getCollisionShape()->setPosition(position);
 		this->getRigidBody()->setPositon(position);
 	});

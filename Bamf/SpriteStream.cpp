@@ -56,15 +56,9 @@ void SpriteStream::begin(const glm::mat4 & transform, int drawOptions)
 
 void SpriteStream::draw(const Sprite * sprite, const glm::vec2 & position)
 {
-	static bool weHitIt = false;
 	const glm::vec2 normPos = position - sprite->getHotspot();
 	if(this->drawOptions & SpriteStream::kClipEdges && this->isClipping(sprite, normPos)) {
-		weHitIt = true;
 		return;
-	}
-	
-	if(weHitIt) {
-		
 	}
 	
 	if(this->drawOptions & SpriteStream::kEnforceDrawOrder) {
@@ -108,7 +102,7 @@ void SpriteStream::flush()
 	MatrixStack::loadMatrix(this->matrixStack.top());
 	
 	/* bind the first texture */
-	this->targets.begin()->first->getTexture()->bind();
+	this->targets.front().first->getTexture()->bind();
 	
 	for(prevSprite = i = this->targets.begin(); i != this->targets.end(); i++, vertices += kVboSpriteStride) {
 		const Sprite * sprite = i->first;
@@ -128,7 +122,6 @@ void SpriteStream::flush()
 			
 			/* bind the new texture */
 			sprite->getTexture()->bind();
-			
 			prevSprite = i;
 		}
 		
@@ -160,6 +153,7 @@ void SpriteStream::flush()
 	glUnmapBuffer(GL_ARRAY_BUFFER);
 	
 	if(prevSprite->first != i->first || this->targets.begin()->first == i->first) {
+		//this->targets.back().first->getTexture()->bind();
 		this->render((i - prevSprite) * kVerticesPerSprite);
 	}
 	

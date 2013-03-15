@@ -20,6 +20,8 @@
 #include "SpriteStream.h"
 #include "QuadTree.h"
 
+#include "RealTimeAstar.h"
+
 namespace bamf {
 
 class Scene;
@@ -32,23 +34,27 @@ public:
 	
 	virtual void addObject(BamfObject * bamf);
 	
-	virtual CollisionObject * getObjectById(uint64_t id) const;
+	virtual CollisionObject * getObjectById(uint64_t id);
 	virtual inline unsigned getObjectCount() const { return static_cast<unsigned>(this->objectById.size()); }
 	
 	virtual CollisionObject * removeObject(uint64_t id);
 	virtual CollisionObject * removeObject(BamfObject * bamf);
 	
-	virtual void update(Scene * scene, unsigned dt) { }
+	virtual void update(Scene * scene, unsigned dt) { if(this->realTimeAstar) { this->realTimeAstar->update(scene, dt); } }
 	virtual void draw(SpriteStream * spriteStream, unsigned dt) { }
 	
+	virtual void foreachObject(const std::function<void (CollisionObject *)> & doFunc);
 	virtual void foreachObject(unsigned dt, const std::function<void (CollisionObject *, unsigned)> & doFunc);
 	virtual void foreachPair(unsigned dt, const std::function<void (CollisionObject *, CollisionObject *, unsigned)> & doFunc);
 	
+	unsigned findObjectsIntersectingLine(const Line<int> & line, std::unordered_set<CollisionObject *> & objects);
 	unsigned findObjectsIntersectingAabb(const Aabb<int> & aabb, std::unordered_set<CollisionObject *> & objects);
 	
 private:
 	Scene * scene;
-	std::map<uint64_t, CollisionObject *> objectById;
+	std::unordered_map<uint64_t, CollisionObject *> objectById;
+	
+	RealTimeAstar * realTimeAstar;
 	
 	uint64_t onObjectMoveId;
 	uint64_t onBoundsResizeId;

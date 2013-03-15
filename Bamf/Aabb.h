@@ -12,11 +12,15 @@
 #include <unordered_map>
 #include <utility>
 
+#include "glm/glm.hpp"
+
 namespace bamf {
 
 template<typename T>
 class Aabb {
 public:
+
+	Aabb() { }
 
 	Aabb(T xMin, T yMin, T xMax, T yMax)
 		:
@@ -52,6 +56,9 @@ public:
 		
 		return *this;
 	}
+	
+	template<typename R>
+	friend bool operator==(const Aabb<R> & a, const Aabb<R> & b);
 
 	inline bool intersects(const Aabb & aabb) const {
 		return !(this->xMax < aabb.xMin
@@ -66,6 +73,14 @@ public:
 			this->yMin + (this->getHeight() / 2));
 	}
 	
+	inline glm::vec2 center() const {
+		return glm::vec2(
+			this->xMin + (this->getWidth() / 2),
+			this->yMin + (this->getHeight() / 2));
+	}
+	
+	inline float centerDistance(const Aabb & aabb) const { return glm::distance(this->center(), aabb.center()); }
+	
 	inline T getWidth() const { return this->xMax - this->xMin; }
 	inline T getHeight() const { return this->yMax - this->yMin; }
 
@@ -75,8 +90,19 @@ public:
 	T yMax;
 };
 
+template<typename R>
+bool operator==(const Aabb<R> & a, const Aabb<R> & b)
+{
+	return a.xMin == b.xMin
+		&& a.yMin == b.yMin
+		&& a.xMax == b.xMax
+		&& a.yMax == b.yMax;
 }
 
+}
+
+#if 0
+/*
 namespace std {
 
 template<typename T> struct hash<bamf::Aabb<T>> {
@@ -91,5 +117,7 @@ template<typename T> struct hash<bamf::Aabb<T>> {
 };
 
 }
+*/
+#endif
 
 #endif

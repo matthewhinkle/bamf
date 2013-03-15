@@ -34,7 +34,7 @@ public:
 	
 	inline unsigned getObjectCount() const { return static_cast<unsigned>(this->objectById.size()); }
 	
-	inline BamfObject * getObjectById(uint64_t id) const {
+	inline BamfObject * getObjectById(uint64_t id) {
 		std::unordered_map<uint64_t, BamfObject *>::const_iterator i = this->objectById.find(id);
 		
 		return i == this->objectById.end() ? NULL : i->second;

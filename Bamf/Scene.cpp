@@ -110,6 +110,8 @@ BamfObject * Scene::getObjectById(uint64_t id) const {
 void Scene::update(unsigned dt)
 {
 	std::for_each(this->layerByZValue.begin(), this->layerByZValue.end(), [=](std::pair<float, ViewLayer *> i) { i.second->update(this, dt); });
+	
+	this->collisionLayer->update(this, dt);
 }
 
 void Scene::draw(SpriteStream * spriteStream, unsigned dt)

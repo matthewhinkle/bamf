@@ -68,7 +68,7 @@ public:
 template<
 	typename T,
 	typename R,
-	typename Hash = std::hash<T>
+	typename Hash
 > class Graph {
 public:
 
@@ -81,6 +81,10 @@ public:
 		typename std::unordered_multimap<T, Edge<T, R>, Hash>::iterator,
 		typename std::unordered_multimap<T, Edge<T, R>, Hash>::iterator
 	> getEdges(T v);
+	
+	inline void clear() { this->edges.clear(); }
+	
+	void foreachEdge(std::function<void (T, Edge<T, R> *)> & doFunc);
 
 private:
 	std::unordered_multimap<T, Edge<T, R>, Hash> edges;
@@ -127,6 +131,18 @@ template<
 > Graph<T, R, Hash>::getEdges(T v)
 {
 	return this->edges.equal_range(v);
+}
+
+template <
+	typename T,
+	typename R,
+	typename Hash
+> void Graph<T, R, Hash>::foreachEdge(std::function<void (T, Edge<T, R> *)> & doFunc)
+{
+	typename std::unordered_multimap<T, Edge<T, R>, Hash>::iterator i;
+	for(i = this->edges.begin(); i != this->edges.end(); i++) {
+		doFunc(i->first, &i->second);
+	}
 }
 
 }

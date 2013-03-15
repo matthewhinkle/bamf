@@ -9,6 +9,7 @@
 #ifndef Bamf_Astar_h
 #define Bamf_Astar_h
 
+#include <stack>
 #include <queue>
 #include <unordered_set>
 #include <unordered_map>
@@ -59,7 +60,7 @@ public:
 
 	inline Graph<T, R, Hash> * getGraph() const { return this->graph; }
 
-	Path<T> * search(T start, T goal, std::function< R(T, T) > & dist);
+	bool search(T start, T goal, std::function< R(T, T) > & dist, std::stack<T> & path);
 
 private:
 	Graph<T, R, Hash> * graph;
@@ -71,7 +72,7 @@ private:
 	
 	void insert(T v, VertexInfo<T, R> * info);
 	VertexInfo<T, R> * find(T v);
-	Path<T> * makePath(VertexInfo<T, R> * info);
+	bool makePath(VertexInfo<T, R> * info, std::stack<T> & path);
 
 	Astar(const Astar &);
 	Astar & operator=(const Astar &);
@@ -108,9 +109,9 @@ template<
 	typename T,
 	typename R,
 	typename Hash
-> Path<T> * Astar<T, R, Hash>::search(T start, T goal, std::function< R(T, T) > & dist)
+> bool Astar<T, R, Hash>::search(T start, T goal, std::function< R(T, T) > & dist, std::stack<T> & path)
 {
-	if(!(this->graph)) return NULL;
+	if(!(this->graph)) return false;
 
 	std::priority_queue<VertexInfo<T, R> *, std::vector<VertexInfo<T, R> *>, VertexCmp<VertexInfo<T, R> *>> open;
 
@@ -125,7 +126,7 @@ template<
 		T v = parentInfo->value;
 		
 		if(v == goal) {
-			return this->makePath(parentInfo);
+			return this->makePath(parentInfo, path);
 		}
 		
 		std::pair<
@@ -155,26 +156,22 @@ template<
 		}
 	}
 
-	return NULL;
+	return false;
 }
 
 template<
 	typename T,
 	typename R,
 	typename Hash
-> Path<T> * Astar<T, R, Hash>::makePath(VertexInfo<T, R> * info)
+> bool Astar<T, R, Hash>::makePath(VertexInfo<T, R> * info, std::stack<T> & path)
 {
-	if(!(info)) return NULL;
-
-	Path<T> * p = new Path<T>(info->value);
-	for(info = info->parent; info; info = info->parent) {
-		Path<T> * previous = new Path<T>(info->value);
-		previous->next = p;
-		p->previous = previous;
-		p = previous;
+	if(!(info)) return false;
+	
+	for(; info; info = info->parent) {
+		path.push(info->value);
 	}
 	
-	return p;
+	return true;
 }
 
 template<
