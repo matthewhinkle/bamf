@@ -13,7 +13,9 @@ namespace bamf {
     RigidBody::RigidBody() {
         cm = glm::vec2(0,0);
         linearVelocity = glm::vec2(0,0);
-        mass = 0.0f;
+        mass = 1.0f;
+        angle = 0.0f;
+        angularVelocity = 0.0f;
     }
     RigidBody::~RigidBody(){
         
@@ -67,16 +69,20 @@ namespace bamf {
         glm::vec2 f = force;
         
         mass = 1.0f;
-        count++;
         //r = r1 + v1 * delta t
-        
+    //attempt at verlet - does not work
         /*cm = ((p*=2) - pp) + ((f/= mass)*=(dt*dt));
         prevCm = tmp;
         linearVelocity = (cm - prevCm);
         linearVelocity /= dt;*/
         
+    //euler linear vel and pos calc
         cm = p + (v*=dt);
         v = linearVelocity;
         linearVelocity = v + ((f/= mass)*= dt);
+        
+    //angular vel and pos calc
+
+        
     }
 }

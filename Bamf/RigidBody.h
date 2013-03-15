@@ -47,10 +47,10 @@ private:
     glm::vec2 prevCm;
     glm::vec2 linearVelocity;
     glm::vec2 force;
+    float angle;
     float angularVelocity;
     float mass;
     bool affectedByGravity;
-    int count = 0;
 };
 }
 #endif /* defined(__Bamf__RigidBody__) */

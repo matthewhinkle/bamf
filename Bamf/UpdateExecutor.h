@@ -17,22 +17,25 @@
 #include "SpriteObject.h"
 #include "CoreModule.h"
 #include "CollisionRectangle.h"
+#include "WhoIs.h"
 
 namespace bamf {
+    
+    class NetworkingModule;
     
     class UpdateExecutor : public SMSPacketExecutor {
         
     private:
         CoreModule * _core;
+        NetworkingModule * _module;
         
     public:
-        UpdateExecutor(CoreModule * core);
+        UpdateExecutor(CoreModule * core, NetworkingModule * networking);
         
         unsigned char packetHeader();
         void executePacket(Socket * sender, SMSPacket * packet);
         
         static SMSPacket * toPacket(Scene * scene, BamfObject * object);
-        BamfObject * fromPacket(SMSPacket * packet);
         
         static void test(BamfObject * object)
         {

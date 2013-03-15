@@ -20,18 +20,21 @@ public:
     explicit CollisionShape();
     virtual ~CollisionShape();
     
-    virtual bool checkCollision(CollisionShape s) { return false; }
-    
-    /*virtual void setPosition(glm::vec2 p);
-    virtual glm::vec2 getPosition();*/
-    
     RigidBody* getRigidBody();
     void setRigidBody(RigidBody *r);
     
     inline uint64_t getId() const { return this->id; }
+    virtual bool checkCollision(CollisionShape * s);
+    void setIsStatic(bool s);
+    bool getIsStatic();
+    
+    std::string getType();
     
 protected:
     RigidBody *rBody;
+    std::string type;
+    bool isStatic = false;
+    
 private:
     uint64_t id;
     //CollisionShape(const CollisionShape &);

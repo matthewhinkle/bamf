@@ -7,11 +7,13 @@
 //
 
 #include "UpdateExecutor.h"
+#include "NetworkingModule.h"
 
 namespace bamf {
 
-    UpdateExecutor::UpdateExecutor(CoreModule * core)
-    : _core(core)
+    UpdateExecutor::UpdateExecutor(CoreModule * core, NetworkingModule * networking)
+    : _core(core),
+    _module(networking)
     {
         
     }
@@ -23,7 +25,41 @@ namespace bamf {
     
     void UpdateExecutor::executePacket(Socket * sender, SMSPacket * packet)
     {
-        this->fromPacket(packet);
+        char * memory = (char *)packet->asMemoryBlock();
+        int offset = sizeof(char);
+        
+        uint64_t id;
+        std::memcpy(&id, memory+offset, sizeof(id));
+        offset += sizeof(id);
+        
+        float positionX;
+        std::memcpy(&positionX, memory+offset, sizeof(positionX));
+        offset += sizeof(positionX);
+        
+        float positionY;
+        std::memcpy(&positionY, memory+offset, sizeof(positionY));
+        offset += sizeof(positionY);
+        
+        float velocityX;
+        std::memcpy(&velocityX, memory+offset, sizeof(velocityX));
+        offset += sizeof(velocityX);
+        
+        float velocityY;
+        std::memcpy(&velocityY, memory+offset, sizeof(velocityY));
+        offset += sizeof(velocityY);
+        
+        std::cout << "Received an update! ID: " << id << "@[" << positionX << "," << positionY << "]   v->[" << velocityX << "," << velocityY << "]" << "\n";
+        
+        CollisionObject * co = _core->getSceneManager()->getCurrentScene()->getCollisionLayer()->getObjectById(id);
+        if(co == NULL) {
+            std::cout << "not applying update for object id " << id << " because no object in scene has that id. Sending a whois request.";
+            SMSPacket * whoisRequest = WhoIs::createRequestPacket(id);
+            sender->doWrite(whoisRequest->asMemoryBlock(), whoisRequest->getLength());
+            delete whoisRequest;
+        } else {
+            co->getRigidBody()->setPositon(glm::vec2(positionX, positionY));
+            co->getRigidBody()->setLinearVeloctiy(glm::vec2(velocityX, velocityY));
+        }
     }
     
     SMSPacket * UpdateExecutor::toPacket(Scene * scene, BamfObject * object)
@@ -57,49 +93,11 @@ namespace bamf {
         offset += sizeof(velocityY);
         
         for(int i = 0; i < 160; i++) {
-            std::cout << memoryBlock[i];
+            //std::cout << memoryBlock[i];
         }
-        std::cout << "\n";
+        //std::cout << "\n";
         
         return new SMSPacket(memoryBlock);
-    }
-    
-    BamfObject * UpdateExecutor::fromPacket(SMSPacket * packet)
-    {
-        char * memory = (char *)packet->asMemoryBlock();
-        int offset = sizeof(char);
-        
-        uint64_t id;
-        std::memcpy(&id, memory+offset, sizeof(id));
-        offset += sizeof(id);
-        
-        float positionX;
-        std::memcpy(&positionX, memory+offset, sizeof(positionX));
-        offset += sizeof(positionX);
-        
-        float positionY;
-        std::memcpy(&positionY, memory+offset, sizeof(positionY));
-        offset += sizeof(positionY);
-        
-        float velocityX;
-        std::memcpy(&velocityX, memory+offset, sizeof(velocityX));
-        offset += sizeof(velocityX);
-
-        float velocityY;
-        std::memcpy(&velocityY, memory+offset, sizeof(velocityY));
-        offset += sizeof(velocityY);
-        
-        std::cout << "Received an update! ID: " << id << "@[" << positionX << "," << positionY << "]   v->[" << velocityX << "," << velocityY << "]" << "\n";
-        
-        CollisionObject * co = _core->getSceneManager()->getCurrentScene()->getCollisionLayer()->getObjectById(id);
-        if(co == NULL) {
-            std::cout << "not applying update for object id " << id << " because no object in scene has that id.";
-        } else {
-            co->getRigidBody()->setPositon(glm::vec2(positionX, positionY));
-            co->getRigidBody()->setLinearVeloctiy(glm::vec2(velocityX, velocityY));
-        }
-        
-        return NULL;
     }
 
 }

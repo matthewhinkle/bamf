@@ -27,6 +27,7 @@ namespace bamf {
         width = w;
         height = h;
 		rBody = new RigidBody();
+        type = "aabb";
         //std::cout << "Rect Construct - id: " << id << " hotspot: (" << hotSpot.x << ", " << hotSpot.y << ") \n";
 	}
     CollisionRectangle::~CollisionRectangle() {
@@ -128,13 +129,19 @@ namespace bamf {
         std::cout << "<---> \n";*/
         return proj;
     }    
-    /*bool CollisionRectangle::checkCollision(CollisionCircle c) {
-		std::cout << c.getPosition().y << std::endl;
+    bool CollisionRectangle::checkCollision(CollisionShape * s) {
+        if(s->getType().compare("circle") == 0) {
+            std::cout << "rect vs circle";
+        }
+        else if(s->getType().compare("aabb")== 0) {
+            std::cout << "rect vs rect";
+        }
+		/*std::cout << c.getPosition().y << std::endl;
         if(c.getPosition().y <= -200){
             return true;
-        }
+        }*/
         return false;
-    }*/
+    }
     glm::vec2 CollisionRectangle::checkCollision(CollisionRectangle * r) {
 
         /*std::cout << "<--- checkCollision ---> \n ";
@@ -234,12 +241,12 @@ namespace bamf {
         
     }
     
-    void CollisionRectangle::setIsStatic(bool s) {
+    /*void CollisionRectangle::setIsStatic(bool s) {
         isStatic = s;
     }
     bool CollisionRectangle::getIsStatic() {
         return isStatic;
-    }
+    }*/
     uint64_t CollisionRectangle::nextId()
     {
         return __sync_fetch_and_add(&CollisionRectangle::idCounter, 1);

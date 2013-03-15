@@ -21,6 +21,8 @@
 #import "PeerConnector.h"
 #import "HostPortSetter.h"
 #import "SyncRequest.h"
+#import "WhoIs.h"
+#import "WhoIsExecutor.h"
 
 #include <stdio.h>
 
@@ -45,6 +47,8 @@ public:
     
     void initializeNetworkGame(std::string hostname, int port);
     std::vector<Socket *> * getSockets();
+    
+    void globalSync();
 
 };
     

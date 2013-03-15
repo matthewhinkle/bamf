@@ -24,7 +24,8 @@ public:
     CollisionRectangle(glm::vec2 pos, float w, float h);
     virtual ~CollisionRectangle();
     
-    bool checkCollision(CollisionCircle c);
+    bool checkCollision(CollisionShape * s);
+    
     glm::vec2 checkCollision(CollisionRectangle * r);
     std::vector<glm::vec2> getVertices();
     std::vector<glm::vec2> getAxes(std::vector<glm::vec2> verts);
@@ -33,8 +34,8 @@ public:
     float getHeight();
     const glm::vec2 & getPosition();
     void setPosition(glm::vec2 p);
-    void setIsStatic(bool s);
-    bool getIsStatic();
+    /*void setIsStatic(bool s);
+    bool getIsStatic();*/
     
     inline uint64_t getId() const { return this->id; }
 protected:
@@ -43,7 +44,7 @@ private:
     uint64_t id;
     static uint64_t idCounter;
 	static inline uint64_t nextId();
-	bool isStatic = false;
+	//bool isStatic = false;
 	glm::vec2 hotSpot;
     glm::vec2 position;
     float width;

@@ -14,6 +14,8 @@
 		277B0C8B16CD8A320061BF84 /* DefaultQuitHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8816CD8A310061BF84 /* DefaultQuitHandler.cpp */; };
 		277B0C8D16CDAFD00061BF84 /* BamfObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277B0C8C16CDAFD00061BF84 /* BamfObject.cpp */; };
 		27822FC116EEB3A800B4ED0B /* SyncRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27822FBF16EEB3A800B4ED0B /* SyncRequest.cpp */; };
+		27822FC416F11DD800B4ED0B /* WhoIs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27822FC216F11DD600B4ED0B /* WhoIs.cpp */; };
+		27822FC716F1254900B4ED0B /* WhoIsExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27822FC516F1254800B4ED0B /* WhoIsExecutor.cpp */; };
 		2792A2E716DED50400EDAC68 /* NetworkingModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */; };
 		2792A2E816DED50400EDAC68 /* NetworkingModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */; };
 		2792A2EB16DED50400EDAC68 /* PingExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */; };
@@ -248,6 +250,10 @@
 		277B0C8C16CDAFD00061BF84 /* BamfObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BamfObject.cpp; sourceTree = "<group>"; };
 		27822FBF16EEB3A800B4ED0B /* SyncRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SyncRequest.cpp; sourceTree = "<group>"; };
 		27822FC016EEB3A800B4ED0B /* SyncRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncRequest.h; sourceTree = "<group>"; };
+		27822FC216F11DD600B4ED0B /* WhoIs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WhoIs.cpp; sourceTree = "<group>"; };
+		27822FC316F11DD700B4ED0B /* WhoIs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoIs.h; sourceTree = "<group>"; };
+		27822FC516F1254800B4ED0B /* WhoIsExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WhoIsExecutor.cpp; sourceTree = "<group>"; };
+		27822FC616F1254800B4ED0B /* WhoIsExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoIsExecutor.h; sourceTree = "<group>"; };
 		2792A2DB16DED50400EDAC68 /* NetworkingModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkingModule.cpp; sourceTree = "<group>"; };
 		2792A2DC16DED50400EDAC68 /* NetworkingModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingModule.h; sourceTree = "<group>"; };
 		2792A2DF16DED50400EDAC68 /* PingExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PingExecutor.cpp; sourceTree = "<group>"; };
@@ -806,6 +812,10 @@
 				27CAE49A16EC57FF0082FE15 /* HostPortSetter.h */,
 				27822FBF16EEB3A800B4ED0B /* SyncRequest.cpp */,
 				27822FC016EEB3A800B4ED0B /* SyncRequest.h */,
+				27822FC216F11DD600B4ED0B /* WhoIs.cpp */,
+				27822FC316F11DD700B4ED0B /* WhoIs.h */,
+				27822FC516F1254800B4ED0B /* WhoIsExecutor.cpp */,
+				27822FC616F1254800B4ED0B /* WhoIsExecutor.h */,
 			);
 			name = executor;
 			sourceTree = "<group>";
@@ -1833,6 +1843,8 @@
 				27822FC116EEB3A800B4ED0B /* SyncRequest.cpp in Sources */,
 				4836151316F037FB00816510 /* AerialNavigationStrategy.cpp in Sources */,
 				4836151616F0531A00816510 /* RealTimeAstar.cpp in Sources */,
+				27822FC416F11DD800B4ED0B /* WhoIs.cpp in Sources */,
+				27822FC716F1254900B4ED0B /* WhoIsExecutor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

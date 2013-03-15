@@ -58,6 +58,8 @@ public:
 	
 	friend bool operator<(const Sprite & s1, const Sprite & s2);
 	friend bool operator==(const Sprite & s1, const Sprite & s2);
+    
+    inline std::string getImageName() {return this->imageName;};
 	
 private:
 	const std::string imageName;

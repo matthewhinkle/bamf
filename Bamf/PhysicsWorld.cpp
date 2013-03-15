@@ -56,35 +56,7 @@ namespace bamf {
             glm::vec2 mtv = a->getCollisionShape()->checkCollision(b->getCollisionShape());
             if(mtv != glm::vec2()){
                 this->collisions.push_back(CollisionEvent(a,b,mtv));
-                RigidBody * iBody = a->getRigidBody();
-                RigidBody * jBody = b->getRigidBody();
-                glm::vec2 v1 = iBody->getLinearVeloctiy();
-                glm::vec2 v2 = jBody->getLinearVeloctiy();
-                glm::vec2 n = mtv;
-                n/=glm::length(mtv);
-                //std::cout << "n: (" << n.x << ", " << n.y << ") \n";
-                v1 *= n;
-                v2 *= n;
-                float recipM1 = (1/iBody->getMass());
-                float recipM2 = (1/iBody->getMass());
-                float e = .8;
-                glm::vec2 impVec = v2-v1;
-                impVec *= (e+1);
-                impVec /= (recipM1 + recipM2);
-                impVec *= n;
-                //std::cout << "impVec: (" << impVec.x << ", " << impVec.y << ") \n";
-                glm::vec2 deltaV1 = impVec/iBody->getMass();
-                glm::vec2 deltaV2 = -impVec/jBody->getMass();
-                if(!a->getCollisionShape()->getIsStatic()) {
-                    iBody->setLinearVeloctiy(iBody->getLinearVeloctiy()+deltaV1);
-					iBody->setPositon(iBody->getPosition() + mtv);
-				}
-                if(!b->getCollisionShape()->getIsStatic()) {
-                    jBody->setLinearVeloctiy(jBody->getLinearVeloctiy()+deltaV2);
-					jBody->setPositon(jBody->getPosition() - mtv);
-				}
-                a->getCollisionShape()->setPosition(iBody->getPosition());
-                b->getCollisionShape()->setPosition(jBody->getPosition());
+                this->resolveCollision(a,b,mtv);
             }
 		});
  
@@ -96,6 +68,59 @@ namespace bamf {
             }
 			
 		});
+    }
+    void PhysicsWorld::resolveCollision(bamf::CollisionObject *a, bamf::CollisionObject *b, glm::vec2 mtv) {
+        
+        RigidBody * rb1 = a->getRigidBody();
+        RigidBody * rb2 = b->getRigidBody();
+        glm::vec2 v1 = rb1->getLinearVeloctiy();
+        glm::vec2 v2 = rb2->getLinearVeloctiy();
+        
+    //calculate impulse to apply to colliding objects
+    //set n to unit vec in direction of mtv
+        glm::vec2 n = mtv;
+        n/=glm::length(mtv);
+        //std::cout << "n: (" << n.x << ", " << n.y << ") \n";
+        
+    //multiply velocity of each rb by the unit vec n
+        v1 *= n;
+        v2 *= n;
+        
+    //set the recip of the rb's mass 
+        float recipM1 = (1/rb1->getMass());
+        float recipM2 = (1/rb2->getMass());
+        
+    //co-ef of restituion -> energy lost during collision
+        float e = .5;
+        
+    //(v2*n)-(v1*n)    
+        glm::vec2 impVec = v2-v1;
+        
+    //(e+1)*((v2*n)-(v1*n))     
+        impVec *= (e+1);
+        
+    //((e+1)*((v2*n)-(v1*n)))/(1/m1 + 1/m2)    
+        impVec /= (recipM1 + recipM2);
+        
+    //impluse vector = ((e*((v2*n)-(v1*n)))/(1/m1 + 1/m2))*n    
+        impVec *= n;
+        //std::cout << "impVec: (" << impVec.x << ", " << impVec.y << ") \n";
+        
+    //calc change in veloctiy for both objects p/m
+        glm::vec2 deltaV1 = impVec/rb1->getMass();
+        glm::vec2 deltaV2 = -impVec/rb2->getMass();
+        
+    //if objects are not static apply the impulse/change of velocity
+        if(!a->getCollisionShape()->getIsStatic()) {
+            rb1->setLinearVeloctiy(rb1->getLinearVeloctiy()+deltaV1);
+            rb1->setPositon(rb1->getPosition() + mtv);
+        }
+        if(!b->getCollisionShape()->getIsStatic()) {
+            rb2->setLinearVeloctiy(rb2->getLinearVeloctiy()+deltaV2);
+            rb2->setPositon(rb2->getPosition() - mtv);
+        }
+        a->getCollisionShape()->setPosition(rb1->getPosition());
+        b->getCollisionShape()->setPosition(rb2->getPosition());
     }
     void PhysicsWorld::applyForce(RigidBody * rb, glm::vec2 f) {
         rb->setForce(rb->getForce() + f);

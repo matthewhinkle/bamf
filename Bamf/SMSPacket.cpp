@@ -16,7 +16,7 @@ namespace bamf {
     
     SMSPacket::~SMSPacket()
     {
-        
+        delete this->memoryBlock;
     }
     
     SMSPacket::SMSPacket(void * memory)

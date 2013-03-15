@@ -24,11 +24,13 @@ namespace bamf {
         if(this->_hasInited) {
             return;
         }
-        this->dispatch->registerPacket(new UpdateExecutor(this->_core));
+        this->dispatch->registerPacket(new UpdateExecutor(this->_core, this));
         this->dispatch->registerPacket(new PeerExecutor(this->sockets));
         this->dispatch->registerPacket(new PeerConnector(this->sockets));
         this->dispatch->registerPacket(new HostPortSetter());
         this->dispatch->registerPacket(new SyncRequest(this->_core));
+        this->dispatch->registerPacket(new WhoIs(this->_core));
+        this->dispatch->registerPacket(new WhoIsExecutor(this->_core));
         //first setup our server socket
         this->serverSocket = new ServerSocket(ServerSocket(IPV4, TCP, false));
         this->serverSocket->doBind(0);
@@ -56,12 +58,21 @@ namespace bamf {
         }
     }
     
+    void NetworkingModule::globalSync() {
+        SyncRequest * sr = new SyncRequest(this->_core);
+        for(int i = 0; i < this->sockets->size(); i++) {
+            Socket * socket = (*this->sockets)[i];
+            sr->executePacket(socket, NULL);
+        }
+        delete sr;
+    }
+    
     void NetworkingModule::sendPacket(SMSPacket * packet)
     {
         //BamfObject * object = _core->getSceneManager()->getCurrentScene()->getObjectById(0);
         //packet = UpdateExecutor::toPacket(_core->getSceneManager()->getCurrentScene(), object);
         if(packet != NULL) {
-            std::cout << "Attempting to send packet updates!!!\n";
+            //std::cout << "Attempting to send packet updates!!!\n";
             for(int i = 0; i < this->sockets->size(); i++) {
                 Socket * socket = (*this->sockets)[i];
                 socket->doWrite(packet->asMemoryBlock(), packet->getLength());
@@ -151,6 +162,8 @@ namespace bamf {
             done = packet->byteAt(0) == 'D';
             this->dispatch->dispactPacket(client, packet);
         }
+        
+        this->globalSync();
     }
     
     

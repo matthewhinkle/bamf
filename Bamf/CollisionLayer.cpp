@@ -30,13 +30,13 @@ CollisionLayer::CollisionLayer(Scene * scene)
 	this->onObjectMoveId = scene->onObjectMove([=](Event<Scene *, BamfObject *> * e) {
 		CollisionObject * collisionObject = this->getObjectById(e->getMessage()->getId());
 		if(collisionObject) {
-			this->qTree.update(collisionObject, collisionObject->getAabb());
+			//this->qTree.update(collisionObject, collisionObject->getAabb());
 		}
 	});
 
 	this->onBoundsResizeId = scene->onBoundsResize([=](Event<Scene *, Rectangle> * e) {
 		this->aabb = aabbFromRect(e->getMessage());
-		this->qTree.resize(this->aabb);
+		//this->qTree.resize(this->aabb);
 	});
 }
 
@@ -64,7 +64,7 @@ void CollisionLayer::addObject(BamfObject * bamf)
 	CollisionObject * collisionObject = new CollisionObject(bamf);
 	this->objectById.insert(std::pair<uint64_t, CollisionObject *>(bamf->getId(), collisionObject));
 	
-	this->qTree.insert(collisionObject, collisionObject->getAabb());
+	//this->qTree.insert(collisionObject, collisionObject->getAabb());
 }
 
 CollisionObject * CollisionLayer::getObjectById(uint64_t id)
@@ -85,7 +85,7 @@ CollisionObject * CollisionLayer::removeObject(uint64_t id)
 	this->objectById.erase(i);
 	
 	if(collisionObject) {
-		this->qTree.remove(collisionObject);
+		//this->qTree.remove(collisionObject);
 	}
 	
 	return collisionObject;
@@ -131,7 +131,7 @@ unsigned CollisionLayer::findObjectsIntersectingLine(const Line<int> & line, std
 
 unsigned CollisionLayer::findObjectsIntersectingAabb(const Aabb<int> & aabb, std::unordered_set<CollisionObject *> & objects)
 {
-	return this->qTree.getObjectsIntersectingAabb(aabb, objects);
+	return 0;//this->qTree.getObjectsIntersectingAabb(aabb, objects);
 }
 
 static inline Aabb<int> aabbFromRect(const Rectangle & rect) {

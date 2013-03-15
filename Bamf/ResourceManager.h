@@ -22,8 +22,9 @@ namespace bamf {
 
 class ResourceManager {
 public:
-
-	explicit ResourceManager();
+    
+    static ResourceManager * getInstance();
+    ResourceManager();
 	virtual ~ResourceManager();
 
 	/**
@@ -65,6 +66,9 @@ public:
 	Resource * getResourceById(uint64_t id) const;
 
 private:
+    static bool instanceFlag;
+    static ResourceManager * instance;
+    
 	std::unordered_map<uint64_t, Resource *> resourceById;
 	std::hash<std::string> idHashFunction;
 	

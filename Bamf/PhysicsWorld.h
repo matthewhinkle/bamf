@@ -37,7 +37,7 @@ public:
     void applyImpulse(glm::vec2 i);
     void applyTorque(glm::vec2 t);
     
-    //void step(CollisionShape s);
+    void resolveCollision(CollisionObject * a, CollisionObject * b, glm::vec2 mtv);
 	
 	inline void init() { }
 	
